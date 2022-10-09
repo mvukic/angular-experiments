@@ -1,17 +1,16 @@
 import { AsyncPipe, JsonPipe } from '@angular/common'
-import { ApplicationRef, Component, ComponentMirror, ComponentRef, createComponent, ElementRef, EnvironmentInjector, inject, reflectComponentType, ViewChild, ViewContainerRef } from '@angular/core'
+import { ApplicationRef, Component, createComponent, ElementRef, EnvironmentInjector, inject, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
     selector: 'lazy-2',
     template: `
-        lazy2 <br />
+        <h3>lazy2</h3>
+        <br />
         params: {{ params$ | async | json }} <br />
         state: {{ state | json }} <br />
-        <button (click)="lazyLoad()">Lazy load 3</button>
+        <button (click)="lazyLoad()">Lazy load 4</button>
         <div #container></div>
-        <br />
-        {{ reflect | json }}
     `,
     standalone: true,
     imports: [AsyncPipe, JsonPipe],
@@ -25,19 +24,16 @@ export default class Lazy2 {
     private appRef = inject(ApplicationRef)
     private injector = inject(EnvironmentInjector)
 
-    protected reflect: ComponentMirror<any> | null = null
-
     async lazyLoad() {
         const footer = document.createElement('p')
         footer.innerText = 'footer'
 
-        const { Lazy3 } = await import('./lazy3')
-        const ref = createComponent(Lazy3, {
+        const { Lazy4 } = await import('./lazy4')
+        const ref = createComponent(Lazy4, {
             environmentInjector: this.injector,
             hostElement: this.container.nativeElement,
             projectableNodes: [[footer]],
         })
         this.appRef.attachView(ref.hostView)
-        this.reflect = reflectComponentType(ref.componentType)
     }
 }
