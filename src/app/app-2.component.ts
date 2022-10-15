@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { RouterLinkWithHref, RouterOutlet } from '@angular/router'
+import { RouterLink, RouterOutlet } from '@angular/router'
 import { Options, OPTIONS_TOKEN } from './tokens'
 
 const app2OptionsFactory = (): Options => ({ option: 'App 2 option' })
@@ -22,7 +22,7 @@ const app2OptionsFactory = (): Options => ({ option: 'App 2 option' })
         <router-outlet></router-outlet>
     `,
     standalone: true,
-    imports: [RouterOutlet, RouterLinkWithHref],
+    imports: [RouterOutlet, RouterLink],
     providers: [{ provide: OPTIONS_TOKEN, useFactory: app2OptionsFactory }],
 })
 export class App2Component {}
