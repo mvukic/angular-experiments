@@ -1,6 +1,7 @@
 import { AsyncPipe, JsonPipe } from '@angular/common'
-import { ApplicationRef, Component, createComponent, ElementRef, EnvironmentInjector, inject, ViewChild } from '@angular/core'
+import { ApplicationRef, Component, createComponent, createEnvironmentInjector, ElementRef, EnvironmentInjector, inject, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
+import { OPTIONS_TOKEN } from './tokens'
 
 @Component({
     selector: 'lazy-2',
@@ -30,7 +31,7 @@ export default class Lazy2 {
 
         const { Lazy4 } = await import('./lazy4')
         const ref = createComponent(Lazy4, {
-            environmentInjector: this.injector,
+            environmentInjector: createEnvironmentInjector([{ provide: OPTIONS_TOKEN, useValue: { options: 'Lazy 2 option' } }], this.injector),
             hostElement: this.container.nativeElement,
             projectableNodes: [[footer]],
         })

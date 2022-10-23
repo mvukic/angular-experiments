@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { ChangeDetectionStrategy, Component, inject, ChangeDetectorRef } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { finalize } from 'rxjs'
-import { OPTIONS_TOKEN, optionsFactory } from './tokens'
+import { OPTIONS_TOKEN } from './tokens'
 
 @Component({
     selector: 'lazy-1',
@@ -25,7 +25,7 @@ import { OPTIONS_TOKEN, optionsFactory } from './tokens'
     standalone: true,
     imports: [AsyncPipe, JsonPipe, KeyValuePipe, NgForOf],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [{ provide: OPTIONS_TOKEN, useFactory: optionsFactory }],
+    providers: [{ provide: OPTIONS_TOKEN, useFactory: () => ({ options: 'Lazy option 1' }) }],
 })
 export default class Lazy1 {
     protected params$ = inject(ActivatedRoute).queryParamMap

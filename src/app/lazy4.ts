@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core'
-import { OPTIONS_TOKEN } from './tokens'
+import { defaultOptions, OPTIONS_TOKEN } from './tokens'
 
 @Component({
     selector: 'lazy-4',
     template: `
-        <h3>lazy3</h3>
+        <h3>lazy4</h3>
         <br />
-        Options: {{ options.option }}
+        Options: {{ options?.option ?? 'options not provided'}}
         <br />
         <button (click)="counter = counter + 1">++</button> <br />
         {{ counter }} <br />
@@ -16,6 +16,6 @@ import { OPTIONS_TOKEN } from './tokens'
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Lazy4 {
-    options = inject(OPTIONS_TOKEN)
+    options = inject(OPTIONS_TOKEN, { optional: true });
     counter = 0
 }
