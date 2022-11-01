@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 export function ngHTML(html: string) {
     @Component({
@@ -7,8 +7,8 @@ export function ngHTML(html: string) {
         standalone: true,
     })
     class _HTMLComponent {
-        html = html
+        html = html;
     }
 
-    return _HTMLComponent
+    return _HTMLComponent;
 }

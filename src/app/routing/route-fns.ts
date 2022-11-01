@@ -1,15 +1,6 @@
-import {
-  ActivatedRouteSnapshot,
-  CanActivateFn,
-  CanDeactivateFn,
-  CanLoadFn,
-  Route,
-  RouterStateSnapshot,
-  UrlSegment,
-  UrlTree,
-} from '@angular/router'
-import { Observable } from 'rxjs'
-import type lazy1 from './lazy1'
+import { ActivatedRouteSnapshot, CanActivateFn, CanDeactivateFn, CanLoadFn, Route, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import type lazy1 from '../params-and-state';
 
 export const canLoad: CanLoadFn = (
     route: Route,

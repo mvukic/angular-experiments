@@ -1,8 +1,5 @@
-import { Component } from '@angular/core'
-import { RouterLink, RouterOutlet } from '@angular/router'
-import { Options, OPTIONS_TOKEN } from './tokens'
-
-const app1OptionsFactory = (): Options => ({ option: 'App 1 option' })
+import { Component } from '@angular/core';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -10,19 +7,27 @@ const app1OptionsFactory = (): Options => ({ option: 'App 1 option' })
         <h1>App component 1 - width > 1000</h1>
         <ul>
             <li>
-                <a [routerLink]="['lazy1']" [queryParams]="{ debug: 1 }" [state]="{ debug: 1 }">Lazy 1</a>
+                <a [routerLink]="['params-and-state']" [queryParams]="{ debug: 1 }" [state]="{ debug: 1 }">Params and state</a>
             </li>
             <li>
-                <a [routerLink]="['lazy2']" [queryParams]="{ debug: 2 }" [state]="{ debug: 2 }">Lazy 2</a>
+                <a [routerLink]="['templated-ng-for']">Templated ng for</a>
             </li>
             <li>
-                <a [routerLink]="['lazy3']" [queryParams]="{ debug: 3 }" [state]="{ debug: 3 }">Lazy 3</a>
+                <a [routerLink]="['lazy-load-component']">Lazy load component</a>
+            </li>
+            <li>
+                <a [routerLink]="['api-calls']">API calls</a>
+            </li>
+            <li>
+                <a [routerLink]="['dynamic-component']">Dynamic component</a>
+            </li>
+            <li>
+                <a [routerLink]="['host-directives']">Host directives</a>
             </li>
         </ul>
         <router-outlet></router-outlet>
     `,
     standalone: true,
     imports: [RouterOutlet, RouterLink],
-    providers: [{ provide: OPTIONS_TOKEN, useFactory: app1OptionsFactory }],
 })
 export class App1Component {}
