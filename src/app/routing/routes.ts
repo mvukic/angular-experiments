@@ -18,4 +18,5 @@ export default [
     { path: 'lazy-load-component', loadComponent: () => import('../lazy-load-component'), title: 'Lazy load component' },
     { path: 'host-directives', loadComponent: () => import('../host-directives'), title: 'Host directives' },
     { path: 'dynamic-component', component: ngHTML('<h1>Dynamically created component</h1>'), title: 'Dynamic component' },
+    { path: 'overlay', loadComponent: () => import('../overlay'), title: 'Overlay' },
 ] as Routes;

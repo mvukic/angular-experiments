@@ -24,6 +24,9 @@ import { RouterLink, RouterOutlet } from '@angular/router';
             <li>
                 <a [routerLink]="['host-directives']">Host directives</a>
             </li>
+          <li>
+            <a [routerLink]="['overlay']">Overlay</a>
+          </li>
         </ul>
         <router-outlet></router-outlet>
     `,
