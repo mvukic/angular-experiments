@@ -2,9 +2,19 @@
 
 html,
 body {
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  background: darken(#fff, 10%);
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  &.active {
+    text-decoration: underline;
+    color: green;
+  }
 }

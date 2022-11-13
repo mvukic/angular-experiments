@@ -3,27 +3,27 @@ import { Observable } from 'rxjs';
 import type lazy1 from '../params-and-state';
 
 export const canLoad: CanLoadFn = (
-    route: Route,
-    segments: UrlSegment[],
+  route: Route,
+  segments: UrlSegment[],
 ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree => {
-    console.log('can load');
-    return true;
+  console.log('can load');
+  return true;
 };
 
 export const canActivate: CanActivateFn = (
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot,
 ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree => {
-    console.log('can activate');
-    return true;
+  console.log('can activate');
+  return true;
 };
 
 export const canDeactivate: CanDeactivateFn<lazy1> = (
-    component: lazy1,
-    currentRoute: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot,
+  component: lazy1,
+  currentRoute: ActivatedRouteSnapshot,
+  currentState: RouterStateSnapshot,
+  nextState?: RouterStateSnapshot,
 ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree => {
-    console.log('can deactivate');
-    return true;
+  console.log('can deactivate');
+  return true;
 };
