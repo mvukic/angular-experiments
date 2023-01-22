@@ -4,45 +4,69 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-root',
   template: `
-    <h1>Experiments</h1>
-    <div class="nav">
-      <div>
-        <a [routerLink]="['params-and-state']" [queryParams]="{ debug: 1 }" [state]="{ debug: 1 }" routerLinkActive="active"> Params and state </a>
+    <div class="navbar bg-base-100">
+      <div class="flex-1">
+        <a class="btn-ghost btn text-xl normal-case" [routerLink]="['']">Experiments</a>
       </div>
-      <div>
-        <a [routerLink]="['templated-ng-for']" routerLinkActive="active">Templated ng for</a>
-      </div>
-      <div>
-        <a [routerLink]="['lazy-load-component']" routerLinkActive="active">Lazy load component</a>
-      </div>
-      <div>
-        <a [routerLink]="['api-calls']" routerLinkActive="active">API calls</a>
-      </div>
-      <div>
-        <a [routerLink]="['dynamic-component']" routerLinkActive="active">Dynamic component</a>
-      </div>
-      <div>
-        <a [routerLink]="['host-directives']" routerLinkActive="active">Host directives</a>
-      </div>
-      <div>
-        <a [routerLink]="['overlay']" routerLinkActive="active">Overlay</a>
+      <div class="flex-none">
+        <button
+          class="mt-4 mr-4 block text-teal-200 hover:text-white lg:mt-0 lg:inline-block"
+          [routerLink]="['params-and-state']"
+          [queryParams]="{ debug: 1 }"
+          [state]="{ debug: 1 }"
+          routerLinkActive="underline"
+        >
+          Params and state
+        </button>
+        <button
+          class="mt-4 mr-4 block text-teal-200 hover:text-white lg:mt-0 lg:inline-block"
+          [routerLink]="['templated-ng-for']"
+          routerLinkActive="underline"
+        >
+          Templated ng for
+        </button>
+        <button
+          class="mt-4 mr-4 block text-teal-200 hover:text-white lg:mt-0 lg:inline-block"
+          [routerLink]="['lazy-load-component']"
+          routerLinkActive="underline"
+        >
+          Lazy load component
+        </button>
+        <button
+          class="mt-4 mr-4 block text-teal-200 hover:text-white lg:mt-0 lg:inline-block"
+          [routerLink]="['api-calls']"
+          routerLinkActive="underline"
+        >
+          API calls
+        </button>
+        <button
+          class="mt-4 mr-4 block text-teal-200 hover:text-white lg:mt-0 lg:inline-block"
+          [routerLink]="['dynamic-component']"
+          routerLinkActive="underline"
+        >
+          Dynamic component
+        </button>
+        <button
+          class="mt-4 mr-4 block text-teal-200 hover:text-white lg:mt-0 lg:inline-block"
+          [routerLink]="['host-directives']"
+          routerLinkActive="underline"
+        >
+          Host directives
+        </button>
+        <button
+          class="mt-4 mr-4 block text-teal-200 hover:text-white lg:mt-0 lg:inline-block"
+          [routerLink]="['overlay']"
+          routerLinkActive="underline"
+        >
+          Overlay
+        </button>
       </div>
     </div>
-    <router-outlet></router-outlet>
+    <div class="h-full w-full overflow-hidden">
+      <router-outlet></router-outlet>
+    </div>
   `,
   standalone: true,
-  styles: [
-    `
-      .nav {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        padding-bottom: 10px;
-        > div {
-          justify-self: center;
-        }
-      }
-    `,
-  ],
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
 })
 export class App {}

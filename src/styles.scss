@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import '@angular/cdk/overlay-prebuilt.css';
 
 html,
@@ -7,14 +11,4 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  background: darken(#fff, 10%);
-}
-
-a,
-a:visited {
-  text-decoration: none;
-  &.active {
-    text-decoration: underline;
-    color: green;
-  }
 }

@@ -48,7 +48,12 @@ export class LoadingService implements OnDestroy {
 
 @Component({
   selector: 'overlay-example',
-  template: `<button (click)="show()">Show</button>`,
+  template: `<button
+    (click)="show()"
+    class="rounded border border-fuchsia-500 bg-transparent py-2 px-4 font-semibold text-fuchsia-700 hover:border-transparent hover:bg-fuchsia-500 hover:text-white"
+  >
+    Button
+  </button>`,
   imports: [LoaderComponent, DialogModule],
   providers: [LoadingService],
   standalone: true,

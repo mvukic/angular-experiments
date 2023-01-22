@@ -1,8 +1,8 @@
-import { Component, Directive, HostBinding, inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { filter, finalize, interval, Observable, Subject, takeUntil, tap } from 'rxjs';
-import { OnDestroyDirective } from './utils/on-destroy.directive';
+import { Component, Directive, HostBinding, inject, Input } from '@angular/core';
+import { finalize, interval, takeUntil, tap } from 'rxjs';
 import { NgLetDirective } from './utils/ng-let.directive';
 import { AsyncPipe } from '@angular/common';
+import { OnDestroyDirective } from './utils/on-destroy.directive';
 
 @Directive({
   selector: 'span[size]',
@@ -68,7 +68,7 @@ export class DecoratedAndComposedDirective {
   imports: [FontSizeDirective, FontColorDirective, ComposedDirective, DecoratedAndComposedDirective, NgLetDirective, AsyncPipe],
 })
 export default class HostDirectives {
-  #destroy$ = inject(OnDestroyDirective).destroy$;
+  #destroy$ = inject(OnDestroyDirective).destroy;
   protected interval$ = interval(1000).pipe(
     takeUntil(this.#destroy$),
     tap((value) => console.log(value)),
