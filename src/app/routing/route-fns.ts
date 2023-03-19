@@ -2,14 +2,6 @@ import { ActivatedRouteSnapshot, CanActivateFn, CanDeactivateFn, CanLoadFn, Rout
 import { Observable } from 'rxjs';
 import type lazy1 from '../params-and-state';
 
-export const canLoad: CanLoadFn = (
-  route: Route,
-  segments: UrlSegment[],
-): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree => {
-  console.log('can load');
-  return true;
-};
-
 export const canActivate: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
