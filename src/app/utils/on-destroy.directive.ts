@@ -1,9 +1,9 @@
-import { Directive, OnDestroy } from '@angular/core'
-import { Observable, Subject } from 'rxjs'
+import { Directive, OnDestroy } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Directive({
   selector: 'onDestroy',
-  standalone: true
+  standalone: true,
 })
 export class OnDestroyDirective implements OnDestroy {
   #destroy = new Subject<boolean>();
@@ -16,6 +16,4 @@ export class OnDestroyDirective implements OnDestroy {
     this.#destroy.next(true);
     this.#destroy.complete();
   }
-
 }
-

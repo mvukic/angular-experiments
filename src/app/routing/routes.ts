@@ -19,4 +19,5 @@ export default [
   { path: 'dynamic-component', component: ngHTML('<h1>Dynamically created component</h1>'), title: 'Dynamic component' },
   { path: 'overlay', loadComponent: () => import('../overlay'), title: 'Overlay' },
   { path: 'signals', loadComponent: () => import('../signals'), title: 'Signals' },
+  { path: 'cdk-listbox', loadComponent: () => import('../cdk-listbox'), title: 'CDK ListBox' },
 ] as Routes;
