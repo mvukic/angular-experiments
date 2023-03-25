@@ -1,5 +1,5 @@
 import { NgForOf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, signal, effect, OnInit, OnDestroy, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, signal, effect, OnInit, OnDestroy, inject, Input } from '@angular/core';
 
 @Component({
   selector: 'demo-signals',

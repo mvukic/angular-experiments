@@ -6,8 +6,6 @@ import { JsonPipe, NgForOf } from '@angular/common';
 @Component({
   selector: 'cdk-list-box-demo',
   standalone: true,
-  //  changeDetection: ChangeDetectionStrategy.OnPush,
-  //  encapsulation: ViewEncapsulation.ShadowDom,
   imports: [CdkListbox, CdkOption, ReactiveFormsModule, JsonPipe, NgForOf],
   styles: [
     `
