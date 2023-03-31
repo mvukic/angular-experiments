@@ -20,6 +20,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
         <button [routerLink]="['overlay']" routerLinkActive="underline">Overlay</button>
         <button [routerLink]="['signals']" routerLinkActive="underline">Signals</button>
         <button [routerLink]="['cdk-listbox']" routerLinkActive="underline">CDK ListBox</button>
+        <button [routerLink]="['custom-selector']" routerLinkActive="underline">Selector</button>
       </div>
     </div>
     <div style="width: 100%; height: 100%">

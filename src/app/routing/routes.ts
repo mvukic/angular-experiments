@@ -20,4 +20,5 @@ export default [
   { path: 'overlay', loadComponent: () => import('../overlay'), title: 'Overlay' },
   { path: 'signals', loadComponent: () => import('../signals'), title: 'Signals' },
   { path: 'cdk-listbox', loadComponent: () => import('../cdk-listbox'), title: 'CDK ListBox' },
+  { path: 'custom-selector', loadComponent: () => import('../selector'), title: 'Selector' },
 ] as Routes;

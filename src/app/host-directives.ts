@@ -50,6 +50,9 @@ export class DecoratedAndComposedDirective {
 
 @Component({
   selector: 'host-components',
+  standalone: true,
+  hostDirectives: [OnDestroyDirective],
+  imports: [FontSizeDirective, FontColorDirective, ComposedDirective, DecoratedAndComposedDirective, NgLetDirective, AsyncPipe],
   template: `
     <h1>Host directives</h1>
     <span size="x-large">Large text</span> <br />
@@ -62,10 +65,7 @@ export class DecoratedAndComposedDirective {
     </ng-container>
     <br />
     <span *ngLet="interval$ | async as timer">Counter: {{ timer }}</span>
-  `,
-  standalone: true,
-  hostDirectives: [OnDestroyDirective],
-  imports: [FontSizeDirective, FontColorDirective, ComposedDirective, DecoratedAndComposedDirective, NgLetDirective, AsyncPipe],
+  `
 })
 export default class HostDirectives {
   #destroy$ = inject(OnDestroyDirective).destroy;

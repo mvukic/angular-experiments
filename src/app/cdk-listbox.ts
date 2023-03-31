@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
 import { JsonPipe, NgForOf } from '@angular/common';
