@@ -1,5 +1,5 @@
 import { NgForOf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, signal, effect, OnInit, OnDestroy, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, signal, effect, OnInit, OnDestroy, inject, Input, EffectCleanupFn } from '@angular/core';
 
 @Component({
   selector: 'demo-signals',
@@ -18,19 +18,22 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, signal
     </fieldset>
   `,
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.ShadowDom,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export default class Signals implements OnDestroy {
+export default class Signals {
   first = signal(localStorage.getItem('first') ?? '');
   last = signal(localStorage.getItem('last') ?? '');
   full = computed(() => `${this.first()} ${this.last()}`);
 
-  #e1 = effect(() => localStorage.setItem('first', this.first()));
-  #e2 = effect(() => localStorage.setItem('last', this.last()));
-
-  ngOnDestroy(): void {
-    this.#e1.destroy();
-    this.#e2.destroy();
+  constructor() {
+    effect(() => {
+        localStorage.setItem('first', this.first())
+        return () => console.log('Cleaning effect 1');
+    });
+    effect(() => {
+        localStorage.setItem('last', this.last())
+        return () => console.log('Cleaning effect 1');
+    });
   }
+
 }
