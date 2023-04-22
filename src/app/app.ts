@@ -22,6 +22,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
         <button [routerLink]="['cdk-listbox']" routerLinkActive="underline">CDK ListBox</button>
         <button [routerLink]="['custom-selector']" routerLinkActive="underline">Selector</button>
         <button [routerLink]="['bind-inputs', 'b']" [queryParams]="{ c: 'c' }" routerLinkActive="underline">Bind inputs</button>
+        <button [routerLink]="['animations']" routerLinkActive="underline">Animations</button>
       </div>
     </div>
     <div style="width: 100%; height: 100%">

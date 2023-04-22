@@ -65,7 +65,7 @@ export class DecoratedAndComposedDirective {
     </ng-container>
     <br />
     <span *ngLet="interval$ | async as timer">Counter: {{ timer }}</span>
-  `
+  `,
 })
 export default class HostDirectives {
   #destroy$ = inject(OnDestroyDirective).destroy;
