@@ -26,7 +26,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
       </div>
     </div>
     <div style="width: 100%; height: 100%">
-      <router-outlet></router-outlet>
+      <router-outlet />
     </div>
   `,
   standalone: true,

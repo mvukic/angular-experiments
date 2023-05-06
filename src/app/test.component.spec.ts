@@ -1,34 +1,42 @@
-// https://angularexperts.io/blog/total-guide-to-jest-esm-and-angular
-// https://github.com/thymikee/jest-preset-angular/issues/1149
-
-import { render, screen } from '@testing-library/angular';
+import { render } from '@testing-library/angular';
 import { TestComponent, TestService } from './test.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-// describe('TestComponent 1', () => {
-//   let component: TestComponent;
-//   let fixture: ComponentFixture<TestComponent>;
-//
-//   beforeEach(async () => {
-//     await TestBed.configureTestingModule({
-//       imports: [TestComponent],
-//       providers: [TestService],
-//     }).compileComponents();
-//     fixture = TestBed.createComponent(TestComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
-//
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+describe('TestComponent 1', () => {
+  it('should create 1', async () => {
+    await TestBed.configureTestingModule({
+      imports: [TestComponent],
+      providers: [TestService],
+    }).compileComponents();
+    const fixture: ComponentFixture<TestComponent> = TestBed.createComponent(TestComponent);
+    const component: TestComponent = fixture.componentInstance;
+    fixture.detectChanges();
 
-describe('TestComponent 2', () => {
-  it('should create', async () => {
-    const result = await render(TestComponent, { componentProviders: [TestService] });
-    const component = result.fixture.componentInstance;
+    expect(component).toBeTruthy();
     expect(component.getName()).toEqual('TestService');
     expect(component.getAge()).toEqual(undefined);
   });
 });
+
+// describe('TestComponent 2', () => {
+//   it('should create 2', async () => {
+//     const { fixture } = await render(TestComponent, { componentProviders: [TestService] });
+//     const component = fixture.componentInstance;
+//     expect(component.getName()).toEqual('TestService');
+//     expect(component.getAge()).toEqual(undefined);
+//   });
+// });
+
+// describe('TestComponent 3', () => {
+//   it('should create 3', async () => {
+//     const createComponent = createComponentFactory({
+//       component: TestComponent,
+//       componentProviders: [TestService],
+//     });
+//     const spectator = createComponent();
+//     const component = spectator.component;
+//     expect(component).toBeTruthy();
+//     expect(component.getName()).toEqual('TestService');
+//     expect(component.getAge()).toEqual(undefined);
+//   });
+// });

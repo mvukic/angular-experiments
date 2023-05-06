@@ -3,23 +3,21 @@ import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'loader-component',
-  template: `
-    <div>
-      <div class="icon"></div>
-      <div class="message">Loading</div>
-    </div>
-  `,
+  standalone: true,
   styles: [
     `
       :host {
         display: grid;
         place-items: center;
       }
-      .icon {
-      }
     `,
   ],
-  standalone: true,
+  template: `
+    <div>
+      <div class="icon"></div>
+      <div class="message">Loading</div>
+    </div>
+  `,
 })
 export class LoaderComponent {}
 
