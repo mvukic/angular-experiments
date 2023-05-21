@@ -23,6 +23,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
         <button [routerLink]="['custom-selector']" routerLinkActive="underline">Selector</button>
         <button [routerLink]="['bind-inputs', 'b']" [queryParams]="{ c: 'c' }" routerLinkActive="underline">Bind inputs</button>
         <button [routerLink]="['animations']" routerLinkActive="underline">Animations</button>
+        <button [routerLink]="['event-manager']" routerLinkActive="underline">Events</button>
       </div>
     </div>
     <div style="width: 100%; height: 100%">

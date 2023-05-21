@@ -29,4 +29,5 @@ export default [
     resolve: { d: () => 'd' },
   },
   { path: 'animations', loadComponent: () => import('../animations'), title: 'Animations' },
+  { path: 'event-manager', loadComponent: () => import('../event-manager-plugins'), title: 'Events' },
 ] as Routes;
