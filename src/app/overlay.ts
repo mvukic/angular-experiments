@@ -1,61 +1,28 @@
-import { Component, inject, Injectable, OnDestroy } from '@angular/core';
-import { Dialog, DialogModule, DialogRef } from '@angular/cdk/dialog';
+import { Component, inject, ViewContainerRef } from '@angular/core';
+import { Overlay, OverlayModule } from '@angular/cdk/overlay';
+import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
-  selector: 'loader-component',
+  selector: 'overlay-component',
+  template: `<span>overlay component</span>`,
   standalone: true,
-  styles: [
-    `
-      :host {
-        display: grid;
-        place-items: center;
-      }
-    `,
-  ],
-  template: `
-    <div>
-      <div class="icon"></div>
-      <div class="message">Loading</div>
-    </div>
-  `,
 })
-export class LoaderComponent {}
-
-@Injectable()
-export class LoadingService implements OnDestroy {
-  #dialog = inject(Dialog);
-
-  #dialogRef: DialogRef<any, LoaderComponent> | null = null;
-
-  open() {
-    if (this.#dialogRef != null) {
-      return;
-    }
-    this.#dialogRef = this.#dialog.open(LoaderComponent);
-  }
-
-  close() {
-    this.#dialogRef?.close();
-    this.#dialogRef = null;
-  }
-
-  ngOnDestroy() {
-    this.#dialogRef?.close();
-  }
-}
+export class OverlayComponent {}
 
 @Component({
   selector: 'overlay-example',
-  template: `<button (click)="show()">Button</button>`,
-  imports: [LoaderComponent, DialogModule],
-  providers: [LoadingService],
+  template: `<button (click)="show($event)">Button</button>`,
+  imports: [OverlayModule],
   standalone: true,
 })
 export default class OverlayExample {
-  #loading = inject(LoadingService);
+  #overlay = inject(Overlay);
+  #vcr = inject(ViewContainerRef);
 
-  show() {
-    this.#loading.open();
-    setTimeout(() => this.#loading.close(), 2000);
+  show($event: MouseEvent) {
+    const overlayRef = this.#overlay.create();
+    const portal = new ComponentPortal(OverlayComponent, this.#vcr);
+    overlayRef.attach(portal);
+    setTimeout(() => overlayRef.detach(), 2000);
   }
 }
