@@ -4,16 +4,16 @@ import { ComponentPortal } from '@angular/cdk/portal';
 
 @Component({
   selector: 'overlay-component',
-  template: `<span>overlay component</span>`,
   standalone: true,
+  template: `<span>overlay component</span>`,
 })
 export class OverlayComponent {}
 
 @Component({
   selector: 'overlay-example',
-  template: `<button (click)="show($event)">Button</button>`,
   imports: [OverlayModule],
   standalone: true,
+  template: `<button (click)="show($event)">Button</button>`,
 })
 export default class OverlayExample {
   #overlay = inject(Overlay);

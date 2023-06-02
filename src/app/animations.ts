@@ -11,11 +11,11 @@ const showHide = trigger('fadeIn', [
   selector: 'animation-comp',
   standalone: true,
   imports: [NgIf],
+  animations: [showHide],
   template: `
     <button (click)="show = !show">Toggle</button>
     <div @fadeIn *ngIf="show">Some text</div>
   `,
-  animations: [showHide],
 })
 export default class AnimationComponent {
   show = false;

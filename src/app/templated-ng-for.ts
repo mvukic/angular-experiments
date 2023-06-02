@@ -3,6 +3,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'templated-ng-for',
+  standalone: true,
+  imports: [NgForOf],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h3>ngFor with template</h3>
     <ul>
@@ -12,9 +15,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
       {{ item }}
     </ng-template>
   `,
-  standalone: true,
-  imports: [NgForOf],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class TemplatedNgFor {
   emojis = ['😊', '😎', '🎶', '😶‍🌫️'];

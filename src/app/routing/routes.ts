@@ -1,10 +1,9 @@
 import { ngHTML } from '../utils/ng-html';
 import { canActivate, canDeactivate } from './route-fns';
 import { Routes } from '@angular/router';
-import { Main } from '../main';
 
 export default [
-  { path: '', component: Main },
+  { path: '', redirectTo: 'templated-ng-for', pathMatch: 'full' },
   {
     path: 'params-and-state',
     loadComponent: () => import('../params-and-state'),
@@ -30,4 +29,5 @@ export default [
   },
   { path: 'animations', loadComponent: () => import('../animations'), title: 'Animations' },
   { path: 'event-manager', loadComponent: () => import('../event-manager-plugins'), title: 'Events' },
+  { path: 'input-mappers', loadComponent: () => import('../input-mappers'), title: 'Input mappers' },
 ] as Routes;

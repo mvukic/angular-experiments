@@ -1,8 +1,9 @@
-import { NgForOf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, signal, effect, OnInit, OnDestroy, inject, Input, EffectCleanupFn } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, signal } from '@angular/core';
 
 @Component({
   selector: 'demo-signals',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h3>Signals</h3>
     <fieldset>
@@ -17,8 +18,6 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, computed, signal
       <span>{{ full() }}</span>
     </fieldset>
   `,
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class Signals {
   first = signal(localStorage.getItem('first') ?? '');
@@ -27,13 +26,12 @@ export default class Signals {
 
   constructor() {
     effect(() => {
-        localStorage.setItem('first', this.first())
-        return () => console.log('Cleaning effect 1');
+      localStorage.setItem('first', this.first());
+      return () => console.log('Cleaning effect 1');
     });
     effect(() => {
-        localStorage.setItem('last', this.last())
-        return () => console.log('Cleaning effect 1');
+      localStorage.setItem('last', this.last());
+      return () => console.log('Cleaning effect 1');
     });
   }
-
 }

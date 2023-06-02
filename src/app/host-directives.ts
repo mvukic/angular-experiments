@@ -1,16 +1,17 @@
 import { Component, Directive, HostBinding, inject, Input } from '@angular/core';
-import { finalize, interval, takeUntil, tap } from 'rxjs';
-import { NgLetDirective } from './utils/ng-let.directive';
-import { AsyncPipe } from '@angular/common';
+import { finalize, interval, tap } from 'rxjs';
+import {AsyncPipe, NgIf} from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: 'span[size]',
   standalone: true,
+  host: {
+    '[style.font-size]': 'size',
+  },
 })
 export class FontSizeDirective {
   @Input()
-  @HostBinding('style.font-size')
   size?: string = 'xxx-large';
 }
 
@@ -51,7 +52,7 @@ export class DecoratedAndComposedDirective {
 @Component({
   selector: 'host-components',
   standalone: true,
-  imports: [FontSizeDirective, FontColorDirective, ComposedDirective, DecoratedAndComposedDirective, NgLetDirective, AsyncPipe],
+  imports: [FontSizeDirective, FontColorDirective, ComposedDirective, DecoratedAndComposedDirective, AsyncPipe, NgIf],
   template: `
     <h1>Host directives</h1>
     <span size="x-large">Large text</span> <br />
@@ -59,11 +60,11 @@ export class DecoratedAndComposedDirective {
     <span sizedAndColoredText hostSize="xx-small" hostColor="lime"> Extra large and green</span> <br />
     <span sizedAndColoredText> Extra large and blue</span> <br />
     <span decoratedText decoration="underline"> Extra large and blue and underlined</span> <br />
-    <ng-container *ngLet="interval$ | async as timer">
+    <ng-container *ngIf="interval$ | async as timer">
       <span>Counter: {{ timer }}</span>
     </ng-container>
     <br />
-    <span *ngLet="interval$ | async as timer">Counter: {{ timer }}</span>
+    <span *ngIf="interval$ | async as timer">Counter: {{ timer }}</span>
   `,
 })
 export default class HostDirectives {

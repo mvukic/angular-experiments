@@ -2,12 +2,12 @@ import { ApplicationRef, Component, createComponent, ElementRef, EnvironmentInje
 
 @Component({
   selector: 'lazy-load-component',
+  standalone: true,
   template: `
     <h3>Lazy load component</h3>
     <button (click)="lazyLoad()">Lazy load 4</button>
     <div #container></div>
   `,
-  standalone: true,
 })
 export default class LazyLoadComponent {
   @ViewChild('container', { static: true })
