@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { BooleanInput, coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
+import { booleanAttribute, Component, Input, numberAttribute } from '@angular/core';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'input-mappers-cmp1',
@@ -7,7 +7,7 @@ import { BooleanInput, coerceBooleanProperty, coerceNumberProperty } from '@angu
   template: `is disabled {{ disabled1 }}, {{ disabled2 }}`,
 })
 export class InputMapperCmp1 {
-  @Input({ transform: coerceBooleanProperty })
+  @Input({ transform: booleanAttribute })
   disabled1: boolean = false;
 
   #disabled2 = false;
@@ -27,14 +27,14 @@ export class InputMapperCmp1 {
   template: `number is {{ size }}`,
 })
 export class InputMapperCmp2 {
-  @Input({ transform: coerceNumberProperty })
+  @Input({ transform: numberAttribute })
   size = 0;
 }
 
 @Component({
   selector: 'input-mappers',
   standalone: true,
-  imports: [InputMapperCmp1],
+  imports: [InputMapperCmp1, InputMapperCmp2],
   template: `
     <input-mappers-cmp1 /> <br />
     <input-mappers-cmp1 disabled1 disabled2 /> <br />
@@ -42,8 +42,8 @@ export class InputMapperCmp2 {
     <input-mappers-cmp1 [disabled1]="false" [disabled2]="false" /> <br />
     <input-mappers-cmp1 disabled1="true" disabled2="true" /> <br />
     <input-mappers-cmp1 disabled1="false" disabled2="false" /> <br />
-<!--    <input-mappers-cmp2 size="10" /> <br />-->
-<!--    <input-mappers-cmp2 [size]="10" /> <br />-->
+    <input-mappers-cmp2 size="10" /> <br />
+    <input-mappers-cmp2 [size]="10" /> <br />
   `,
 })
 export default class InputMappers {}
