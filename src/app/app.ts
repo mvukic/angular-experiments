@@ -25,6 +25,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
         <button [routerLink]="['animations']" routerLinkActive="underline">Animations</button>
         <button [routerLink]="['event-manager']" routerLinkActive="underline">Events</button>
         <button [routerLink]="['input-mappers']" routerLinkActive="underline">Input mappers</button>
+        <button [routerLink]="['forms-module']" routerLinkActive="underline">Forms</button>
       </div>
     </div>
     <div style="width: 100%; height: 100%">

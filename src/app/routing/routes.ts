@@ -30,4 +30,5 @@ export default [
   { path: 'animations', loadComponent: () => import('../animations'), title: 'Animations' },
   { path: 'event-manager', loadComponent: () => import('../event-manager-plugins'), title: 'Events' },
   { path: 'input-mappers', loadComponent: () => import('../input-mappers'), title: 'Input mappers' },
+  { path: 'forms-module', loadComponent: () => import('../form-module'), title: 'Forms' },
 ] as Routes;
