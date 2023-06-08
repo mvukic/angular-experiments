@@ -160,7 +160,13 @@ export class SectionCmp {}
     <expandable-cmp label="Content is hidden">
       <nav-cmp />
     </expandable-cmp>
+    <expandable-cmp label="Content is hidden">
+      <nav-cmp />
+    </expandable-cmp>
     <section-cmp />
+    <expandable-cmp label="Content is hidden">
+      <nav-cmp />
+    </expandable-cmp>
   `,
 })
 export default class OverlayExample {}
