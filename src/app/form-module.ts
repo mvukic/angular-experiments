@@ -32,7 +32,7 @@ export type Box = {
           <div *ngFor="let item of box.items">
             <form #form="ngForm"></form>
             <input [value]="item.id" name="id" />
-            <input [(ngModel)]="item.name" name="name" />
+            <input [(ngModel)]="item.name" name="name" required />
           </div>
         </div>
       </fieldset>
