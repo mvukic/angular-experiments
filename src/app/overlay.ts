@@ -1,10 +1,11 @@
-import { Component, computed, Signal, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
   selector: 'expandable-cmp',
   standalone: true,
   imports: [NgIf],
+  host: {},
   styles: [
     `
       :host {
@@ -13,12 +14,12 @@ import { NgForOf, NgIf } from '@angular/common';
         overflow: hidden;
 
         .content {
-          overflow: hidden;
           height: 100%;
+          overflow: hidden;
         }
 
         .footer {
-          padding: 3px 5px;
+          padding: 0 5px;
           border-top: 1px solid black;
         }
       }
@@ -26,7 +27,9 @@ import { NgForOf, NgIf } from '@angular/common';
   ],
   template: `
     <div class="content">
-      <ng-content />
+      <ng-container *ngIf="visible()">
+        <ng-content />
+      </ng-container>
     </div>
     <div class="footer">
       <span class="material-icons" (click)="toggle()">{{ this.icon() }}</span>
