@@ -1,6 +1,6 @@
 import { Component, Directive, HostBinding, inject, Input } from '@angular/core';
 import { finalize, interval, tap } from 'rxjs';
-import {AsyncPipe, NgIf} from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({

@@ -1,10 +1,35 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 
 html,
-body {
+body,
+app-root {
   height: 100%;
   width: 100%;
   overflow: hidden;
   margin: 0;
   padding: 0;
+}
+
+.material-icons {
+  font-size: 16px;
+  user-select: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 1em;
+  height: 1em;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: hsl(0  0%  50% / 0.5);
+  &:hover {
+    background-color: black;
+  }
 }
