@@ -1,14 +1,15 @@
-import { Component, computed, Input, signal } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, Input, signal } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
-import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'expandable-cmp',
   standalone: true,
   imports: [NgIf],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       :host {
+        border: 1px solid darkorchid;
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -37,12 +38,10 @@ import { animate, style, transition, trigger } from '@angular/animations';
     `,
   ],
   template: `
-    <div class="content" *ngIf="visible()">
-      <ng-container>
-        <ng-content />
-      </ng-container>
+    <div class="content" [style.display]="display()">
+      <ng-content />
     </div>
-    <div class="content-with-label" *ngIf="!visible()">
+    <div class="content-with-label" *ngIf="!expanded()">
       <div class="label" *ngIf="label">
         {{ label }}
       </div>
@@ -56,13 +55,21 @@ export class ExpandableCmp {
   @Input()
   label?: string = undefined;
 
-  visible = signal(true);
-  icon = computed(() => {
-    return this.visible() ? 'visibility' : 'visibility_off';
+  @Input({ alias: 'expanded' })
+  set visible(value: any) {
+    this.expanded.set(booleanAttribute(value));
+  }
+
+  readonly expanded = signal(true);
+  readonly icon = computed(() => {
+    return this.expanded() ? 'visibility' : 'visibility_off';
+  });
+  readonly display = computed(() => {
+    return this.expanded() ? 'block' : 'none';
   });
 
   toggle() {
-    this.visible.set(!this.visible());
+    this.expanded.set(!this.expanded());
   }
 }
 
@@ -121,13 +128,27 @@ export class NavCmp {
   styles: [
     `
       :host {
+        display: flex;
+        flex-direction: column;
         border: 1px solid red;
         height: 100%;
         overflow: hidden;
+        .header {
+          display: flex;
+          justify-content: flex-end;
+          gap: 5px;
+          border-bottom: 1px solid greenyellow;
+        }
       }
     `,
   ],
-  template: ` section `,
+  template: `
+    <div class="header">
+      <span class="material-icons">filter_list</span>
+      <span class="material-icons">sort</span>
+    </div>
+    <div class="content">Content</div>
+  `,
 })
 export class SectionCmp {}
 
@@ -160,7 +181,7 @@ export class SectionCmp {}
     <expandable-cmp label="Content is hidden">
       <nav-cmp />
     </expandable-cmp>
-    <expandable-cmp label="Content is hidden">
+    <expandable-cmp expanded="false">
       <nav-cmp />
     </expandable-cmp>
     <section-cmp />
