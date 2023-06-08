@@ -1,11 +1,11 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, Input, signal } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'expandable-cmp',
   standalone: true,
   imports: [NgIf],
-  host: {},
   styles: [
     `
       :host {
@@ -18,6 +18,17 @@ import { NgForOf, NgIf } from '@angular/common';
           overflow: hidden;
         }
 
+        .content-with-label {
+          height: 100%;
+          overflow: hidden;
+          display: grid;
+          place-items: center center;
+          .label {
+            writing-mode: vertical-lr;
+            transform: rotate(180deg);
+          }
+        }
+
         .footer {
           padding: 0 5px;
           border-top: 1px solid black;
@@ -26,10 +37,15 @@ import { NgForOf, NgIf } from '@angular/common';
     `,
   ],
   template: `
-    <div class="content">
-      <ng-container *ngIf="visible()">
+    <div class="content" *ngIf="visible()">
+      <ng-container>
         <ng-content />
       </ng-container>
+    </div>
+    <div class="content-with-label" *ngIf="!visible()">
+      <div class="label" *ngIf="label">
+        {{ label }}
+      </div>
     </div>
     <div class="footer">
       <span class="material-icons" (click)="toggle()">{{ this.icon() }}</span>
@@ -37,6 +53,9 @@ import { NgForOf, NgIf } from '@angular/common';
   `,
 })
 export class ExpandableCmp {
+  @Input()
+  label?: string = undefined;
+
   visible = signal(true);
   icon = computed(() => {
     return this.visible() ? 'visibility' : 'visibility_off';
@@ -124,7 +143,11 @@ export class SectionCmp {}
         overflow: hidden;
 
         expandable-cmp {
-          flex-basis: 200px;
+          flex-basis: fit-content;
+        }
+
+        nav-cmp {
+          width: 200px;
         }
 
         section-cmp {
@@ -134,7 +157,7 @@ export class SectionCmp {}
     `,
   ],
   template: `
-    <expandable-cmp>
+    <expandable-cmp label="Content is hidden">
       <nav-cmp />
     </expandable-cmp>
     <section-cmp />

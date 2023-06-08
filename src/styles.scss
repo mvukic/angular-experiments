@@ -1,5 +1,9 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 html,
 body,
 app-root {
@@ -28,7 +32,7 @@ app-root {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: hsl(0  0%  50% / 0.5);
+  background-color: hsl(0 0% 50% / 0.5);
   &:hover {
     background-color: black;
   }
