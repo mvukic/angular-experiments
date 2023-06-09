@@ -5,14 +5,14 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 import routes from './app/routing/routes';
 
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { httpInterceptor } from './app/http/interceptor';
 import { LogEventPlugin } from './app/events/log-event-plugin.service';
 
 bootstrapApplication(App, {
   providers: [
     provideRouter(routes, withPreloading(PreloadAllModules), withComponentInputBinding()),
-    provideHttpClient(withInterceptors([httpInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([httpInterceptor])),
     provideAnimations(),
     {
       provide: EVENT_MANAGER_PLUGINS,

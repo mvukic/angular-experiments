@@ -1,81 +1,12 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, Input, signal } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
-
-@Component({
-  selector: 'expandable-cmp',
-  standalone: true,
-  imports: [NgIf],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
-      :host {
-        border: 1px solid darkorchid;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-
-        .content {
-          height: 100%;
-          overflow: hidden;
-        }
-
-        .content-with-label {
-          height: 100%;
-          overflow: hidden;
-          display: grid;
-          place-items: center center;
-          .label {
-            writing-mode: vertical-lr;
-            transform: rotate(180deg);
-          }
-        }
-
-        .footer {
-          padding: 0 5px;
-          border-top: 1px solid black;
-        }
-      }
-    `,
-  ],
-  template: `
-    <div class="content" [style.display]="display()">
-      <ng-content />
-    </div>
-    <div class="content-with-label" *ngIf="!expanded()">
-      <div class="label" *ngIf="label">
-        {{ label }}
-      </div>
-    </div>
-    <div class="footer">
-      <span class="material-icons" (click)="toggle()">{{ this.icon() }}</span>
-    </div>
-  `,
-})
-export class ExpandableCmp {
-  @Input()
-  label?: string = undefined;
-
-  @Input({ alias: 'expanded' })
-  set visible(value: any) {
-    this.expanded.set(booleanAttribute(value));
-  }
-
-  readonly expanded = signal(true);
-  readonly icon = computed(() => {
-    return this.expanded() ? 'visibility' : 'visibility_off';
-  });
-  readonly display = computed(() => {
-    return this.expanded() ? 'block' : 'none';
-  });
-
-  toggle() {
-    this.expanded.set(!this.expanded());
-  }
-}
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { NgForOf } from '@angular/common';
+import { ExpandableCmp } from './expandable.cmp';
+import { ExpandableTrigger } from './expandable-trigger.cmp';
 
 @Component({
   selector: 'nav-cmp',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgForOf],
   styles: [
     `
@@ -125,6 +56,7 @@ export class NavCmp {
 @Component({
   selector: 'section-cmp',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       :host {
@@ -144,6 +76,8 @@ export class NavCmp {
   ],
   template: `
     <div class="header">
+      <ng-content></ng-content>
+      <span style="flex: 1 1 auto"></span>
       <span class="material-icons">filter_list</span>
       <span class="material-icons">sort</span>
     </div>
@@ -153,9 +87,10 @@ export class NavCmp {
 export class SectionCmp {}
 
 @Component({
-  selector: 'overlay-example',
+  selector: 'expandable-example',
   standalone: true,
-  imports: [NavCmp, SectionCmp, ExpandableCmp],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NavCmp, SectionCmp, ExpandableCmp, ExpandableTrigger],
   styles: [
     `
       :host {
@@ -181,13 +116,24 @@ export class SectionCmp {}
     <expandable-cmp label="Content is hidden">
       <nav-cmp />
     </expandable-cmp>
-    <expandable-cmp expanded="false">
+    <expandable-cmp expanded="false" [expanded]="expanded()" (expand)="expanded.set($event)" withoutTrigger>
       <nav-cmp />
     </expandable-cmp>
-    <section-cmp />
+    <section-cmp>
+      <expandable-trigger [value]="expanded()" (valueChange)="expanded.set($event)" />
+    </section-cmp>
     <expandable-cmp label="Content is hidden">
       <nav-cmp />
     </expandable-cmp>
   `,
 })
-export default class OverlayExample {}
+export default class ExpandableExample {
+  expanded = signal(false);
+  protected icon = computed(() => {
+    return this.expanded() ? 'visibility' : 'visibility_off';
+  });
+
+  toggle() {
+    this.expanded.set(!this.expanded());
+  }
+}

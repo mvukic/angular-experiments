@@ -16,7 +16,7 @@ export default [
   { path: 'lazy-load-component', loadComponent: () => import('../lazy-load-component'), title: 'Lazy load component' },
   { path: 'host-directives', loadComponent: () => import('../host-directives'), title: 'Host directives' },
   { path: 'dynamic-component', component: ngHTML('<h1>Dynamically created component</h1>'), title: 'Dynamic component' },
-  { path: 'overlay', loadComponent: () => import('../overlay'), title: 'Overlay' },
+  { path: 'expandable', loadComponent: () => import('../expandable/expandable'), title: 'Expandable' },
   { path: 'signals', loadComponent: () => import('../signals'), title: 'Signals' },
   { path: 'cdk-listbox', loadComponent: () => import('../cdk-listbox'), title: 'CDK ListBox' },
   { path: 'custom-selector', loadComponent: () => import('../selector'), title: 'Selector' },
