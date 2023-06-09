@@ -29,7 +29,7 @@ import { ExpandableTrigger } from './expandable-trigger.cmp';
           flex-direction: column;
           gap: 1px;
           overflow-y: scroll;
-          padding-left: 3px;
+          border: 1px solid saddlebrown;
           flex: 1;
 
           .item {
@@ -62,14 +62,12 @@ export class NavCmp {
       :host {
         display: flex;
         flex-direction: column;
-        border: 1px solid red;
         height: 100%;
         overflow: hidden;
         .header {
           display: flex;
           justify-content: flex-end;
           gap: 5px;
-          border-bottom: 1px solid greenyellow;
         }
       }
     `,
@@ -116,24 +114,13 @@ export class SectionCmp {}
     <expandable-cmp label="Content is hidden">
       <nav-cmp />
     </expandable-cmp>
-    <expandable-cmp expanded="false" [expanded]="expanded()" (expand)="expanded.set($event)" withoutTrigger>
+    <expandable-cmp label="This content is also hidden" expanded="false">
       <nav-cmp />
     </expandable-cmp>
-    <section-cmp>
-      <expandable-trigger [value]="expanded()" (valueChange)="expanded.set($event)" />
-    </section-cmp>
+    <section-cmp />
     <expandable-cmp label="Content is hidden">
       <nav-cmp />
     </expandable-cmp>
   `,
 })
-export default class ExpandableExample {
-  expanded = signal(false);
-  protected icon = computed(() => {
-    return this.expanded() ? 'visibility' : 'visibility_off';
-  });
-
-  toggle() {
-    this.expanded.set(!this.expanded());
-  }
-}
+export default class ExpandableExample {}

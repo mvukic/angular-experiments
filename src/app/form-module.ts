@@ -1,10 +1,6 @@
-import { Component, Input, signal } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { JsonPipe, NgForOf } from '@angular/common';
-
-export function cloneTransform(value: unknown) {
-  return structuredClone(value);
-}
 
 export type Box = {
   id: string;
@@ -15,6 +11,25 @@ export type Box = {
   }[];
 };
 
+// @Component({
+//   selector: 'form-items',
+//   standalone: true,
+//   imports: [FormsModule, NgForOf],
+//   template: `
+//     <div ngModelGroup="formGroup" #itemsFormGroup="NgModelGroup" style="display: flex; flex-direction: column; gap: 5px">
+//       <div *ngFor="let item of items">
+//         <span>Id: {{ item.id }} </span>
+//         <input [(ngModel)]="item.name" [name]="'itemName' + item.id" required />
+//       </div>
+//     </div>
+//   `,
+// })
+// export class ItemForm {
+//   formGroup = { items: [] };
+//   @Input()
+//   items: { id: string; name: string }[] = [];
+// }
+
 @Component({
   selector: 'form-module-example',
   standalone: true,
@@ -22,22 +37,24 @@ export type Box = {
   template: `
     <fieldset>
       <legend>Box</legend>
-      <form #boxForm="ngForm">
-        <input [value]="box.id" name="id" />
-        <input [(ngModel)]="box.name" name="name" />
+      <form #f="ngForm">
+        <span>Id: {{ box.id }} </span>
+        <input [(ngModel)]="box.name" name="boxName" />
       </form>
       <fieldset>
         <legend>Items</legend>
+        <button (click)="addItem()">Add</button>
         <div style="display: flex; flex-direction: column; gap: 5px">
           <div *ngFor="let item of box.items">
-            <form #form="ngForm"></form>
-            <input [value]="item.id" name="id" />
-            <input [(ngModel)]="item.name" name="name" required />
+            <span>Id: {{ item.id }} </span>
+            <input [(ngModel)]="item.name" [name]="'itemName' + item.id" required />
           </div>
         </div>
       </fieldset>
     </fieldset>
-    {{ _box | json }}
+    <span>
+      {{ f.value | json }}
+    </span>
   `,
 })
 export default class FormModuleExample {
@@ -53,6 +70,9 @@ export default class FormModuleExample {
   };
 
   /* The object might come from the outside */
-  @Input({ required: true, transform: cloneTransform })
   box = this._box;
+
+  addItem() {
+    this.box.items.push({ id: '5', name: 'item 5' });
+  }
 }

@@ -11,10 +11,10 @@ import { ExpandableTrigger } from './expandable-trigger.cmp';
   styles: [
     `
       :host {
-        border: 1px solid darkorchid;
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        height: fill-available;
 
         .content {
           height: 100%;
@@ -34,7 +34,6 @@ import { ExpandableTrigger } from './expandable-trigger.cmp';
 
         .footer {
           padding: 0 5px;
-          border-top: 1px solid black;
         }
       }
     `,

@@ -13,12 +13,18 @@ export class ExpandableTrigger {
     this.#value.set(booleanAttribute(value));
   }
 
+  @Input()
+  visibilityIcon = 'visibility';
+
+  @Input()
+  invisibilityIcon = 'visibility_off';
+
   @Output()
   valueChange = new EventEmitter<boolean>();
 
   #value = signal(true);
   protected _icon = computed(() => {
-    return this.#value() ? 'visibility' : 'visibility_off';
+    return this.#value() ? this.visibilityIcon : this.invisibilityIcon;
   });
   toggle() {
     this.#value.set(!this.#value());

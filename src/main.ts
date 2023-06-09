@@ -1,6 +1,6 @@
 import { bootstrapApplication, EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 import { PreloadAllModules, provideRouter, withComponentInputBinding, withPreloading } from '@angular/router';
-import { App } from './app/app';
+import App from './app/app';
 import { provideAnimations } from '@angular/platform-browser/animations';
 
 import routes from './app/routing/routes';
