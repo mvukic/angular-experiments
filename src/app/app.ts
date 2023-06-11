@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { AppContainer } from './container/app-container';
+import { AppContainer, AppContainerSidenavPosition } from './container/app-container';
 import { AppExpandable } from './expandable/app-expandable.component';
 import { AppExpandableTrigger } from './expandable/expandable-trigger.cmp';
 
@@ -72,10 +72,7 @@ export class SidenavCmp {}
       }
     `,
   ],
-  template: `
-    <ng-content />
-    <div>This is a sub header</div>
-  `,
+  template: `<ng-content /> This is a sub header`,
 })
 export class SubHeaderCmp {}
 

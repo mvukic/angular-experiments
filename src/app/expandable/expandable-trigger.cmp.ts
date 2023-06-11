@@ -3,6 +3,7 @@ import { BooleanInput } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-expandable-trigger',
+  exportAs: 'appExpandableTrigger',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<span class="material-icons" (click)="toggle()">{{ _icon() }}</span>`,
@@ -20,7 +21,7 @@ export class AppExpandableTrigger {
   invisibilityIcon = 'visibility_off';
 
   @Output()
-  valueChange = new EventEmitter<boolean>();
+  valueChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   #value = signal(true);
   protected _icon = computed(() => {

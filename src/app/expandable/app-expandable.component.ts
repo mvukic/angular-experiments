@@ -5,6 +5,7 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
 
 @Component({
   selector: 'app-expandable',
+  exportAs: 'appExpandable',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [NgIf, AppExpandableTrigger],
@@ -32,19 +33,18 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
         }
 
         .footer {
+          display: flex;
           padding: 0 5px;
         }
       }
     `,
   ],
   template: `
-    <div class="content" [style.display]="display()">
+    <div class="content" [style.display]="_display()">
       <ng-content />
     </div>
     <div class="content-with-label" *ngIf="!_expanded()">
-      <div class="label" *ngIf="label">
-        {{ label }}
-      </div>
+      <div class="label" *ngIf="label">{{ label }}</div>
     </div>
     <div class="footer" *ngIf="!_withoutTrigger()">
       <app-expandable-trigger [value]="_expanded()" (valueChange)="_expanded.set($event)" />
@@ -69,7 +69,7 @@ export class AppExpandable {
   expand = new EventEmitter<boolean>();
 
   protected _expanded = signal(true);
-  protected display = computed(() => {
+  protected _display = computed(() => {
     return this._expanded() ? 'block' : 'none';
   });
   protected _withoutTrigger = signal(false);

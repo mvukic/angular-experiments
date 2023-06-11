@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, Input, signal } from '@angular/core';
 import { NgIf } from '@angular/common';
+
+export type AppContainerSidenavPosition = 'start' | 'end';
 
 @Component({
   selector: 'app-container',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [NgIf],
   styles: [
@@ -22,7 +25,6 @@ import { NgIf } from '@angular/common';
           flex: 1 1 auto;
           overflow: hidden;
           display: flex;
-          flex-direction: row;
           .sidenav {
             flex: 0 0 auto;
             overflow: hidden;
@@ -31,6 +33,9 @@ import { NgIf } from '@angular/common';
             flex: 1 1 auto;
             overflow: hidden;
           }
+        }
+        .footer {
+          flex: 0 0 fit-content;
         }
       }
     `,
@@ -42,7 +47,7 @@ import { NgIf } from '@angular/common';
     <div class="sub-header">
       <ng-content select="[subHeader]" />
     </div>
-    <div class="sidenav-and-content">
+    <div class="sidenav-and-content" [style.flex-direction]="_layout()">
       <div class="sidenav">
         <ng-content select="[sidenav]" />
       </div>
@@ -50,6 +55,19 @@ import { NgIf } from '@angular/common';
         <ng-content select="[content]" />
       </div>
     </div>
+    <div class="footer">
+      <ng-content select="[footer]" />
+    </div>
   `,
 })
-export class AppContainer {}
+export class AppContainer {
+  readonly _position = signal<AppContainerSidenavPosition>('start');
+  readonly _layout = computed(() => {
+    return this._position() === 'start' ? 'row' : 'row-reverse';
+  });
+
+  @Input()
+  set position(value: AppContainerSidenavPosition) {
+    this._position.set(value);
+  }
+}
