@@ -2,7 +2,7 @@ import { ngHTML } from '../utils/ng-html';
 import { canActivate, canDeactivate } from './route-fns';
 import { Routes } from '@angular/router';
 
-export default [
+export default <Routes>[
   { path: '', redirectTo: 'templated-ng-for', pathMatch: 'full' },
   {
     path: 'params-and-state',
@@ -32,4 +32,4 @@ export default [
   { path: 'input-mappers', loadComponent: () => import('../input-mappers'), title: 'Input mappers' },
   { path: 'forms-module', loadComponent: () => import('../form-module'), title: 'Forms' },
   { path: 'container', loadComponent: () => import('../container/container'), title: 'Container' },
-] as Routes;
+];

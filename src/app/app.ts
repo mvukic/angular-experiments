@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { ContainerCmp } from './container/container.cmp';
-import { ExpandableCmp } from './expandable/expandable.cmp';
-import { ExpandableTrigger } from './expandable/expandable-trigger.cmp';
+import { AppContainer } from './container/app-container';
+import { AppExpandable } from './expandable/app-expandable.component';
+import { AppExpandableTrigger } from './expandable/expandable-trigger.cmp';
 
 @Component({
   selector: 'header-cmp',
@@ -33,6 +33,7 @@ export class HeaderCmp {}
         overflow-y: scroll;
         gap: 2px;
         padding: 1px;
+        height: 100%;
       }
     `,
   ],
@@ -82,7 +83,7 @@ export class SubHeaderCmp {}
   selector: 'app-root',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, ContainerCmp, HeaderCmp, SidenavCmp, ExpandableCmp, ExpandableTrigger, SubHeaderCmp],
+  imports: [RouterOutlet, AppContainer, HeaderCmp, SidenavCmp, AppExpandable, AppExpandableTrigger, SubHeaderCmp],
   styles: [
     `
       :host {
@@ -92,16 +93,16 @@ export class SubHeaderCmp {}
     `,
   ],
   template: `
-    <container-cmp>
+    <app-container>
       <header-cmp header />
-      <expandable-cmp withoutTrigger [expanded]="expanded()" sidenav>
-        <sidenav-cmp />
-      </expandable-cmp>
+      <app-expandable withoutTrigger [expanded]="expanded()" sidenav>
+        <sidenav-cmp (click)="expanded.set(false)" />
+      </app-expandable>
       <sub-header-cmp subHeader>
-        <expandable-trigger [value]="expanded()" (valueChange)="expanded.set($event)" visibilityIcon="menu_open" invisibilityIcon="menu" />
+        <app-expandable-trigger [value]="expanded()" (valueChange)="expanded.set($event)" visibilityIcon="menu_open" invisibilityIcon="menu" />
       </sub-header-cmp>
       <router-outlet content />
-    </container-cmp>
+    </app-container>
   `,
 })
 export default class App {

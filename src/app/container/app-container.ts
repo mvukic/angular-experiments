@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'container-cmp',
+  selector: 'app-container',
   standalone: true,
   imports: [NgIf],
   styles: [
@@ -25,9 +25,11 @@ import { NgIf } from '@angular/common';
           flex-direction: row;
           .sidenav {
             flex: 0 0 auto;
+            overflow: hidden;
           }
           .content {
             flex: 1 1 auto;
+            overflow: hidden;
           }
         }
       }
@@ -50,4 +52,4 @@ import { NgIf } from '@angular/common';
     </div>
   `,
 })
-export class ContainerCmp {}
+export class AppContainer {}

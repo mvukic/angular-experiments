@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { NgForOf } from '@angular/common';
-import { ExpandableCmp } from './expandable.cmp';
-import { ExpandableTrigger } from './expandable-trigger.cmp';
+import { AppExpandable } from './app-expandable.component';
+import { AppExpandableTrigger } from './expandable-trigger.cmp';
 
 @Component({
   selector: 'nav-cmp',
@@ -88,7 +88,7 @@ export class SectionCmp {}
   selector: 'expandable-example',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NavCmp, SectionCmp, ExpandableCmp, ExpandableTrigger],
+  imports: [NavCmp, SectionCmp, AppExpandable, AppExpandableTrigger],
   styles: [
     `
       :host {
@@ -96,7 +96,7 @@ export class SectionCmp {}
         height: 100%;
         overflow: hidden;
 
-        expandable-cmp {
+        app-expandable {
           flex-basis: fit-content;
         }
 
@@ -111,16 +111,16 @@ export class SectionCmp {}
     `,
   ],
   template: `
-    <expandable-cmp label="Content is hidden">
+    <app-expandable label="Content is hidden">
       <nav-cmp />
-    </expandable-cmp>
-    <expandable-cmp label="This content is also hidden" expanded="false">
+    </app-expandable>
+    <app-expandable label="This content is also hidden" expanded="false">
       <nav-cmp />
-    </expandable-cmp>
+    </app-expandable>
     <section-cmp />
-    <expandable-cmp label="Content is hidden">
+    <app-expandable label="Content is hidden">
       <nav-cmp />
-    </expandable-cmp>
+    </app-expandable>
   `,
 })
 export default class ExpandableExample {}

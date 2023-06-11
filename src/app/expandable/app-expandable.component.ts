@@ -1,20 +1,20 @@
 import { booleanAttribute, ChangeDetectionStrategy, Component, computed, EventEmitter, Input, Output, signal } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { ExpandableTrigger } from './expandable-trigger.cmp';
+import { AppExpandableTrigger } from './expandable-trigger.cmp';
 
 @Component({
-  selector: 'expandable-cmp',
+  selector: 'app-expandable',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, ExpandableTrigger],
+  imports: [NgIf, AppExpandableTrigger],
   styles: [
     `
       :host {
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        height: fill-available;
+        height: 100%;
 
         .content {
           height: 100%;
@@ -22,8 +22,7 @@ import { ExpandableTrigger } from './expandable-trigger.cmp';
         }
 
         .content-with-label {
-          height: 100%;
-          overflow: hidden;
+          @extend .content;
           display: grid;
           place-items: center center;
           .label {
@@ -48,11 +47,11 @@ import { ExpandableTrigger } from './expandable-trigger.cmp';
       </div>
     </div>
     <div class="footer" *ngIf="!_withoutTrigger()">
-      <expandable-trigger [value]="_expanded()" (valueChange)="_expanded.set($event)" />
+      <app-expandable-trigger [value]="_expanded()" (valueChange)="_expanded.set($event)" />
     </div>
   `,
 })
-export class ExpandableCmp {
+export class AppExpandable {
   @Input()
   label?: string;
 

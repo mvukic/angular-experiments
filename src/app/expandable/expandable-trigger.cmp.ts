@@ -2,12 +2,12 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, EventEm
 import { BooleanInput } from '@angular/cdk/coercion';
 
 @Component({
-  selector: 'expandable-trigger',
+  selector: 'app-expandable-trigger',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `<span class="material-icons" (click)="toggle()">{{ _icon() }}</span>`,
 })
-export class ExpandableTrigger {
+export class AppExpandableTrigger {
   @Input()
   set value(value: BooleanInput) {
     this.#value.set(booleanAttribute(value));
