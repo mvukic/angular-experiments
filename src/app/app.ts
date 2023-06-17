@@ -56,6 +56,7 @@ export class HeaderCmp {}
     <button [routerLink]="['forms-module']" routerLinkActive="underline">Forms</button>
     <button [routerLink]="['expandable']" routerLinkActive="underline">Expandable</button>
     <button [routerLink]="['container']" routerLinkActive="underline">Container</button>
+    <button [routerLink]="['table']" routerLinkActive="underline">Table</button>
   `,
 })
 export class SidenavCmp {}

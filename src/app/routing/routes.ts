@@ -32,4 +32,5 @@ export default <Routes>[
   { path: 'input-mappers', loadComponent: () => import('../input-mappers'), title: 'Input mappers' },
   { path: 'forms-module', loadComponent: () => import('../form-module'), title: 'Forms' },
   { path: 'container', loadComponent: () => import('../container/container'), title: 'Container' },
+  { path: 'table', loadComponent: () => import('../table/table'), title: 'Table' },
 ];
