@@ -1,5 +1,5 @@
-import { booleanAttribute, Component, Directive, ElementRef, inject, Input, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { booleanAttribute, Component, ElementRef, inject, Input, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
 import { JsonPipe, NgForOf, NgTemplateOutlet } from '@angular/common';
 import { ConnectedPosition, Overlay, OverlayModule, OverlayRef } from '@angular/cdk/overlay';
@@ -135,10 +135,10 @@ export class List {
     </app-list>
     Value: {{ templateFormSingleSelect }}
     <br />
-    <app-list [(ngModel)]="templateFormMultipleSelect" multiple label="Multiple template form select">
+    <app-list [(ngModel)]="templateFormMultipleSelect" multiple label="Multiple template form select" required>
       <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
     </app-list>
-    Value: {{ templateFormMultipleSelect }}
+    Value: {{ templateFormMultipleSelect | json }}
     <form [formGroup]="reactiveFormSingleSelect">
       <app-list formControlName="language" label="Single reactive form select">
         <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
@@ -149,7 +149,7 @@ export class List {
       <app-list formControlName="language" multiple label="Multiple reactive form select">
         <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
       </app-list>
-      Value: {{ reactiveFormMultiSelect.value | json }}
+      Value: {{ reactiveFormMultiSelect.value | json }} Valid: {{ reactiveFormMultiSelect.valid }}
     </form>
   `,
 })
@@ -158,9 +158,9 @@ export default class CdkListBoxDemo {
   reactiveFormSingleSelect = new FormGroup({
     language: new FormControl('chinese'),
   });
-  templateFormMultipleSelect = ['chinese', 'italian'];
+  templateFormMultipleSelect = ['chinese', 'japanese'];
   reactiveFormMultiSelect = new FormGroup({
-    language: new FormControl(['chinese', 'italian']),
+    language: new FormControl(['chinese', 'japanese'], [Validators.required]),
   });
   languages = [
     { id: 'chinese', label: 'Chinese', disabled: false },
