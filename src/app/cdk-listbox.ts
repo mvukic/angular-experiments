@@ -1,13 +1,75 @@
-import { booleanAttribute, Component, ElementRef, inject, Input, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  AfterContentChecked,
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ContentChildren,
+  Directive,
+  ElementRef,
+  inject,
+  Input,
+  Output,
+  QueryList,
+  signal,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
 import { JsonPipe, NgForOf, NgTemplateOutlet } from '@angular/common';
 import { ConnectedPosition, Overlay, OverlayModule, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+@Directive({
+  selector: '[appListCustom]',
+  standalone: true,
+  host: {
+    '(click)': 'open()',
+  },
+})
+export class CustomTrigger {
+  #overlay = inject(Overlay);
+  #vcr = inject(ViewContainerRef);
+  #trigger = inject(ElementRef);
+
+  @Input({ required: true, alias: 'appListCustom' })
+  template!: TemplateRef<any>;
+
+  #overlayRef: OverlayRef | undefined;
+
+  open() {
+    this.#createOverlay();
+  }
+
+  close() {
+    this.#overlayRef?.detach();
+    this.#overlayRef = undefined;
+  }
+
+  #positions: ConnectedPosition[] = [
+    { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetX: 0, offsetY: 2 },
+    { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetX: 0, offsetY: -2 },
+  ];
+  #createOverlay() {
+    const portal = new TemplatePortal(this.template, this.#vcr);
+    this.#overlayRef = this.#overlay.create({
+      positionStrategy: this.#overlay.position().flexibleConnectedTo(this.#trigger.nativeElement).withPositions(this.#positions),
+      width: this.#trigger.nativeElement.clientWidth,
+      hasBackdrop: true,
+      backdropClass: 'cdk-overlay-transparent-backdrop',
+    });
+    this.#overlayRef?.attach(portal);
+    this.#overlayRef?.backdropClick().subscribe(() => this.close());
+  }
+}
 
 @Component({
   selector: 'app-list-item',
   standalone: true,
+  exportAs: 'appListItem',
   hostDirectives: [{ directive: CdkOption, inputs: ['cdkOption: value', 'cdkOptionDisabled: disabled'] }],
   styles: [
     `
@@ -35,15 +97,12 @@ import { TemplatePortal } from '@angular/cdk/portal';
   ],
   template: `<span> {{ label }}</span>`,
 })
-export class ListItem {
+export class ListItem<T = unknown> {
   @Input({ required: true })
-  value!: string;
+  value!: T;
 
   @Input({ required: true })
   label!: string;
-
-  @Input({ transform: booleanAttribute })
-  multiple: boolean = false;
 
   @Input({ transform: booleanAttribute })
   disabled: boolean = false;
@@ -52,8 +111,16 @@ export class ListItem {
 @Component({
   selector: 'app-list',
   standalone: true,
+  exportAs: 'appList',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [OverlayModule, NgTemplateOutlet],
-  hostDirectives: [{ directive: CdkListbox, inputs: ['cdkListboxDisabled: disabled', 'cdkListboxMultiple: multiple'] }],
+  hostDirectives: [
+    {
+      directive: CdkListbox,
+      inputs: ['cdkListboxDisabled: disabled', 'cdkListboxMultiple: multiple', 'cdkListboxValue: value'],
+      outputs: ['cdkListboxValueChange: valueChange'],
+    },
+  ],
   styles: [
     `
       button {
@@ -67,10 +134,14 @@ export class ListItem {
         border: 1px solid black;
         width: 100%;
       }
+      .hidden {
+        visibility: hidden;
+      }
     `,
   ],
   template: `
-    <button #trigger (click)="open()">{{ label }}</button>
+    <button #trigger (click)="open()">{{ labels() }}</button>
+
     <ng-template #template>
       <div class="items">
         <ng-content />
@@ -78,7 +149,8 @@ export class ListItem {
     </ng-template>
   `,
 })
-export class List {
+export class List<T = unknown> implements AfterContentChecked {
+  #listBox = inject(CdkListbox);
   #overlay = inject(Overlay);
   #vcr = inject(ViewContainerRef);
 
@@ -88,34 +160,69 @@ export class List {
   @ViewChild('template', { static: true })
   template!: TemplateRef<any>;
 
+  @ContentChildren(ListItem)
+  options!: QueryList<ListItem>;
+
   @Input({ required: true })
-  label!: string;
+  placeholder!: string;
+
+  @Input()
+  value: T[] = [];
 
   @Input({ transform: booleanAttribute })
-  disabled: boolean = false;
+  disabled = false;
 
   @Input({ transform: booleanAttribute })
-  multiple: boolean = false;
+  multiple = false;
+
+  @Output()
+  valueChange = this.#listBox.valueChange;
 
   #overlayRef: OverlayRef | undefined;
 
+  readonly #selectedLabels = signal<string[]>([]);
+  readonly #isOpen = signal<boolean>(false);
+  readonly labels = computed(() => {
+    if (this.multiple) {
+      return this.#isOpen() ? this.placeholder : `Selected ${this.#selectedLabels().length}  item(s)`;
+    } else {
+      return this.#isOpen() ? this.placeholder : this.#selectedLabels();
+    }
+  });
+
+  constructor() {
+    this.#listBox.valueChange.pipe(takeUntilDestroyed()).subscribe(() => {
+      this.#setLabels();
+    });
+  }
+
+  ngAfterContentChecked() {
+    this.#setLabels();
+  }
+
   open() {
-    this.createOverlay();
+    this.#createOverlay();
+    this.#isOpen.set(true);
   }
 
   close() {
     this.#overlayRef?.detach();
     this.#overlayRef = undefined;
+    this.#isOpen.set(false);
   }
 
-  positions: ConnectedPosition[] = [
+  #setLabels() {
+    this.#selectedLabels.set(this.options.filter((o) => this.#listBox.isValueSelected(o.value)).map((o) => o.label));
+  }
+
+  #positions: ConnectedPosition[] = [
     { originX: 'center', originY: 'bottom', overlayX: 'center', overlayY: 'top', offsetX: 0, offsetY: 2 },
     { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetX: 0, offsetY: -2 },
   ];
-  createOverlay() {
+  #createOverlay() {
     const portal = new TemplatePortal(this.template, this.#vcr);
     this.#overlayRef = this.#overlay.create({
-      positionStrategy: this.#overlay.position().flexibleConnectedTo(this.trigger.nativeElement).withPositions(this.positions),
+      positionStrategy: this.#overlay.position().flexibleConnectedTo(this.trigger.nativeElement).withPositions(this.#positions),
       width: this.trigger.nativeElement.clientWidth,
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-transparent-backdrop',
@@ -128,32 +235,45 @@ export class List {
 @Component({
   selector: 'cdk-list-box-demo',
   standalone: true,
-  imports: [NgForOf, FormsModule, ReactiveFormsModule, List, ListItem, JsonPipe],
+  imports: [NgForOf, FormsModule, ReactiveFormsModule, List, ListItem, JsonPipe, CustomTrigger],
   template: `
-    <app-list [(ngModel)]="templateFormSingleSelect" label="Single template form select">
+    <app-list [(ngModel)]="templateFormSingleSelect" placeholder="Single template form select">
       <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
     </app-list>
     Value: {{ templateFormSingleSelect }}
     <br />
-    <app-list [(ngModel)]="templateFormMultipleSelect" multiple label="Multiple template form select" required>
+    <app-list [(ngModel)]="templateFormMultipleSelect" multiple placeholder="Multiple template form select" required>
       <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
     </app-list>
     Value: {{ templateFormMultipleSelect | json }}
     <form [formGroup]="reactiveFormSingleSelect">
-      <app-list formControlName="language" label="Single reactive form select">
+      <app-list formControlName="language" placeholder="Single reactive form select">
         <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
       </app-list>
       Value: {{ reactiveFormSingleSelect.value | json }}
     </form>
     <form [formGroup]="reactiveFormMultiSelect">
-      <app-list formControlName="language" multiple label="Multiple reactive form select">
+      <app-list formControlName="language" multiple placeholder="Multiple reactive form select">
         <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
       </app-list>
       Value: {{ reactiveFormMultiSelect.value | json }} Valid: {{ reactiveFormMultiSelect.valid }}
     </form>
+    <div>
+      <app-list [value]="selection" (valueChange)="selection = $any($event.value)" placeholder="Using [value] input/output">
+        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
+      </app-list>
+      Value: {{ selection | json }}
+    </div>
+    <div>
+      <div style="width: 200px; border: 1px solid red" [appListCustom]="template">This is some span trigger</div>
+      <ng-template #template>
+        <span style="border: 1px solid green">This template has the same width as the trigger</span>
+      </ng-template>
+    </div>
   `,
 })
 export default class CdkListBoxDemo {
+  selection = ['chinese'];
   templateFormSingleSelect = 'chinese';
   reactiveFormSingleSelect = new FormGroup({
     language: new FormControl('chinese'),

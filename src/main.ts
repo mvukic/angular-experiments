@@ -8,6 +8,7 @@ import routes from './app/routing/routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { httpInterceptor } from './app/http/interceptor';
 import { LogEventPlugin } from './app/events/log-event-plugin.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 bootstrapApplication(App, {
   providers: [
@@ -18,6 +19,10 @@ bootstrapApplication(App, {
       provide: EVENT_MANAGER_PLUGINS,
       useClass: LogEventPlugin,
       multi: true,
+    },
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy,
     },
   ],
 }).catch((err) => console.error(err));
