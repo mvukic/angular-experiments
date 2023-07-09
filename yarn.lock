@@ -2483,20 +2483,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nguniversal/common@npm:16.1.0":
-  version: 16.1.0
-  resolution: "@nguniversal/common@npm:16.1.0"
-  dependencies:
-    critters: 0.0.18
-    jsdom: 22.1.0
-    tslib: ^2.3.0
-  peerDependencies:
-    "@angular/common": ^16.0.0 || ^16.1.0-next.0
-    "@angular/core": ^16.0.0 || ^16.1.0-next.0
-  checksum: 248b9096a5fdb89f25ed797c5484a210219c424bd44ab9e105df44b3a7a5633a66bbb8ea39aeb2aeb9a186bc9a92ce2b7295fea3062617d80c6fae3578a7a613
-  languageName: node
-  linkType: hard
-
 "@nguniversal/common@npm:16.1.1":
   version: 16.1.1
   resolution: "@nguniversal/common@npm:16.1.1"
@@ -2511,17 +2497,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nguniversal/express-engine@npm:16.1.0":
-  version: 16.1.0
-  resolution: "@nguniversal/express-engine@npm:16.1.0"
+"@nguniversal/express-engine@npm:16.1.1":
+  version: 16.1.1
+  resolution: "@nguniversal/express-engine@npm:16.1.1"
   dependencies:
-    "@nguniversal/common": 16.1.0
+    "@nguniversal/common": 16.1.1
     tslib: ^2.3.0
   peerDependencies:
     "@angular/common": ^16.0.0 || ^16.1.0-next.0
     "@angular/core": ^16.0.0 || ^16.1.0-next.0
     express: ^4.15.2
-  checksum: d85a48f8e0cc3456c3363e61bbfd7efb835f67dd890d422d4445bcc2f3095886ee70dd9534277d65554d407ac2f3a25cfbc25194ee087942de0ee88a31c2c92f
+  checksum: c650c46bceea9efc4cb7c08693d06a6a52403ee3c5270f9f9505df5b8f46c0f4fa248c6d9ddf7b61de05d50839ff875f4866e1b7aa373af82cf269ba4f82fda4
   languageName: node
   linkType: hard
 
@@ -3525,7 +3511,7 @@ __metadata:
     "@angular/router": 16.2.0-next.1
     "@ngneat/spectator": 15.0.1
     "@nguniversal/builders": 16.1.1
-    "@nguniversal/express-engine": 16.1.0
+    "@nguniversal/express-engine": 16.1.1
     "@types/express": 4.17.17
     "@types/jest": 29.5.2
     "@types/node": 20.3.3
@@ -4659,21 +4645,6 @@ __metadata:
     parse-json: ^5.0.0
     path-type: ^4.0.0
   checksum: 836d5d8efa750f3fb17b03d6ca74cd3154ed025dffd045304b3ef59637f662bde1e5dc88f8830080d180ec60841719cf4ea2ce73fb21ec694b16865c478ff297
-  languageName: node
-  linkType: hard
-
-"critters@npm:0.0.18":
-  version: 0.0.18
-  resolution: "critters@npm:0.0.18"
-  dependencies:
-    chalk: ^4.1.0
-    css-select: ^5.1.0
-    dom-serializer: ^2.0.0
-    domhandler: ^5.0.2
-    htmlparser2: ^8.0.2
-    postcss: ^8.4.23
-    pretty-bytes: ^5.3.0
-  checksum: a262ff8ddbbde41f18839bc4607e7e8555a2001722381d45d515e79acec8836ab51e68d1d71d22a89a23f66396463a70705e35b51cc03a204104c56dc58e9231
   languageName: node
   linkType: hard
 
