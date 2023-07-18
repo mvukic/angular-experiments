@@ -18,7 +18,7 @@ export default <Routes>[
   { path: 'dynamic-component', component: ngHTML('<h1>Dynamically created component</h1>'), title: 'Dynamic component' },
   { path: 'expandable', loadComponent: () => import('../expandable/expandable'), title: 'Expandable' },
   { path: 'signals', loadComponent: () => import('../signals'), title: 'Signals' },
-  { path: 'cdk-listbox', loadComponent: () => import('../cdk-listbox'), title: 'CDK ListBox' },
+  { path: 'cdk-listbox', loadComponent: () => import('../custom-listbox/cdk-listbox'), title: 'CDK ListBox' },
   { path: 'custom-selector', loadComponent: () => import('../selector'), title: 'Selector' },
   {
     path: 'bind-inputs/:b',
@@ -33,4 +33,5 @@ export default <Routes>[
   { path: 'forms-module', loadComponent: () => import('../form-module'), title: 'Forms' },
   { path: 'container', loadComponent: () => import('../container/container'), title: 'Container' },
   { path: 'table', loadComponent: () => import('../table/table'), title: 'Table' },
+  { path: 'custom-overlay', loadComponent: () => import('../custom-overlay'), title: 'Custom overlay' },
 ];

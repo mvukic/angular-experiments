@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { AppContainer, AppContainerSidenavPosition } from './container/app-container';
+import { AppContainer } from './container/app-container';
 import { AppExpandable } from './expandable/app-expandable.component';
 import { AppExpandableTrigger } from './expandable/expandable-trigger.cmp';
 
@@ -57,6 +57,7 @@ export class HeaderCmp {}
     <button [routerLink]="['expandable']" routerLinkActive="underline">Expandable</button>
     <button [routerLink]="['container']" routerLinkActive="underline">Container</button>
     <button [routerLink]="['table']" routerLinkActive="underline">Table</button>
+    <button [routerLink]="['custom-overlay']" routerLinkActive="underline">Custom overlay</button>
   `,
 })
 export class SidenavCmp {}
