@@ -1,76 +1,59 @@
-import { Component, Directive, HostBinding, inject, Input } from '@angular/core';
-import { finalize, interval, tap } from 'rxjs';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, Directive, Input } from '@angular/core';
 
 @Directive({
   selector: 'span[size]',
   standalone: true,
-  host: {
-    '[style.font-size]': 'size',
-  },
+  host: { '[style.font-size]': 'sizeValue' },
 })
-export class FontSizeDirective {
+export class FontSize {
   @Input()
-  size?: string = 'xxx-large';
+  sizeValue?: string = 'xxx-large';
 }
 
 @Directive({
   selector: 'span[color]',
   standalone: true,
+  host: { '[style.color]': 'colorValue' },
 })
-export class FontColorDirective {
+export class FontColor {
   @Input()
-  @HostBinding('style.color')
-  color?: string = 'blue';
+  colorValue?: string = 'blue';
 }
 
 @Directive({
-  selector: 'span[sizedAndColoredText]',
+  selector: 'span[size-color]',
   standalone: true,
   hostDirectives: [
-    { directive: FontSizeDirective, inputs: ['size: hostSize'] },
-    { directive: FontColorDirective, inputs: ['color: hostColor'] },
+    { directive: FontSize, inputs: ['sizeValue'] },
+    { directive: FontColor, inputs: ['colorValue'] },
   ],
 })
-export class ComposedDirective {
-  private sizeDirective = inject(FontSizeDirective);
-  private colorDirective = inject(FontColorDirective);
-}
+export class FontSizeAndColor {}
 
 @Directive({
-  selector: 'span[decoratedText]',
+  selector: 'span[decorated-text]',
   standalone: true,
-  hostDirectives: [{ directive: ComposedDirective }],
+  hostDirectives: [{ directive: FontSizeAndColor }],
+  host: {
+    '[style.text-decoration]': 'decoration',
+  },
 })
-export class DecoratedAndComposedDirective {
+export class FontDecorateAndSizeAndColor {
   @Input()
-  @HostBinding('style.text-decoration')
   decoration?: string;
 }
 
 @Component({
   selector: 'host-components',
   standalone: true,
-  imports: [FontSizeDirective, FontColorDirective, ComposedDirective, DecoratedAndComposedDirective, AsyncPipe, NgIf],
+  imports: [FontSize, FontColor, FontSizeAndColor, FontDecorateAndSizeAndColor],
   template: `
     <h1>Host directives</h1>
     <span size="x-large">Large text</span> <br />
     <span color="red">Colored text</span><br />
-    <span sizedAndColoredText hostSize="xx-small" hostColor="lime"> Extra large and green</span> <br />
-    <span sizedAndColoredText> Extra large and blue</span> <br />
-    <span decoratedText decoration="underline"> Extra large and blue and underlined</span> <br />
-    <ng-container *ngIf="interval$ | async as timer">
-      <span>Counter: {{ timer }}</span>
-    </ng-container>
-    <br />
-    <span *ngIf="interval$ | async as timer">Counter: {{ timer }}</span>
+    <span size-color sizeValue="xx-small" colorValue="lime"> Extra small and lime</span> <br />
+    <span size-color> Extra large and blue</span> <br />
+    <span decorated-text decoration="underline"> Extra large and blue and underlined</span> <br />
   `,
 })
-export default class HostDirectives {
-  protected interval$ = interval(1000).pipe(
-    takeUntilDestroyed(),
-    tap((value) => console.log(value)),
-    finalize(() => console.log('Completed')),
-  );
-}
+export default class HostDirectives {}
