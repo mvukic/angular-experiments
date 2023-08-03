@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, inject, Input, QueryList } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
 import { JsonPipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
@@ -43,7 +43,7 @@ import { JsonPipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 })
 export class ListItem<T = unknown> {
   readonly option: CdkOption<T> = inject(CdkOption);
-  readonly appList: List = inject(List);
+  readonly list: CdkListbox<T> = inject(CdkListbox);
 
   @Input({ required: true })
   label!: string;
@@ -76,7 +76,12 @@ export class ListItem<T = unknown> {
   ],
   template: `<ng-content />`,
 })
-export class List {}
+export class List<T = unknown> {
+  readonly list: CdkListbox<T> = inject(CdkListbox);
+
+  @ContentChildren(ListItem<T>)
+  options!: QueryList<ListItem<T>>;
+}
 
 @Component({
   selector: 'cdk-list-box-demo',
