@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, effect, Signal, signal, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, signal } from '@angular/core';
 
 @Component({
   selector: 'demo-signals',
@@ -33,26 +33,4 @@ export default class Signals {
       return () => console.log('Cleaning effect 1');
     });
   }
-}
-
-/**
- * This variable is used to store the signal
- * created inside `signalInputTransform` function
- * Then it is used to assign it to input property value,
- *
- * This variable should not be exported
- */
-let inputSignalStore: WritableSignal<unknown>;
-function signalInputTransform<T, U extends T | undefined = T | undefined>(initialValue?: U): (value: T | U) => Signal<T | U>;
-function signalInputTransform<T>(initialValue: T) {
-  const signalInput = signal<T>(initialValue);
-  inputSignalStore = signalInput; // assigning internal signal to another variable
-  return (value: T) => {
-    signalInput.set(value);
-    return signalInput;
-  };
-}
-
-export function signalInput<Value>(): WritableSignal<Value> {
-  return inputSignalStore as WritableSignal<Value>;
 }
