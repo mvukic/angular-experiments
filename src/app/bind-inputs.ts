@@ -20,6 +20,6 @@ export default class BindInputsComponents {
   @Input()
   c?: string;
 
-  @Input({ required: true })
+  @Input()
   d: string = '';
 }
