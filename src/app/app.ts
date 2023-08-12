@@ -58,6 +58,7 @@ export class HeaderCmp {}
     <button [routerLink]="['container']" routerLinkActive="underline">Container</button>
     <button [routerLink]="['table']" routerLinkActive="underline">Table</button>
     <button [routerLink]="['custom-overlay']" routerLinkActive="underline">Custom overlay</button>
+    <button [routerLink]="['aux-outlets']" routerLinkActive="underline">Aux outlet</button>
   `,
 })
 export class SidenavCmp {}
@@ -96,6 +97,7 @@ export class SubHeaderCmp {}
       <header-cmp header />
       <app-expandable withoutTrigger [expanded]="expanded()" sidenav>
         <sidenav-cmp (click)="expanded.set(false)" />
+        <router-outlet name="outlet-sidenav" />
       </app-expandable>
       <sub-header-cmp subHeader>
         <app-expandable-trigger [value]="expanded()" (valueChange)="expanded.set($event)" visibilityIcon="menu_open" invisibilityIcon="menu" />

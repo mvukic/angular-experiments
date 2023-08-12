@@ -34,4 +34,21 @@ export default <Routes>[
   { path: 'container', loadComponent: () => import('../container/container'), title: 'Container' },
   { path: 'table', loadComponent: () => import('../table/table'), title: 'Table' },
   { path: 'custom-overlay', loadComponent: () => import('../custom-overlay'), title: 'Custom overlay' },
+  {
+    path: 'aux-outlets',
+    title: 'Aux outlets',
+    loadComponent: () => import('../aux-outlets'),
+    children: [
+        {
+            path: 'cmp-1',
+            outlet: 'outlet-sidenav',
+            loadComponent: import('../aux-outlets').then(m => m.AuxOutletCmp1)
+        },
+        {
+            path: 'cmp-2',
+            outlet: 'outlet-sidenav',
+            loadComponent: import('../aux-outlets').then(m => m.AuxOutletCmp2)
+        }
+    ]
+},
 ];
