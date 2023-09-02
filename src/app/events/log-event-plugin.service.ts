@@ -1,24 +1,24 @@
-import { Injectable } from '@angular/core';
-import { EventManager } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
+import { EventManagerPlugin } from '@angular/platform-browser';
 
 @Injectable()
-export class LogEventPlugin {
-  manager!: EventManager;
-
+export class LogEventPlugin extends EventManagerPlugin {
   #modifier = 'log';
-  #supported = (event: string) => event.endsWith(this.#modifier);
-  #unwrap = (event: string) =>
-    event
-      .split('.')
-      .filter((v) => v !== this.#modifier)
-      .join('.');
 
-  supports(event: string): boolean {
-    return this.#supported(event);
+  constructor(@Inject(DOCUMENT) private doc: any) {
+    super(doc);
   }
 
-  addEventListener(element: HTMLElement, event: string, handler: Function): Function {
-    const originalEvent = this.#unwrap(event);
+  override supports(event: string): boolean {
+    return event.endsWith(this.#modifier)
+  }
+
+  override addEventListener(element: HTMLElement, event: string, handler: Function): Function {
+    const originalEvent = event
+    .split('.')
+    .filter((v) => v !== this.#modifier)
+    .join('.');
     const wrapped = (event: Event): void => {
       console.log(event, originalEvent, element);
       handler(event);
