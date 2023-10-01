@@ -39,16 +39,21 @@ export default <Routes>[
     title: 'Aux outlets',
     loadComponent: () => import('../aux-outlets'),
     children: [
-        {
-            path: 'cmp-1',
-            outlet: 'outlet-sidenav',
-            loadComponent: import('../aux-outlets').then(m => m.AuxOutletCmp1)
-        },
-        {
-            path: 'cmp-2',
-            outlet: 'outlet-sidenav',
-            loadComponent: import('../aux-outlets').then(m => m.AuxOutletCmp2)
-        }
-    ]
-},
+      {
+        path: 'cmp-1',
+        outlet: 'outlet-sidenav',
+        loadComponent: import('../aux-outlets').then((m) => m.AuxOutletCmp1),
+      },
+      {
+        path: 'cmp-2',
+        outlet: 'outlet-sidenav',
+        loadComponent: import('../aux-outlets').then((m) => m.AuxOutletCmp2),
+      },
+    ],
+  },
+  {
+    path: 'new-str-dirs',
+    loadComponent: () => import('../new-structure-dirs'),
+    title: 'New structure directives',
+  },
 ];

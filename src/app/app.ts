@@ -59,6 +59,7 @@ export class HeaderCmp {}
     <button [routerLink]="['table']" routerLinkActive="underline">Table</button>
     <button [routerLink]="['custom-overlay']" routerLinkActive="underline">Custom overlay</button>
     <button [routerLink]="['aux-outlets']" routerLinkActive="underline">Aux outlet</button>
+    <button [routerLink]="['new-str-dirs']" routerLinkActive="underline">New structure dirs</button>
   `,
 })
 export class SidenavCmp {}
