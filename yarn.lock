@@ -7210,12 +7210,12 @@ __metadata:
   linkType: hard
 
 "launch-editor@npm:^2.6.0":
-  version: 2.6.0
-  resolution: "launch-editor@npm:2.6.0"
+  version: 2.6.1
+  resolution: "launch-editor@npm:2.6.1"
   dependencies:
     picocolors: "npm:^1.0.0"
-    shell-quote: "npm:^1.7.3"
-  checksum: 48e4230643e8fdb5c14c11314706d58d9f3fbafe2606be3d6e37da1918ad8bfe39dd87875c726a1b59b9f4da99d87ec3e36d4c528464f0b820f9e91e5cb1c02d
+    shell-quote: "npm:^1.8.1"
+  checksum: e06d193075ac09f7f8109f10cabe464a211bf7ed4cbe75f83348d6f67bf4d9f162f06e7a1ab3e1cd7fc250b5342c3b57080618aff2e646dc34248fe499227601
   languageName: node
   linkType: hard
 
@@ -7865,11 +7865,11 @@ __metadata:
     express: "npm:4.18.2"
     jest: "npm:29.7.0"
     jest-environment-jsdom: "npm:29.7.0"
-    prettier: "npm:^3.0.3"
-    rxjs: "npm:~7.8.0"
+    prettier: "npm:3.0.3"
+    rxjs: "npm:7.8.0"
     tslib: "npm:2.3.0"
     typescript: "npm:5.2.2"
-    zone.js: "npm:~0.14.0"
+    zone.js: "npm:0.14.0"
   languageName: unknown
   linkType: soft
 
@@ -8617,7 +8617,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:*, prettier@npm:^3.0.3":
+"prettier@npm:*, prettier@npm:3.0.3":
   version: 3.0.3
   resolution: "prettier@npm:3.0.3"
   bin:
@@ -9100,7 +9100,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:7.8.1, rxjs@npm:^7.5.5, rxjs@npm:~7.8.0":
+"rxjs@npm:7.8.0":
+  version: 7.8.0
+  resolution: "rxjs@npm:7.8.0"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  checksum: ff9359cc7875edecc8fc487481366b876b488901178cca8f2bdad03e00d2b5a19b01d2b02d3b4ebd47e574264db8460c6c2386076c3189b359b5e8c70a6e51e3
+  languageName: node
+  linkType: hard
+
+"rxjs@npm:7.8.1, rxjs@npm:^7.5.5":
   version: 7.8.1
   resolution: "rxjs@npm:7.8.1"
   dependencies:
@@ -9394,7 +9403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shell-quote@npm:^1.7.3":
+"shell-quote@npm:^1.8.1":
   version: 1.8.1
   resolution: "shell-quote@npm:1.8.1"
   checksum: af19ab5a1ec30cb4b2f91fd6df49a7442d5c4825a2e269b3712eded10eedd7f9efeaab96d57829880733fc55bcdd8e9b1d8589b4befb06667c731d08145e274d
@@ -10812,7 +10821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zone.js@npm:~0.14.0":
+"zone.js@npm:0.14.0":
   version: 0.14.0
   resolution: "zone.js@npm:0.14.0"
   dependencies:
