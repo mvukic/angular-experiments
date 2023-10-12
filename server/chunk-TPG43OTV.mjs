@@ -1,0 +1,3 @@
+import { createRequire } from 'node:module';
+globalThis['require'] ??= createRequire(import.meta.url);
+import{Y as s,ab as i,bb as l,cb as a,kb as r,pb as c,xb as u}from"./chunk-AOSWWACT.mjs";import"./chunk-AJ7PTMCJ.mjs";var d=(()=>{let e=class e{onClick(){alert("click")}};e.\u0275fac=function(n){return new(n||e)},e.\u0275cmp=s({type:e,selectors:[["event-manager-plugins"]],standalone:!0,features:[u],decls:6,vars:0,consts:[[3,"click"],[3,"click.log"]],template:function(n,o){n&1&&(a(0,"br"),i(1,"button",0),r("click",function(){return o.onClick()}),c(2,"Click with alert"),l(),a(3,"br"),i(4,"button",1),r("click.log",function(){return o.onClick()}),c(5,"Click with alert and with log"),l())},encapsulation:2,changeDetection:0});let t=e;return t})();export{d as default};

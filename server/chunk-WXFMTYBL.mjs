@@ -1,0 +1,3 @@
+import { createRequire } from 'node:module';
+globalThis['require'] ??= createRequire(import.meta.url);
+import{Ja as t,Y as l,ab as n,bb as i,pb as a,rb as o,xb as d}from"./chunk-AOSWWACT.mjs";import"./chunk-AJ7PTMCJ.mjs";var f=(()=>{let e=class e{constructor(){this.a="",this.d=""}};e.\u0275fac=function(s){return new(s||e)},e.\u0275cmp=l({type:e,selectors:[["bind-inputs"]],inputs:{a:"a",b:"b",c:"c",d:"d"},standalone:!0,features:[d],decls:8,vars:4,template:function(s,r){s&1&&(n(0,"p"),a(1),i(),n(2,"p"),a(3),i(),n(4,"p"),a(5),i(),n(6,"p"),a(7),i()),s&2&&(t(1),o("From data: ",r.a,""),t(2),o("From path: ",r.b,""),t(2),o("From query: ",r.c,""),t(2),o("From resolve: ",r.d,""))},encapsulation:2});let p=e;return p})();export{f as default};
