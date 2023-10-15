@@ -20,15 +20,15 @@
             "outputPath": "dist/angular-experiments",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "server": "src/main.server.ts",
             "polyfills": ["zone.js"],
+            "prerender": true,
+            "ssr": "server.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": "server.ts"
+            "scripts": []
           },
           "configurations": {
             "production": {

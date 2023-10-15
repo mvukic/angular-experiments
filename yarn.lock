@@ -2917,12 +2917,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:20.8.4":
-  version: 20.8.4
-  resolution: "@types/node@npm:20.8.4"
+"@types/node@npm:20.8.6":
+  version: 20.8.6
+  resolution: "@types/node@npm:20.8.6"
   dependencies:
     undici-types: "npm:~5.25.1"
-  checksum: 66b74216de2dc58d813eff48c742682c0095f8e72e9d552882c03b6b5cf0e98ff769f16d0014cc5e63363d6ab119a9136c09b4ea5c634492357a2572b5a9a0f0
+  checksum: cdfe0a2d90005323bbaf8fa4002607af98d49016c81898cd7f574d9ec6fc980580ea1b97f7b6ecaa8614be8004cd03898766e99e1869428ba6ed3bcd66a15354
   languageName: node
   linkType: hard
 
@@ -7916,7 +7916,7 @@ __metadata:
     "@angular/router": "npm:17.0.0-next.8"
     "@angular/ssr": "npm:17.0.0-next.9"
     "@types/express": "npm:4.17.19"
-    "@types/node": "npm:20.8.4"
+    "@types/node": "npm:20.8.6"
     angular-cli-ghpages: "npm:1.0.7"
     express: "npm:4.18.2"
     jest: "npm:29.7.0"
