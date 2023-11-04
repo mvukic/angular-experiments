@@ -3,27 +3,27 @@ import { Component, signal } from '@angular/core';
 export type AnimalType = Dog | Cat | Cow | Horse;
 
 export interface Dog {
-    id: number;
-    type: 'dog';
-    bark: () => string;
+  id: number;
+  type: 'dog';
+  bark: () => string;
 }
 
 export interface Cat {
-    id: number;
-    type: 'cat';
-    meow: () => string;
+  id: number;
+  type: 'cat';
+  meow: () => string;
 }
 
 export interface Cow {
-    id: number;
-    type: 'cow';
-    moo: () => string;
+  id: number;
+  type: 'cow';
+  moo: () => string;
 }
 
 export interface Horse {
-    id: number;
-    type: 'horse';
-    neigh: () => string;
+  id: number;
+  type: 'horse';
+  neigh: () => string;
 }
 
 @Component({
@@ -51,7 +51,7 @@ export interface Horse {
     </fieldset>
     <fieldset>
       <legend>Deferred loading (on timer 2 seconds)</legend>
-      @defer (on timer(2000)) {
+      @defer (on timer(2s)) {
       <div>Defer block</div>
       } @loading {
       <div>Loading block</div>
@@ -62,25 +62,29 @@ export interface Horse {
     <fieldset>
       <legend>Conditionals</legend>
       @if(isTrue()) {
-        <span> is true</span>
+      <span> is true</span>
       } @else {
-        <span>Is false</span>
+      <span>Is false</span>
       }
       <div><button (click)="isTrue.set(!isTrue())">Show</button></div>
     </fieldset>
     <fieldset>
       <legend>For loop</legend>
-      @for (item of items(); track item; let index = $index, even = $even, first = $first, last = $last) {
-        <span>#{{ index }} - (Even: {{ even }}, First: {{first}}, Last: {{last}}) - {{item}}</span> <br>
-      } @empty {
-        <span>No items</span>
-      }
       <div>
         <button (click)="addItem()">Add</button>
         <button (click)="removeItem()">Remove</button>
         <button (click)="clearItems()">Clear</button>
         <button (click)="setItems()">Set</button>
-    </div>
+      </div>
+      @for (item of items(); track item; let index = $index;let even = $even;let
+      first = $first;let last = $last) {
+      <span>
+        #{{ index }} - (Even: {{ even }}, First: {{ first }}, Last: {{ last }})-{{ item }}
+      </span>
+      <br />
+      } @empty {
+      <span>No items</span>
+      }
     </fieldset>
   `,
 })
@@ -94,24 +98,23 @@ export default class NewStructureDirs {
     { id: 2, type: 'dog', bark: () => 'bark' },
     { id: 3, type: 'cow', moo: () => 'moo' },
     { id: 4, type: 'horse', neigh: () => 'neigh' },
-    ]);
+  ]);
 
-    isCat = (animal: AnimalType): animal is Cat => animal.type === 'cat';
-    isDog = (animal: AnimalType): animal is Dog => animal.type === 'dog';
-    isCow = (animal: AnimalType): animal is Cow => animal.type === 'cow';
-    
+  isCat = (animal: AnimalType): animal is Cat => animal.type === 'cat';
+  isDog = (animal: AnimalType): animal is Dog => animal.type === 'dog';
+  isCow = (animal: AnimalType): animal is Cow => animal.type === 'cow';
 
   addItem() {
-    const index = Math.floor(Math.random()*this.items().length);
-    this.items.update(value => [...value, this.items()[index]])
+    const index = Math.floor(Math.random() * this.items().length);
+    this.items.update((value) => [...value, this.items()[index]]);
   }
 
   removeItem() {
-    const index = Math.floor(Math.random()*this.items().length);
-    this.items.update(value => {
-        value.splice(index, 1)
-        return value
-     })
+    const index = Math.floor(Math.random() * this.items().length);
+    this.items.update((value) => {
+      value.splice(index, 1);
+      return value;
+    });
   }
 
   clearItems() {
@@ -121,5 +124,4 @@ export default class NewStructureDirs {
   setItems() {
     this.items.set(['😊', '😎', '🎶', '😶‍🌫️']);
   }
-
 }
