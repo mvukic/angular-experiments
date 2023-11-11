@@ -1,9 +1,20 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  signal,
+} from '@angular/core';
 import { CdkTableModule } from '@angular/cdk/table';
 import { AppSortIcon } from './app-sort-icon';
 
 export type SortDirection = 1 | -1;
-export const columns = ['flag', 'position', 'name', 'weight', 'symbol'] as const;
+export const columns = [
+  'flag',
+  'position',
+  'name',
+  'weight',
+  'symbol',
+] as const;
 export type Attributes = (typeof columns)[number];
 
 export interface PeriodicElement {
@@ -39,14 +50,22 @@ export interface PeriodicElement {
       <ng-container cdkColumnDef="flag">
         <th cdk-header-cell *cdkHeaderCellDef>
           Flag
-          <app-sort-icon [active]="sort() === 'flag'" (activeChange)="sort.set('flag')" (directionChange)="sortDirection.set($event)" />
+          <app-sort-icon
+            [active]="sort() === 'flag'"
+            (activeChange)="sort.set('flag')"
+            (directionChange)="sortDirection.set($event)"
+          />
         </th>
         <td cdk-cell *cdkCellDef="let element">{{ element.flag }}</td>
       </ng-container>
       <ng-container cdkColumnDef="position">
         <th cdk-header-cell *cdkHeaderCellDef>
           No.
-          <app-sort-icon [active]="sort() === 'position'" (activeChange)="sort.set('position')" (directionChange)="sortDirection.set($event)" />
+          <app-sort-icon
+            [active]="sort() === 'position'"
+            (activeChange)="sort.set('position')"
+            (directionChange)="sortDirection.set($event)"
+          />
         </th>
         <td cdk-cell *cdkCellDef="let element">{{ element.position }}</td>
       </ng-container>
@@ -55,7 +74,12 @@ export interface PeriodicElement {
       <ng-container cdkColumnDef="name">
         <th cdk-header-cell *cdkHeaderCellDef>
           Name
-          <app-sort-icon name="name" [active]="sort() === 'name'" (activeChange)="sort.set('name')" (directionChange)="sortDirection.set($event)" />
+          <app-sort-icon
+            name="name"
+            [active]="sort() === 'name'"
+            (activeChange)="sort.set('name')"
+            (directionChange)="sortDirection.set($event)"
+          />
         </th>
         <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
       </ng-container>
@@ -64,7 +88,11 @@ export interface PeriodicElement {
       <ng-container cdkColumnDef="weight">
         <th cdk-header-cell *cdkHeaderCellDef>
           Weight
-          <app-sort-icon [active]="sort() === 'weight'" (activeChange)="sort.set('weight')" (directionChange)="sortDirection.set($event)" />
+          <app-sort-icon
+            [active]="sort() === 'weight'"
+            (activeChange)="sort.set('weight')"
+            (directionChange)="sortDirection.set($event)"
+          />
         </th>
         <td cdk-cell *cdkCellDef="let element">{{ element.weight }}</td>
       </ng-container>
@@ -73,7 +101,11 @@ export interface PeriodicElement {
       <ng-container cdkColumnDef="symbol">
         <th cdk-header-cell *cdkHeaderCellDef>
           Symbol
-          <app-sort-icon [active]="sort() === 'symbol'" (activeChange)="sort.set('symbol')" (directionChange)="sortDirection.set($event)" />
+          <app-sort-icon
+            [active]="sort() === 'symbol'"
+            (activeChange)="sort.set('symbol')"
+            (directionChange)="sortDirection.set($event)"
+          />
         </th>
         <td cdk-cell *cdkCellDef="let element">{{ element.symbol }}</td>
       </ng-container>
@@ -111,7 +143,12 @@ const DATA: PeriodicElement[] = [
   { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne', flag: true },
 ];
 
-function compare(a: PeriodicElement, b: PeriodicElement, sortBy: Attributes, direction: SortDirection): number {
+function compare(
+  a: PeriodicElement,
+  b: PeriodicElement,
+  sortBy: Attributes,
+  direction: SortDirection,
+): number {
   if (sortBy === 'weight' || sortBy === 'position') {
     return direction * (a[sortBy] - b[sortBy]);
   }

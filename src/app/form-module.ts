@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { JsonPipe, NgForOf } from '@angular/common';
 
@@ -40,6 +40,7 @@ export enum BoxType {
 @Component({
   selector: 'form-module-example',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, NgForOf, JsonPipe],
   template: `
     <fieldset>
@@ -51,7 +52,12 @@ export enum BoxType {
           <option [value]="BoxType.TYPE1">Type 1</option>
           <option [value]="BoxType.TYPE2">Type 2</option>
         </select>
-        <input type="checkbox" [id]="'formCheckbox-' + box.id" [name]="'formCheckbox-' + box.id" [(ngModel)]="box.opened" />
+        <input
+          type="checkbox"
+          [id]="'formCheckbox-' + box.id"
+          [name]="'formCheckbox-' + box.id"
+          [(ngModel)]="box.opened"
+        />
         <label [for]="'formCheckbox-' + box.id">Opened</label>
       </form>
       <fieldset>
@@ -60,7 +66,11 @@ export enum BoxType {
         <div style="display: flex; flex-direction: column; gap: 5px">
           <div *ngFor="let item of box.items">
             <span>Id: {{ item.id }} </span>
-            <input [(ngModel)]="item.name" [name]="'itemName' + item.id" required />
+            <input
+              [(ngModel)]="item.name"
+              [name]="'itemName' + item.id"
+              required
+            />
           </div>
         </div>
       </fieldset>

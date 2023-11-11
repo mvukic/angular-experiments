@@ -37,13 +37,11 @@ export class HeaderCmp {}
       }
     `,
   ],
+  // prettier-ignore
   template: `
-    <button [routerLink]="['templated-ng-for']" routerLinkActive="underline">Templated ng for</button>
-    <button [routerLink]="['params-and-state']" [queryParams]="{ debug: 1 }" [state]="{ debug: 1 }" routerLinkActive="underline">
-      Params and state
-    </button>
-    <button [routerLink]="['lazy-load-component']" routerLinkActive="underline">Lazy load component</button>
     <button [routerLink]="['api-calls']" routerLinkActive="underline">API calls</button>
+    <button [routerLink]="['params-and-state']" [queryParams]="{ debug: 1 }" [state]="{ debug: 1 }" routerLinkActive="underline">Params and state</button>
+    <button [routerLink]="['lazy-load-component']" routerLinkActive="underline">Lazy load component</button>
     <button [routerLink]="['dynamic-component']" routerLinkActive="underline">Dynamic component</button>
     <button [routerLink]="['host-directives']" routerLinkActive="underline">Host directives</button>
     <button [routerLink]="['signals']" routerLinkActive="underline">Signals</button>
@@ -84,7 +82,15 @@ export class SubHeaderCmp {}
   selector: 'app-root',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterOutlet, AppContainer, HeaderCmp, SidenavCmp, AppExpandable, AppExpandableTrigger, SubHeaderCmp],
+  imports: [
+    RouterOutlet,
+    AppContainer,
+    HeaderCmp,
+    SidenavCmp,
+    AppExpandable,
+    AppExpandableTrigger,
+    SubHeaderCmp,
+  ],
   styles: [
     `
       :host {
@@ -98,12 +104,17 @@ export class SubHeaderCmp {}
       <header-cmp header />
       <app-expandable withoutTrigger [expanded]="expanded()" sidenav>
         <sidenav-cmp (click)="expanded.set(false)" />
-        <router-outlet name="outlet-sidenav" />
       </app-expandable>
       <sub-header-cmp subHeader>
-        <app-expandable-trigger [value]="expanded()" (valueChange)="expanded.set($event)" visibilityIcon="menu_open" invisibilityIcon="menu" />
+        <app-expandable-trigger
+          [value]="expanded()"
+          (valueChange)="expanded.set($event)"
+          visibilityIcon="menu_open"
+          invisibilityIcon="menu"
+        />
       </sub-header-cmp>
       <router-outlet content />
+      <router-outlet footer name="outlet-footer" />
     </app-container>
   `,
 })

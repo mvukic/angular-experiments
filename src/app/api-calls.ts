@@ -1,41 +1,58 @@
-import { JsonPipe, NgForOf } from '@angular/common';
+import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
-import { finalize, firstValueFrom } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  signal,
+} from '@angular/core';
+import { firstValueFrom } from 'rxjs';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'api-calls',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [JsonPipe],
   template: `
     <h3>API calls</h3>
-    <button (click)="callApiAsync()">Call api async</button>
-    {{ response1 | json }} <br /><br />
-    <button (click)="callApiObservable()">Call api observable</button>
-    {{ response2 | json }} <br /><br />
+    <fieldset>
+      <legend>Call api - async/await</legend>
+      <button (click)="callApiAsync()">Call api async</button>
+      <br />
+      {{ response1() | json }}
+    </fieldset>
+    <fieldset>
+      <legend>Call api - observable</legend>
+      <button (click)="callApiObservable()">Call api async</button>
+      <br />
+      {{ response2() | json }}
+    </fieldset>
+    <fieldset>
+      <legend>Call api - toSignal</legend>
+      <span>Call api signal</span><br />
+      {{ response3() | json }} <br /><br />
+    </fieldset>
   `,
-  standalone: true,
-  imports: [JsonPipe, NgForOf],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ApiCalls {
+  #destroyRef = inject(DestroyRef);
   #http = inject(HttpClient);
-  #cdRef = inject(ChangeDetectorRef);
 
-  protected response1: any = {};
-  protected response2: any = {};
+  #api = this.#http.get('https://jsonplaceholder.typicode.com/todos/1');
+  response1 = signal<any>({});
+  response2 = signal<any>({});
+  response3 = toSignal(this.#api, { initialValue: {} });
 
   callApiObservable() {
-    this.#http
-      .get('https://jsonplaceholder.typicode.com/todos/1')
-      .pipe(finalize(() => this.#cdRef.markForCheck()))
-      .subscribe({
-        next: (response: any) => (this.response2 = response),
-      });
+    this.#api
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe((response: any) => this.response2.set(response));
   }
 
   async callApiAsync() {
-    const apiCall = this.#http.get('https://jsonplaceholder.typicode.com/todos/1');
-    const response = await firstValueFrom(apiCall);
-    this.#cdRef.markForCheck();
-    this.response1 = response;
+    const response = await firstValueFrom(this.#api);
+    this.response1.set(response);
   }
 }

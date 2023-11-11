@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgForOf } from '@angular/common';
 import { AppExpandable } from './app-expandable.component';
 import { AppExpandableTrigger } from './expandable-trigger.cmp';

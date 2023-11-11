@@ -1,13 +1,21 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, EventEmitter, Input, Output, signal } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  EventEmitter,
+  Input,
+  Output,
+  signal,
+} from '@angular/core';
 import { NgIf } from '@angular/common';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { AppExpandableTrigger } from './expandable-trigger.cmp';
 
 @Component({
   selector: 'app-expandable',
-  exportAs: 'appExpandable',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgIf, AppExpandableTrigger],
   styles: [
     `
@@ -47,7 +55,10 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
       <div class="label" *ngIf="label">{{ label }}</div>
     </div>
     <div class="footer" *ngIf="!_withoutTrigger()">
-      <app-expandable-trigger [value]="_expanded()" (valueChange)="_expanded.set($event)" />
+      <app-expandable-trigger
+        [value]="_expanded()"
+        (valueChange)="_expanded.set($event)"
+      />
     </div>
   `,
 })

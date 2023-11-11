@@ -1,13 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, Input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  Input,
+  signal,
+} from '@angular/core';
 import { NgIf } from '@angular/common';
 
 export type AppContainerSidenavPosition = 'start' | 'end';
 
 @Component({
   selector: 'app-container',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       :host {
@@ -61,8 +66,8 @@ export type AppContainerSidenavPosition = 'start' | 'end';
   `,
 })
 export class AppContainer {
-  readonly _position = signal<AppContainerSidenavPosition>('start');
-  readonly _layout = computed(() => {
+  _position = signal<AppContainerSidenavPosition>('start');
+  _layout = computed(() => {
     return this._position() === 'start' ? 'row' : 'row-reverse';
   });
 

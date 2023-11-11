@@ -1,8 +1,18 @@
-import { ApplicationRef, Component, createComponent, ElementRef, EnvironmentInjector, inject, ViewChild } from '@angular/core';
+import {
+  ApplicationRef,
+  ChangeDetectionStrategy,
+  Component,
+  createComponent,
+  ElementRef,
+  EnvironmentInjector,
+  inject,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'lazy-load-component',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h3>Lazy load component</h3>
     <button (click)="lazyLoad()">Lazy load 4</button>

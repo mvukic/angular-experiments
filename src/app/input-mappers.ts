@@ -1,9 +1,16 @@
 import { JsonPipe } from '@angular/common';
-import { booleanAttribute, Component, Input, numberAttribute } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  numberAttribute,
+} from '@angular/core';
 
 @Component({
   selector: 'input-mappers-boolean',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `is disabled {{ value }}`,
 })
 export class InputMapperBoolean {
@@ -14,6 +21,7 @@ export class InputMapperBoolean {
 @Component({
   selector: 'input-mappers-number',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `number is {{ value }}`,
 })
 export class InputMapperNumber {
@@ -21,13 +29,17 @@ export class InputMapperNumber {
   value: number = 0;
 }
 
-function copy(value: { [key: string]: any }): { original: { [key: string]: any }; copy: { [key: string]: any } } {
+function copy(value: { [key: string]: any }): {
+  original: { [key: string]: any };
+  copy: { [key: string]: any };
+} {
   return { original: value, copy: structuredClone(value) };
 }
 
 @Component({
   selector: 'input-mappers-object',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [JsonPipe],
   template: `
     <span>Original is {{ value.original | json }}</span> <br />
@@ -44,6 +56,7 @@ export class InputMapperObject {
 @Component({
   selector: 'input-mappers',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputMapperBoolean, InputMapperNumber, InputMapperObject],
   template: `
     <input-mappers-boolean /> <br />

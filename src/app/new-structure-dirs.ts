@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 export type AnimalType = Dog | Cat | Cow | Horse;
 
@@ -29,6 +29,7 @@ export interface Horse {
 @Component({
   selector: 'new-str-dirs',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <fieldset>
       <legend>Deferred loading (on hover)</legend>
@@ -79,7 +80,8 @@ export interface Horse {
       @for (item of items(); track item; let index = $index;let even = $even;let
       first = $first;let last = $last) {
       <span>
-        #{{ index }} - (Even: {{ even }}, First: {{ first }}, Last: {{ last }})-{{ item }}
+        #{{ index }} - (Even: {{ even }}, First: {{ first }}, Last:
+        {{ last }})-{{ item }}
       </span>
       <br />
       } @empty {

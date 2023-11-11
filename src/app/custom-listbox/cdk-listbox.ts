@@ -1,13 +1,31 @@
-import { ChangeDetectionStrategy, Component, ContentChildren, inject, Input, QueryList } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ContentChildren,
+  inject,
+  Input,
+  QueryList,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
 import { JsonPipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
   selector: 'app-list-item',
-  exportAs: 'appListItem',
   standalone: true,
-  hostDirectives: [{ directive: CdkOption, inputs: ['cdkOption: value', 'cdkOptionDisabled: disabled'] }],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  hostDirectives: [
+    {
+      directive: CdkOption,
+      inputs: ['cdkOption: value', 'cdkOptionDisabled: disabled'],
+    },
+  ],
   imports: [NgIf],
   styles: [
     `
@@ -51,14 +69,17 @@ export class ListItem<T = unknown> {
 
 @Component({
   selector: 'app-list',
-  exportAs: 'appList',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgTemplateOutlet],
   hostDirectives: [
     {
       directive: CdkListbox,
-      inputs: ['cdkListboxDisabled: disabled', 'cdkListboxMultiple: multiple', 'cdkListboxValue: value'],
+      inputs: [
+        'cdkListboxDisabled: disabled',
+        'cdkListboxMultiple: multiple',
+        'cdkListboxValue: value',
+      ],
       outputs: ['cdkListboxValueChange: valueChange'],
     },
   ],
@@ -86,32 +107,69 @@ export class List<T = unknown> {
 @Component({
   selector: 'cdk-list-box-demo',
   standalone: true,
-  imports: [NgForOf, FormsModule, ReactiveFormsModule, List, ListItem, JsonPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    NgForOf,
+    FormsModule,
+    ReactiveFormsModule,
+    List,
+    ListItem,
+    JsonPipe,
+  ],
   template: `
-    <app-list [(ngModel)]="templateFormSingleSelect" placeholder="Single template form select">
-      <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
+    <app-list [(ngModel)]="templateFormSingleSelect">
+      <app-list-item
+        *ngFor="let language of languages"
+        [value]="language.id"
+        [label]="language.label"
+        [disabled]="language.disabled"
+      />
     </app-list>
     Value: {{ templateFormSingleSelect }}
     <br />
-    <app-list [(ngModel)]="templateFormMultipleSelect" multiple placeholder="Multiple template form select" required>
-      <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
+    <app-list [(ngModel)]="templateFormMultipleSelect" multiple required>
+      <app-list-item
+        *ngFor="let language of languages"
+        [value]="language.id"
+        [label]="language.label"
+        [disabled]="language.disabled"
+      />
     </app-list>
     Value: {{ templateFormMultipleSelect | json }}
     <form [formGroup]="reactiveFormSingleSelect">
-      <app-list formControlName="language" placeholder="Single reactive form select">
-        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
+      <app-list formControlName="language">
+        <app-list-item
+          *ngFor="let language of languages"
+          [value]="language.id"
+          [label]="language.label"
+          [disabled]="language.disabled"
+        />
       </app-list>
       Value: {{ reactiveFormSingleSelect.value | json }}
     </form>
     <form [formGroup]="reactiveFormMultiSelect">
-      <app-list formControlName="language" multiple placeholder="Multiple reactive form select">
-        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
+      <app-list formControlName="language" multiple>
+        <app-list-item
+          *ngFor="let language of languages"
+          [value]="language.id"
+          [label]="language.label"
+          [disabled]="language.disabled"
+        />
       </app-list>
-      Value: {{ reactiveFormMultiSelect.value | json }} Valid: {{ reactiveFormMultiSelect.valid }}
+      Value: {{ reactiveFormMultiSelect.value | json }} Valid:
+      {{ reactiveFormMultiSelect.valid }}
     </form>
     <div>
-      <app-list [value]="selection" (valueChange)="selection = $any($event.value)" placeholder="Using [value] input/output">
-        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
+      <app-list
+        [value]="selection"
+        (valueChange)="selection = $any($event.value)"
+      >
+        <app-list-item
+          *ngFor="let language of languages"
+          [value]="language.id"
+          [label]="language.label"
+          [disabled]="language.disabled"
+        />
       </app-list>
       Value: {{ selection | json }}
     </div>

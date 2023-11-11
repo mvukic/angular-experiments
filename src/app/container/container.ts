@@ -1,10 +1,11 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { AppContainer, AppContainerSidenavPosition } from './app-container';
 import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'container-example',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AppContainer, NgForOf],
   styles: [
     `
@@ -35,9 +36,21 @@ import { NgForOf } from '@angular/common';
 
       <div subHeader>
         Sub header
-        <input type="radio" [checked]="position() === 'start'" name="sidenavPosition" id="start" (click)="position.set('start')" />
+        <input
+          type="radio"
+          [checked]="position() === 'start'"
+          name="sidenavPosition"
+          id="start"
+          (click)="position.set('start')"
+        />
         <label for="start">Start</label>
-        <input type="radio" [checked]="position() === 'end'" name="sidenavPosition" id="end" (click)="position.set('end')" />
+        <input
+          type="radio"
+          [checked]="position() === 'end'"
+          name="sidenavPosition"
+          id="end"
+          (click)="position.set('end')"
+        />
         <label for="end">End</label>
       </div>
 

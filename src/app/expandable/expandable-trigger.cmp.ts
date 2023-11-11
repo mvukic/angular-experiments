@@ -1,4 +1,13 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, EventEmitter, Input, Output, signal } from '@angular/core';
+import {
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  EventEmitter,
+  Input,
+  Output,
+  signal,
+} from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
 
 @Component({
@@ -6,7 +15,9 @@ import { BooleanInput } from '@angular/cdk/coercion';
   exportAs: 'appExpandableTrigger',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<span class="material-icons" (click)="toggle()">{{ _icon() }}</span>`,
+  template: `<span class="material-icons" (click)="toggle()">{{
+    _icon()
+  }}</span>`,
 })
 export class AppExpandableTrigger {
   @Input()

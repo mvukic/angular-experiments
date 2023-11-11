@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, EventEmitter, Input, Output, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  EventEmitter,
+  Input,
+  Output,
+  signal,
+} from '@angular/core';
 import { SortDirection } from './table';
 
 @Component({
@@ -18,7 +26,11 @@ import { SortDirection } from './table';
       }
     `,
   ],
-  template: ` <span class="material-icons" [class.blurred]="!_active()">{{ _icon() }}</span> `,
+  template: `
+    <span class="material-icons" [class.blurred]="!_active()">{{
+      _icon()
+    }}</span>
+  `,
 })
 export class AppSortIcon {
   @Input()

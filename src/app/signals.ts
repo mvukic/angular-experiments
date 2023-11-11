@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, effect, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  signal,
+} from '@angular/core';
 
 @Component({
   selector: 'demo-signals',
@@ -9,9 +15,21 @@ import { ChangeDetectionStrategy, Component, computed, effect, signal } from '@a
     <fieldset>
       <legend>First and last name</legend>
       <label for="first">First</label>
-      <input type="text" name="first" id="first" (keyup)="first.set($any($event.target).value)" [value]="first()" />
+      <input
+        type="text"
+        name="first"
+        id="first"
+        (keyup)="first.set($any($event.target).value)"
+        [value]="first()"
+      />
       <label for="last">Last</label>
-      <input type="text" name="last" id="last" (keyup)="last.set($any($event.target).value)" [value]="last()" />
+      <input
+        type="text"
+        name="last"
+        id="last"
+        (keyup)="last.set($any($event.target).value)"
+        [value]="last()"
+      />
     </fieldset>
     <fieldset>
       <legend>Full name</legend>
