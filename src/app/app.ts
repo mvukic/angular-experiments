@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  VERSION,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AppContainer } from './container/app-container';
 import { AppExpandable } from './expandable/app-expandable.component';
@@ -18,9 +23,11 @@ import SidenavCmp from './sidenav';
       }
     `,
   ],
-  template: `This is a header`,
+  template: `{{ version.full }} - This is a header`,
 })
-export class HeaderCmp {}
+export class HeaderCmp {
+  version = VERSION;
+}
 
 @Component({
   selector: 'sub-header-cmp',
@@ -75,7 +82,9 @@ export class SubHeaderCmp {}
         />
       </sub-header-cmp>
       <router-outlet content />
-      <router-outlet footer name="outlet-footer" />
+      <div footer>
+        <router-outlet name="outletFooter" />
+      </div>
     </app-container>
   `,
 })

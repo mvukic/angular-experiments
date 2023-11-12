@@ -135,17 +135,23 @@ export default <Routes>[
         loadComponent: () =>
           import('../aux-outlets').then((m) => m.AuxOutletCmp2),
       },
-      {
-        path: 'cmp-3',
-        outlet: 'outlet-footer',
-        loadComponent: () =>
-          import('../aux-outlets').then((m) => m.AuxOutletCmp3),
-      },
     ],
   },
   {
     path: 'new-str-dirs',
     loadComponent: () => import('../new-structure-dirs'),
     title: 'New structure directives',
+  },
+  {
+    path: 'cmp-aux-footer-1',
+    outlet: 'outletFooter',
+    loadComponent: () =>
+      import('./../aux-outlets').then((r) => r.AuxOutletCmp3),
+  },
+  {
+    path: 'cmp-aux-footer-2',
+    outlet: 'outletFooter',
+    loadComponent: () =>
+      import('./../aux-outlets').then((r) => r.AuxOutletCmp4),
   },
 ];

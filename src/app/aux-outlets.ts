@@ -21,9 +21,19 @@ export class AuxOutletCmp2 {}
   selector: 'aux-outlet-cmp-3',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `Aux Outlet Cpm 3`,
+  template: ` <marquee direction="left">This is an auxiliary route 1</marquee>`,
 })
 export class AuxOutletCmp3 {}
+
+@Component({
+  selector: 'aux-outlet-cmp-4',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: ` <marquee direction="right"
+    >This is an auxiliary route 2</marquee
+  >`,
+})
+export class AuxOutletCmp4 {}
 
 @Component({
   selector: 'aux-outlets',
@@ -47,8 +57,8 @@ export class AuxOutletCmp3 {}
   template: `
     <div class="links">
       <a [routerLink]="cmp1" routerLinkActive="active">Comp 1</a>
+      <a [routerLink]="cmp1Remove" routerLinkActive="active">Comp 1 - remove</a>
       <a [routerLink]="cmp2" routerLinkActive="active">Comp 2</a>
-      <a [routerLink]="cmp3" routerLinkActive="active">Comp 3</a>
     </div>
     <fieldset>
       <legend>Outlet 1</legend>
@@ -62,6 +72,6 @@ export class AuxOutletCmp3 {}
 })
 export default class AuxOutlets {
   cmp1 = [{ outlets: { 'outlet-sidenav-1': ['cmp-1'] } }];
+  cmp1Remove = [{ outlets: { 'outlet-sidenav-1': null } }];
   cmp2 = [{ outlets: { 'outlet-sidenav-2': ['cmp-2'] } }];
-  cmp3 = [{ outlets: { 'outlet-footer': ['cmp-3'] } }];
 }
