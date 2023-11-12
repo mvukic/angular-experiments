@@ -16,6 +16,11 @@ export default <Routes>[
   { path: '', redirectTo: 'api-calls', pathMatch: 'full' },
   {
     path: 'api-calls',
+    outlet: 'outlet-sidenav',
+    component: () => import('../sidenav'),
+  },
+  {
+    path: 'api-calls',
     providers: [
       provideHttpClient(withFetch(), withInterceptors([httpInterceptor])),
     ],

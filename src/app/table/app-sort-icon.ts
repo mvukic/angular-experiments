@@ -1,4 +1,5 @@
 import {
+  booleanAttribute,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -13,9 +14,7 @@ import { SortDirection } from './table';
   selector: 'app-sort-icon',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '(click)': 'toggle()',
-  },
+  host: { '(click)': 'toggle()' },
   styles: [
     `
       span.blurred {
@@ -27,16 +26,16 @@ import { SortDirection } from './table';
     `,
   ],
   template: `
-    <span class="material-icons" [class.blurred]="!_active()">{{
-      _icon()
-    }}</span>
+    <span class="material-icons" [class.blurred]="!_active()">
+      {{ _icon() }}
+    </span>
   `,
 })
 export class AppSortIcon {
   @Input()
   name?: string;
 
-  @Input()
+  @Input({ transform: booleanAttribute })
   set active(value: boolean) {
     this._active.set(value);
   }

@@ -8,21 +8,21 @@ import {
   Output,
   signal,
 } from '@angular/core';
-import { BooleanInput } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-expandable-trigger',
-  exportAs: 'appExpandableTrigger',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<span class="material-icons" (click)="toggle()">{{
-    _icon()
-  }}</span>`,
+  template: `
+    <span class="material-icons" (click)="toggle()">
+      {{ _icon() }}
+    </span>
+  `,
 })
 export class AppExpandableTrigger {
-  @Input()
-  set value(value: BooleanInput) {
-    this.#value.set(booleanAttribute(value));
+  @Input({ transform: booleanAttribute })
+  set value(value: boolean) {
+    this.#value.set(value);
   }
 
   @Input()

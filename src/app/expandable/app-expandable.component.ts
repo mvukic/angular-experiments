@@ -8,15 +8,13 @@ import {
   Output,
   signal,
 } from '@angular/core';
-import { NgIf } from '@angular/common';
-import { BooleanInput } from '@angular/cdk/coercion';
 import { AppExpandableTrigger } from './expandable-trigger.cmp';
 
 @Component({
   selector: 'app-expandable',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, AppExpandableTrigger],
+  imports: [AppExpandableTrigger],
   styles: [
     `
       :host {
@@ -51,29 +49,34 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
     <div class="content" [style.display]="_display()">
       <ng-content />
     </div>
-    <div class="content-with-label" *ngIf="!_expanded()">
-      <div class="label" *ngIf="label">{{ label }}</div>
+    @if (!_expanded()) {
+    <div class="content-with-label">
+      @if (label) {
+      <div class="label">{{ label }}</div>
+      }
     </div>
-    <div class="footer" *ngIf="!_withoutTrigger()">
+    } @if (!_withoutTrigger()) {
+    <div class="footer">
       <app-expandable-trigger
         [value]="_expanded()"
         (valueChange)="_expanded.set($event)"
       />
     </div>
+    }
   `,
 })
 export class AppExpandable {
   @Input()
   label?: string;
 
-  @Input()
-  set expanded(value: BooleanInput) {
-    this._expanded.set(booleanAttribute(value));
+  @Input({ transform: booleanAttribute })
+  set expanded(value: boolean) {
+    this._expanded.set(value);
   }
 
-  @Input()
-  set withoutTrigger(value: BooleanInput) {
-    this._withoutTrigger.set(booleanAttribute(value));
+  @Input({ transform: booleanAttribute })
+  set withoutTrigger(value: boolean) {
+    this._withoutTrigger.set(value);
   }
 
   @Output()

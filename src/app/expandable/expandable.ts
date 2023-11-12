@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NgForOf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { AppExpandable } from './app-expandable.component';
 import { AppExpandableTrigger } from './expandable-trigger.cmp';
 
@@ -7,7 +6,6 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
   selector: 'nav-cmp',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgForOf],
   styles: [
     `
       :host {
@@ -43,14 +41,18 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
   template: `
     <div class="header">Header</div>
     <div class="items">
-      <div class="item" *ngFor="let item of items">
+      @for (item of items(); track item) {
+      <div class="item">
         {{ item }}
       </div>
+      }
     </div>
   `,
 })
 export class NavCmp {
-  items = Array.from({ length: 25 }).map((_, i) => `Item ${i + 1}`);
+  items = signal<string[]>(
+    Array.from({ length: 25 }).map((_, i) => `Item ${i + 1}`),
+  );
 }
 
 @Component({
@@ -74,7 +76,7 @@ export class NavCmp {
   ],
   template: `
     <div class="header">
-      <ng-content></ng-content>
+      <ng-content />
       <span style="flex: 1 1 auto"></span>
       <span class="material-icons">filter_list</span>
       <span class="material-icons">sort</span>
