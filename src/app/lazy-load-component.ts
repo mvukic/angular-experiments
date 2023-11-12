@@ -14,27 +14,26 @@ import {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h3>Lazy load component</h3>
-    <button (click)="lazyLoad()">Lazy load 4</button>
+    <button (click)="lazyLoad()">Lazy load</button>
     <div #container></div>
   `,
 })
 export default class LazyLoadComponent {
-  @ViewChild('container', { static: true })
-  protected container!: ElementRef;
-
   #appRef = inject(ApplicationRef);
   #injector = inject(EnvironmentInjector);
 
+  @ViewChild('container', { static: true })
+  container!: ElementRef;
+
   async lazyLoad() {
-    const footer = document.createElement('p');
-    footer.innerText = 'footer';
+    const p = document.createElement('p');
+    p.innerText = 'dynamic projected node';
 
     const { LazyComponent } = await import('./utils/lazy-component');
     const ref = createComponent(LazyComponent, {
-      environmentInjector: this.#injector,
       hostElement: this.container.nativeElement,
-      projectableNodes: [[footer]],
+      environmentInjector: this.#injector,
+      projectableNodes: [[p]],
     });
     this.#appRef.attachView(ref.hostView);
   }

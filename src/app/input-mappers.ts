@@ -30,8 +30,8 @@ export class InputMapperNumber {
 }
 
 function copy(value: { [key: string]: any }): {
-  original: { [key: string]: any };
-  copy: { [key: string]: any };
+  original: Record<string, any>;
+  copy: Record<string, any>;
 } {
   return { original: value, copy: structuredClone(value) };
 }
@@ -50,7 +50,7 @@ function copy(value: { [key: string]: any }): {
 })
 export class InputMapperObject {
   @Input({ required: true, transform: copy })
-  value!: { original: { [key: string]: any }; copy: { [key: string]: any } };
+  value!: { original: Record<string, any>; copy: Record<string, any> };
 }
 
 @Component({

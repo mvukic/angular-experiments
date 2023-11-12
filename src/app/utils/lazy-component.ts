@@ -1,16 +1,22 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 @Component({
-  selector: 'lazy-4',
+  selector: 'lazy-cmp',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h3>lazy4</h3>
-    <button (click)="counter = counter + 1">++</button> <br />
-    {{ counter }} <br />
-    <ng-content select="footer"></ng-content>
+    <fieldset>
+      <legend>Lazy loaded component</legend>
+      <button (click)="counter.set(counter() + 1)">+ +</button>
+      <button (click)="counter.set(counter() - 1)">- 1</button>
+      <span>{{ counter() }}</span>
+      <fieldset>
+        <legend>Projected nodes</legend>
+        <ng-content select="footer" />
+      </fieldset>
+    </fieldset>
   `,
 })
 export class LazyComponent {
-  counter = 0;
+  counter = signal(0);
 }
