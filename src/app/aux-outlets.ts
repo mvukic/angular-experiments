@@ -21,7 +21,7 @@ export class AuxOutletCmp2 {}
   selector: 'aux-outlet-cmp-3',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <marquee direction="left">This is an auxiliary route 1</marquee>`,
+  template: `<marquee direction="left">This is an auxiliary route 1</marquee>`,
 })
 export class AuxOutletCmp3 {}
 
@@ -29,9 +29,7 @@ export class AuxOutletCmp3 {}
   selector: 'aux-outlet-cmp-4',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <marquee direction="right"
-    >This is an auxiliary route 2</marquee
-  >`,
+  template: `<marquee direction="right">This is an auxiliary route 2</marquee>`,
 })
 export class AuxOutletCmp4 {}
 

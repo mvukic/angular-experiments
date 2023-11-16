@@ -48,36 +48,38 @@ export enum BoxType {
       <form #f="ngForm">
         <span>Id: {{ box.id }} </span>
         <input [(ngModel)]="box.name" name="boxName" />
-        <select id="select" name="formSelect" [(ngModel)]="box.type">
+        <select id="select" name="boxType" [(ngModel)]="box.type">
           <option [value]="BoxType.TYPE1">Type 1</option>
           <option [value]="BoxType.TYPE2">Type 2</option>
         </select>
         <input
           type="checkbox"
-          [id]="'formCheckbox-' + box.id"
-          [name]="'formCheckbox-' + box.id"
+          id="opened"
+          name="opened"
           [(ngModel)]="box.opened"
         />
-        <label [for]="'formCheckbox-' + box.id">Opened</label>
+        <label for="opened">Opened</label>
       </form>
       <fieldset>
         <legend>Items</legend>
         <button (click)="addItem()">Add</button>
         <div style="display: flex; flex-direction: column; gap: 5px">
-          <div *ngFor="let item of box.items">
-            <span>Id: {{ item.id }} </span>
-            <input
-              [(ngModel)]="item.name"
-              [name]="'itemName' + item.id"
-              required
-            />
-          </div>
+          @for (item of box.items; track item.id) {
+            <div>
+              <span>Id: {{ item.id }} </span>
+              <input
+                [(ngModel)]="item.name"
+                [name]="'itemName' + item.id"
+                required
+              />
+            </div>
+          }
         </div>
       </fieldset>
     </fieldset>
-    <span>
-      {{ f.value | json }}
-    </span>
+    <div><button (click)="save(f.value)">Save</button></div>
+    <pre>{{ f.value | json }}</pre>
+    <pre>{{ _box | json }}</pre>
   `,
 })
 export default class FormModuleExample {
@@ -100,5 +102,10 @@ export default class FormModuleExample {
 
   addItem() {
     this.box.items.push({ id: '5', name: 'item 5' });
+  }
+
+  save(value: any) {
+    console.log(value);
+    console.log(this._box);
   }
 }

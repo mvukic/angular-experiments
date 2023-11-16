@@ -55,17 +55,19 @@ export class FontDecorateAndSizeAndColor {
   imports: [FontSize, FontColor, FontSizeAndColor, FontDecorateAndSizeAndColor],
   template: `
     <h1>Host directives</h1>
-    <span size="x-large">Large text</span> <br />
-    <span color="red">Colored text</span><br />
+    <span size="x-large">Large text</span>
+    <br />
+    <span color="red">Colored text</span>
+    <br />
     <span size-color sizeValue="xx-small" colorValue="lime">
-      Extra small and lime</span
-    >
+      Extra small and lime
+    </span>
     <br />
-    <span size-color> Extra large and blue</span> <br />
+    <span size-color> Extra large and blue</span>
+    <br />
     <span decorated-text decoration="underline">
-      Extra large and blue and underlined</span
-    >
-    <br />
+      Extra large and blue and underlined
+    </span>
   `,
 })
 export default class HostDirectives {}
