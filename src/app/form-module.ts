@@ -1,6 +1,58 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  Input,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormsModule,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+  ValidatorFn,
+} from '@angular/forms';
 import { JsonPipe, NgForOf } from '@angular/common';
+
+function uniqueNamesValidatorFn(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (control.value.type == null || control.value.items == null) {
+      return null;
+    }
+    const type = control.value.type as BoxType;
+    // Type 1 does not require unique items
+    if (type === BoxType.TYPE1) {
+      return null;
+    }
+    const items = Object.values(control.value.items).filter(
+      (v: unknown): v is string => v !== null,
+    );
+    if (items.length === 0) {
+      return null;
+    }
+    // Type 2 requires unique items
+    return new Set(items).size !== items.length
+      ? { uniqueNames: { value: 'Type 2 requires unique items' } }
+      : null;
+  };
+}
+
+@Directive({
+  selector: '[uniqueNames]',
+  standalone: true,
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: UniqueNamesValidator,
+      multi: true,
+    },
+  ],
+})
+export class UniqueNamesValidator implements Validator {
+  validate(control: AbstractControl): ValidationErrors | null {
+    return uniqueNamesValidatorFn()(control);
+  }
+}
 
 export enum BoxType {
   TYPE1 = 'TYPE1',
@@ -22,9 +74,9 @@ export type Box = {
   selector: 'form-box',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, NgForOf, JsonPipe],
+  imports: [FormsModule, NgForOf, JsonPipe, UniqueNamesValidator],
   template: `
-    <form #f="ngForm">
+    <form #f="ngForm" uniqueNames>
       <fieldset>
         <legend>Box</legend>
         <span>Id: {{ box.id }} </span>
@@ -65,10 +117,14 @@ export type Box = {
     <div style="display: flex;">
       <div>
         <span>Valid: {{ f.valid }}</span> <br />
-        <span>{{ f.errors | json }}</span> <br />
+        <span>Errors: {{ f.errors | json }}</span> <br />
+        <span>Form value: </span>
         <pre>{{ f.value | json }}</pre>
       </div>
-      <pre>{{ box | json }}</pre>
+      <div>
+        <span>Object value:</span>
+        <pre>{{ box | json }}</pre>
+      </div>
     </div>
   `,
 })
