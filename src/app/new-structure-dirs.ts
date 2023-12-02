@@ -34,38 +34,38 @@ export interface Horse {
     <fieldset>
       <legend>Deferred loading (on hover)</legend>
       @defer (on hover) {
-      <div>Defer block</div>
+        <div>Defer block</div>
       } @placeholder {
-      <div>Placeholder block</div>
+        <div>Placeholder block</div>
       }
     </fieldset>
     <fieldset>
       <legend>Deferred loading (on condition)</legend>
       @defer (when shouldShow()) {
-      <div>Defer block</div>
+        <div>Defer block</div>
       } @loading {
-      <div>Loading block</div>
+        <div>Loading block</div>
       } @placeholder {
-      <div>Placeholder block</div>
-      <div><button (click)="shouldShow.set(true)">Show</button></div>
+        <div>Placeholder block</div>
+        <div><button (click)="shouldShow.set(true)">Show</button></div>
       }
     </fieldset>
     <fieldset>
       <legend>Deferred loading (on timer 2 seconds)</legend>
       @defer (on timer(2s)) {
-      <div>Defer block</div>
+        <div>Defer block</div>
       } @loading {
-      <div>Loading block</div>
+        <div>Loading block</div>
       } @placeholder {
-      <div>Placeholder block</div>
+        <div>Placeholder block</div>
       }
     </fieldset>
     <fieldset>
       <legend>Conditionals</legend>
-      @if(isTrue()) {
-      <span> is true</span>
+      @if (isTrue()) {
+        <span> is true</span>
       } @else {
-      <span>Is false</span>
+        <span>Is false</span>
       }
       <div><button (click)="isTrue.set(!isTrue())">Show</button></div>
     </fieldset>
@@ -77,15 +77,14 @@ export interface Horse {
         <button (click)="clearItems()">Clear</button>
         <button (click)="setItems()">Set</button>
       </div>
-      @for (item of items(); track item; let index = $index;let even = $even;let
-      first = $first;let last = $last) {
-      <span>
-        #{{ index }} - (Even: {{ even }}, First: {{ first }}, Last:
-        {{ last }})-{{ item }}
-      </span>
-      <br />
+      @for (item of items(); track item) {
+        <span>
+          #{{ $index }} - (Even: {{ $even }}, First: {{ $first }}, Last:
+          {{ $last }})-{{ item }}
+        </span>
+        <br />
       } @empty {
-      <span>No items</span>
+        <span>No items</span>
       }
     </fieldset>
   `,

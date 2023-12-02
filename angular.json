@@ -73,9 +73,6 @@
           "options": {
             "buildTarget": "angular-experiments:build"
           }
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

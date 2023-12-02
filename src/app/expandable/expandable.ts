@@ -42,9 +42,9 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
     <div class="header">Header</div>
     <div class="items">
       @for (item of items(); track item) {
-      <div class="item">
-        {{ item }}
-      </div>
+        <div class="item">
+          {{ item }}
+        </div>
       }
     </div>
   `,

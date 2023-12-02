@@ -17,7 +17,7 @@ const showHide = trigger('fadeIn', [
   template: `
     <button (click)="show.set(!show())">Toggle</button>
     @if (show()) {
-    <div @fadeIn>Some text</div>
+      <div @fadeIn>Some text</div>
     }
   `,
 })

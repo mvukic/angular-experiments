@@ -50,18 +50,19 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
       <ng-content />
     </div>
     @if (!_expanded()) {
-    <div class="content-with-label">
-      @if (label) {
-      <div class="label">{{ label }}</div>
-      }
-    </div>
-    } @if (!_withoutTrigger()) {
-    <div class="footer">
-      <app-expandable-trigger
-        [value]="_expanded()"
-        (valueChange)="_expanded.set($event)"
-      />
-    </div>
+      <div class="content-with-label">
+        @if (label) {
+          <div class="label">{{ label }}</div>
+        }
+      </div>
+    }
+    @if (!_withoutTrigger()) {
+      <div class="footer">
+        <app-expandable-trigger
+          [value]="_expanded()"
+          (valueChange)="_expanded.set($event)"
+        />
+      </div>
     }
   `,
 })
