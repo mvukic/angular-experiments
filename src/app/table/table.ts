@@ -34,6 +34,7 @@ export interface PeriodicElement {
     `
       :host {
         overflow-y: hidden;
+        view-transition-name: count;
       }
       table {
         width: 100%;

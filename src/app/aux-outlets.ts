@@ -50,6 +50,7 @@ export class AuxOutletCmp4 {}
         text-decoration-color: red;
         text-underline-style: dash;
       }
+      :host { view-transition-name: count; }
     `,
   ],
   template: `

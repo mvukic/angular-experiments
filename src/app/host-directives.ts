@@ -53,6 +53,7 @@ export class FontDecorateAndSizeAndColor {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FontSize, FontColor, FontSizeAndColor, FontDecorateAndSizeAndColor],
+  styles: `:host { view-transition-name: count; }`,
   template: `
     <h1>Host directives</h1>
     <span size="x-large">Large text</span>

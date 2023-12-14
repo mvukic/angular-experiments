@@ -13,6 +13,7 @@ const showHide = trigger('fadeIn', [
   selector: 'animation-comp',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `:host { view-transition-name: count; }`,
   animations: [showHide],
   template: `
     <button (click)="show.set(!show())">Toggle</button>

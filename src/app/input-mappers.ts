@@ -58,6 +58,7 @@ export class InputMapperObject {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputMapperBoolean, InputMapperNumber, InputMapperObject],
+  styles: `:host { view-transition-name: count; }`,
   template: `
     <input-mappers-boolean /> <br />
     <input-mappers-boolean value /> <br />

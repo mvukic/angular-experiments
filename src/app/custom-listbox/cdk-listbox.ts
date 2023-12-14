@@ -116,6 +116,7 @@ export class List<T = unknown> {
     ListItem,
     JsonPipe,
   ],
+  styles: `:host { view-transition-name: count; }`,
   template: `
     <app-list [(ngModel)]="templateFormSingleSelect">
       <app-list-item

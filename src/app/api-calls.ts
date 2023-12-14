@@ -14,6 +14,7 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
   selector: 'api-calls',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `:host { view-transition-name: count; }`,
   imports: [JsonPipe],
   template: `
     <h3>API calls</h3>

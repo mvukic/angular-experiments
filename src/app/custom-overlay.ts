@@ -78,6 +78,7 @@ export class CustomTrigger {
   selector: 'custom-overlay-demo',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `:host { view-transition-name: count; }`,
   imports: [
     NgForOf,
     FormsModule,

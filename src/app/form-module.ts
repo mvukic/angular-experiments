@@ -153,6 +153,7 @@ function copyAttribute(value: { [key: string]: any }): Record<string, any> {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BoxForm],
+  styles: `:host { view-transition-name: count; }`,
   template: ` <form-box [box]="_box" /> `,
 })
 export default class FormModuleExample {

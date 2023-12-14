@@ -13,6 +13,7 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
         display: flex;
         flex-direction: column;
         overflow: hidden;
+        view-transition-name: count;
 
         .header {
           display: flex;

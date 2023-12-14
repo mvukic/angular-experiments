@@ -30,6 +30,7 @@ export interface Horse {
   selector: 'new-str-dirs',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `:host { view-transition-name: count; }`,
   template: `
     <fieldset>
       <legend>Deferred loading (on hover)</legend>

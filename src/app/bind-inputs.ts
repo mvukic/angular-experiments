@@ -4,6 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'bind-inputs',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: `:host { view-transition-name: count; }`,
   template: `
     <p>From data: {{ a }}</p>
     <p>From path: {{ b }}</p>

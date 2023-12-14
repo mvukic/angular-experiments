@@ -9,6 +9,7 @@ import {
 @Component({
   selector: 'demo-signals',
   standalone: true,
+  styles: `:host { view-transition-name: count; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h3>Signals</h3>
