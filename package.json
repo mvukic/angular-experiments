@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "format": "prettier --write src/app"
+    "format": "prettier --write src/app",
+    "e2e": "ng e2e",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --component"
   },
   "private": true,
   "dependencies": {
@@ -31,9 +34,11 @@
     "@angular-devkit/build-angular": "17.1.0-next.2",
     "@angular/cli": "17.1.0-next.2",
     "@angular/compiler-cli": "17.1.0-next.5",
+    "@cypress/schematic": "2.5.1",
     "@types/express": "4.17.21",
     "@types/jest": "29.5.11",
     "@types/node": "20.10.5",
+    "cypress": "latest",
     "jest": "30.0.0-alpha.2",
     "jest-environment-jsdom": "30.0.0-alpha.2",
     "prettier": "4.0.0-alpha.8",

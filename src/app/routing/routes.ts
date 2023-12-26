@@ -1,14 +1,14 @@
+import {
+    provideHttpClient,
+    withFetch,
+    withInterceptors,
+} from '@angular/common/http';
+import { InjectionToken } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { Routes } from '@angular/router';
+import { httpInterceptor } from '../http/interceptor';
 import { ngHTML } from '../utils/ng-html';
 import { canActivate, canDeactivate } from './route-fns';
-import { Routes } from '@angular/router';
-import { InjectionToken } from '@angular/core';
-import {
-  provideHttpClient,
-  withFetch,
-  withInterceptors,
-} from '@angular/common/http';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { httpInterceptor } from '../http/interceptor';
 
 const t = new InjectionToken<boolean>('t');
 
@@ -153,5 +153,10 @@ export default <Routes>[
     outlet: 'outletFooter',
     loadComponent: () =>
       import('./../aux-outlets').then((r) => r.AuxOutletCmp4),
+  },
+  {
+    path: 'test-cmp',
+    loadComponent: () =>
+      import('./../test.cmp').then((r) => r.TestCmp),
   },
 ];
