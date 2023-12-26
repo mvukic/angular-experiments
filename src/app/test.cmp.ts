@@ -26,7 +26,7 @@ export class TestDirInner {}
       <div test-dir-inner>{{ i }}</div>
     }
     <!-- Button -->
-    <button (click)="output.emit(input)"></button>
+    <button (click)="emit()"></button>
   `,
 })
 export class TestCmp {
@@ -40,4 +40,11 @@ export class TestCmp {
 
   @Output()
   output = new EventEmitter<string>();
+
+  emit() {
+    this.output.emit(this.input);
+    this.test();
+  }
+
+  test() {}
 }
