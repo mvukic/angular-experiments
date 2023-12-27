@@ -30,7 +30,7 @@ describe('component tests', () => {
     });
 
     // Trigger event
-    cy.get('button').click();
+    cy.get('#test-cmp-btn').click();
 
     // Verify result
     cy.get('@outputSpy').should('have.been.calledWith', inputValue);
@@ -49,7 +49,7 @@ describe('component tests', () => {
     cy.get('div[test-dir-inner]').should('have.length', inputValue.length);
   });
 
-  it('mounts', () => {
+  it('should call mocked component function', () => {
     const inputValue = 'input';
     cy.mount(TestCmp, {
       componentProperties: {
@@ -60,7 +60,7 @@ describe('component tests', () => {
     });
 
     // Trigger event
-    cy.get('button').click();
+    cy.get('#test-cmp-btn').click();
 
     // Verify result
     cy.get('@testFn').should('have.been.called');

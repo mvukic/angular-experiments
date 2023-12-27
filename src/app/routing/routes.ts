@@ -155,7 +155,7 @@ export default <Routes>[
       import('./../aux-outlets').then((r) => r.AuxOutletCmp4),
   },
   {
-    path: 'test-cmp',
+    path: 'test-cmp/:input',
     loadComponent: () =>
       import('./../test.cmp').then((r) => r.TestCmp),
   },

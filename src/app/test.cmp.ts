@@ -6,6 +6,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Directive({
   selector: 'div[test-dir-inner]',
@@ -17,7 +18,7 @@ export class TestDirInner {}
   selector: 'test-cmp',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TestDirInner],
+  imports: [TestDirInner, FormsModule],
   template: `
     <!-- Label -->
     <span>{{ input }}</span>
@@ -26,7 +27,13 @@ export class TestDirInner {}
       <div test-dir-inner>{{ i }}</div>
     }
     <!-- Button -->
-    <button (click)="emit()"></button>
+    <button id="test-cmp-btn" (click)="emit()">Click</button>
+
+    <!-- Input -->
+    <input type="text" [(ngModel)]="value" />
+
+    <!-- Div -->
+    <div>{{ value }}</div>
   `,
 })
 export class TestCmp {
@@ -35,6 +42,8 @@ export class TestCmp {
 
   @Input()
   count = 3;
+
+  value = 'v';
 
   indexes = Array.from({ length: this.input.length });
 

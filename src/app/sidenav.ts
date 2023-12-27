@@ -54,7 +54,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     <span class="link" [routerLink]="['custom-overlay']" routerLinkActive="active">Custom overlay</span>
     <span class="link" [routerLink]="auxRoute" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Aux outlet</span>
     <span class="link" [routerLink]="['new-str-dirs']" routerLinkActive="active">New structure dirs</span>
-    <span class="link" [routerLink]="['test-cmp']" routerLinkActive="active">Test cmp</span>
+    <span class="link" [routerLink]="['test-cmp', 'input-value']" routerLinkActive="active">Test cmp</span>
   `,
 })
 export default class SidenavCmp {
