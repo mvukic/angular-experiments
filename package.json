@@ -16,8 +16,10 @@
   "dependencies": {
     "@angular/animations": "https://github.com/angular/animations-builds",
     "@angular/cdk": "https://github.com/angular/cdk-builds",
+    "@angular/cdk-experimental": "https://github.com/angular/cdk-experimental-builds",
     "@angular/common": "https://github.com/angular/common-builds",
     "@angular/compiler": "https://github.com/angular/compiler-builds",
+    "@angular/components": "https://github.com/angular/material-builds",
     "@angular/core": "https://github.com/angular/core-builds",
     "@angular/forms": "https://github.com/angular/forms-builds",
     "@angular/platform-browser": "https://github.com/angular/platform-browser-builds",
