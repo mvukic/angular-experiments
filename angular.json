@@ -37,7 +37,8 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "deleteOutputPath": true
           },
           "configurations": {
             "production": {
@@ -81,49 +82,11 @@
             "buildTarget": "angular-experiments:build"
           }
         },
-        "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
+        "test": {
+          "builder": "@angular-devkit/build-angular:jest",
           "options": {
-            "devServerTarget": "angular-experiments:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "angular-experiments:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "watch": true,
-            "headless": false
-          }
-        },
-        "ct": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "angular-experiments:serve",
-            "watch": true,
-            "headless": false,
-            "testingType": "component"
-          },
-          "configurations": {
-            "development": {
-              "devServerTarget": "angular-experiments:serve:development"
-            }
-          }
-        },
-        "e2e": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "angular-experiments:serve",
-            "watch": true,
-            "headless": false
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "angular-experiments:serve:production"
-            }
+            "tsConfig": "tsconfig.spec.json",
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         }
       }
@@ -131,7 +94,6 @@
   },
   "cli": {
     "schematicCollections": [
-      "@cypress/schematic",
       "@schematics/angular"
     ]
   }

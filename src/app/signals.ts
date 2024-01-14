@@ -24,7 +24,9 @@ export class SignalCmp {
   inputOptional = input<string>();
   inputDefault = input('initialValue');
   inputAlias = input('initialValue', { alias: 'inputAlias' });
-  inputTransform = input<boolean, any>(false, { transform: booleanAttribute });
+  inputTransform = input<boolean, unknown>(false, {
+    transform: booleanAttribute,
+  });
   inputRequired = input.required<string>();
 }
 

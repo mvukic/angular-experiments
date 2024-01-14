@@ -5,12 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
-    "format": "prettier --write src/app",
-    "e2e": "ng e2e",
-    "cypress:open": "cypress open",
-    "cypress:run:component": "cypress run --component",
-    "cypress:run:e2e": "cypress run --e2e"
+    "format": "prettier --write src/app"
   },
   "private": true,
   "dependencies": {

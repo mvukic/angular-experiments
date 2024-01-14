@@ -1,3 +1,3 @@
 export function onlyInTests() {
-  return 'only in test';
+  return 'only in tests';
 }
