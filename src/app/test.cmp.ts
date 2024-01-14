@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { onlyInTests } from './testing/utils';
 
 @Directive({
   selector: 'div[test-dir-inner]',
@@ -55,5 +56,7 @@ export class TestCmp {
     this.test();
   }
 
-  test() {}
+  test() {
+    onlyInTests();
+  }
 }

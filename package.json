@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "test": "ng test",
     "build": "ng build",
     "format": "prettier --write src/app"
   },
