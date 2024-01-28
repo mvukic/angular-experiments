@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  Input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, Input } from '@angular/core';
 
 @Directive({
   selector: 'span[size]',
@@ -53,22 +48,17 @@ export class FontDecorateAndSizeAndColor {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FontSize, FontColor, FontSizeAndColor, FontDecorateAndSizeAndColor],
-  styles: `:host { view-transition-name: count; }`,
   template: `
     <h1>Host directives</h1>
     <span size="x-large">Large text</span>
     <br />
     <span color="red">Colored text</span>
     <br />
-    <span size-color sizeValue="xx-small" colorValue="lime">
-      Extra small and lime
-    </span>
+    <span size-color sizeValue="xx-small" colorValue="lime"> Extra small and lime </span>
     <br />
     <span size-color> Extra large and blue</span>
     <br />
-    <span decorated-text decoration="underline">
-      Extra large and blue and underlined
-    </span>
+    <span decorated-text decoration="underline"> Extra large and blue and underlined </span>
   `,
 })
 export default class HostDirectives {}

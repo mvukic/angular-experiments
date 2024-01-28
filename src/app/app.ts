@@ -1,93 +1,76 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  signal,
-  VERSION,
-} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { AppContainer } from './container/app-container';
-import { AppExpandable } from './expandable/app-expandable.component';
-import { AppExpandableTrigger } from './expandable/expandable-trigger.cmp';
-import SidenavCmp from './sidenav';
-
-@Component({
-  selector: 'header-cmp',
-  standalone: true,
-  styles: [
-    `
-      :host {
-        display: flex;
-        gap: 5px;
-        padding-left: 5px;
-        background-color: lightblue;
-      }
-    `,
-  ],
-  template: `{{ version.full }} - This is a header`,
-})
-export class HeaderCmp {
-  version = VERSION;
-}
-
-@Component({
-  selector: 'sub-header-cmp',
-  standalone: true,
-  styles: [
-    `
-      :host {
-        display: flex;
-        gap: 5px;
-        padding-left: 10px;
-      }
-    `,
-  ],
-  template: `<ng-content /> This is a sub header`,
-})
-export class SubHeaderCmp {}
+import { ChangeDetectionStrategy, Component, VERSION } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    RouterOutlet,
-    AppContainer,
-    HeaderCmp,
-    SidenavCmp,
-    AppExpandable,
-    AppExpandableTrigger,
-    SubHeaderCmp,
-  ],
-  styles: [
-    `
-      :host {
-        display: block;
-        height: 100%;
-      }
-    `,
-  ],
+  imports: [MatSidenavModule, RouterOutlet, MatListModule, MatToolbar, MatIcon, RouterLink, RouterLinkActive],
+  styles: `
+    :host {
+      display: flex;
+      flex-direction: column;
+    }
+  `,
   template: `
-    <app-container>
-      <header-cmp header />
-      <app-expandable withoutTrigger [expanded]="expanded()" sidenav>
-        <router-outlet name="outlet-sidenav" />
-        <sidenav-cmp />
-      </app-expandable>
-      <sub-header-cmp subHeader>
-        <app-expandable-trigger
-          [value]="expanded()"
-          (valueChange)="expanded.set($event)"
-          visibilityIcon="menu_open"
-          invisibilityIcon="menu"
-        />
-      </sub-header-cmp>
-      <router-outlet content />
-      <div footer>
-        <router-outlet name="outletFooter" />
-      </div>
-    </app-container>
+    <mat-toolbar color="primary">
+      <mat-icon>menu</mat-icon>
+      Angular experiments {{ VERSION }}
+    </mat-toolbar>
+    <mat-sidenav-container>
+      <mat-sidenav mode="side" opened fixedInViewport fixedTopGap="70">
+        <mat-list>
+          <a mat-list-item [routerLink]="['api-calls']" routerLinkActive="active">API calls</a>
+          <a mat-list-item [routerLink]="['params-and-state']" [queryParams]="{ debug: 1 }" [state]="{ debug: 1 }" routerLinkActive="active">
+            Params and state
+          </a>
+          <a mat-list-item [routerLink]="['lazy-load-component']" routerLinkActive="active">Lazy load component</a>
+          <a mat-list-item [routerLink]="['dynamic-component']" routerLinkActive="active">Dynamic component</a>
+          <a mat-list-item [routerLink]="['host-directives']" routerLinkActive="active">Host directives</a>
+          <a mat-list-item [routerLink]="['signals']" routerLinkActive="active">Signals</a>
+          <a mat-list-item [routerLink]="['cdk-listbox']" routerLinkActive="active">CDK ListBox</a>
+          <a mat-list-item [routerLink]="['custom-selector']" routerLinkActive="active">Selector</a>
+          <a mat-list-item [routerLink]="['bind-inputs', 'b']" [queryParams]="{ c: 'c' }" routerLinkActive="active">Bind inputs</a>
+          <a mat-list-item [routerLink]="['animations']" routerLinkActive="active">Animations</a>
+          <a mat-list-item [routerLink]="['event-manager']" routerLinkActive="active">Events</a>
+          <a mat-list-item [routerLink]="inputMappersRoute" routerLinkActive="active">Input mappers</a>
+          <a mat-list-item [routerLink]="['forms-module']" routerLinkActive="active">Forms</a>
+          <a mat-list-item [routerLink]="['expandable']" routerLinkActive="active">Expandable</a>
+          <a mat-list-item [routerLink]="['container']" routerLinkActive="active">Container</a>
+          <a mat-list-item [routerLink]="['table']" routerLinkActive="active">Table</a>
+          <a mat-list-item [routerLink]="['custom-overlay']" routerLinkActive="active">Custom overlay</a>
+          <a mat-list-item [routerLink]="auxRoute" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Aux outlet</a>
+          <a mat-list-item [routerLink]="['new-str-dirs']" routerLinkActive="active">New structure dirs</a>
+          <a mat-list-item [routerLink]="['test-cmp', 'input-value']" routerLinkActive="active">Test cmp</a>
+        </mat-list>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <router-outlet />
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   `,
 })
 export default class App {
-  readonly expanded = signal(false);
+  VERSION = VERSION.full;
+
+  auxRoute = [
+    {
+      outlets: {
+        primary: 'aux-outlets',
+        outletFooter: 'cmp-aux-footer-1',
+      },
+    },
+  ];
+  inputMappersRoute = [
+    {
+      outlets: {
+        primary: 'input-mappers',
+        outletFooter: 'cmp-aux-footer-2',
+      },
+    },
+  ];
 }

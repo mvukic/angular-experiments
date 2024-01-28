@@ -1,9 +1,5 @@
 @import '@angular/cdk/overlay-prebuilt.css';
 
-* {
-  font-family: 'Roboto', sans-serif;
-}
-
 html,
 body {
   height: 100%;
@@ -11,7 +7,6 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
-  background-color: rgb(147 147 147);
 }
 
 app-root {
@@ -20,52 +15,4 @@ app-root {
   padding: 0;
 }
 
-.material-icons {
-  font-size: 16px;
-  user-select: none;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: hsl(0 0% 50% / 0.5);
-  &:hover {
-    background-color: black;
-  }
-}
-
-a,
-a:visited,
-a:hover,
-a:active {
-  color: inherit;
-}
-
-/* Custom transition */
-@keyframes rotate-out {
-  to {
-    transform: rotate(90deg);
-  }
-}
-@keyframes rotate-in {
-  from {
-    transform: rotate(-90deg);
-  }
-}
-::view-transition-old(count),
-::view-transition-new(count) {
-  animation-duration: 200ms;
-  animation-name: -ua-view-transition-fade-in, rotate-in;
-}
-::view-transition-old(count) {
-  animation-name: -ua-view-transition-fade-out, rotate-out;
-}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

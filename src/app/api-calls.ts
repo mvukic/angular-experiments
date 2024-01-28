@@ -1,12 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  DestroyRef,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
@@ -14,7 +8,6 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
   selector: 'api-calls',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: `:host { view-transition-name: count; }`,
   imports: [JsonPipe],
   template: `
     <h3>API calls</h3>
@@ -47,9 +40,7 @@ export default class ApiCalls {
   response3 = toSignal(this.#api, { initialValue: {} });
 
   callApiObservable() {
-    this.#api
-      .pipe(takeUntilDestroyed(this.#destroyRef))
-      .subscribe((response: any) => this.response2.set(response));
+    this.#api.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe((response: any) => this.response2.set(response));
   }
 
   async callApiAsync() {

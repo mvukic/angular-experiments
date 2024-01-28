@@ -30,7 +30,6 @@ export interface Horse {
   selector: 'new-str-dirs',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: `:host { view-transition-name: count; }`,
   template: `
     <fieldset>
       <legend>Deferred loading (on hover)</legend>
@@ -79,10 +78,7 @@ export interface Horse {
         <button (click)="setItems()">Set</button>
       </div>
       @for (item of items(); track item) {
-        <span>
-          #{{ $index }} - (Even: {{ $even }}, First: {{ $first }}, Last:
-          {{ $last }})-{{ item }}
-        </span>
+        <span> #{{ $index }} - (Even: {{ $even }}, First: {{ $first }}, Last: {{ $last }})-{{ item }} </span>
         <br />
       } @empty {
         <span>No items</span>

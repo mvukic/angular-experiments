@@ -1,13 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  ElementRef,
-  inject,
-  Input,
-  TemplateRef,
-  ViewContainerRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 import { JsonPipe, NgForOf } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { List, ListItem } from './custom-listbox/cdk-listbox';
@@ -61,10 +52,7 @@ export class CustomTrigger {
   #createOverlay() {
     const portal = new TemplatePortal(this.template, this.#vcr);
     this.#overlayRef = this.#overlay.create({
-      positionStrategy: this.#overlay
-        .position()
-        .flexibleConnectedTo(this.#trigger.nativeElement)
-        .withPositions(this.#positions),
+      positionStrategy: this.#overlay.position().flexibleConnectedTo(this.#trigger.nativeElement).withPositions(this.#positions),
       width: this.#trigger.nativeElement.clientWidth,
       hasBackdrop: true,
       backdropClass: 'cdk-overlay-transparent-backdrop',
@@ -78,28 +66,12 @@ export class CustomTrigger {
   selector: 'custom-overlay-demo',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: `:host { view-transition-name: count; }`,
-  imports: [
-    NgForOf,
-    FormsModule,
-    ReactiveFormsModule,
-    List,
-    ListItem,
-    JsonPipe,
-    CustomTrigger,
-  ],
+  imports: [NgForOf, FormsModule, ReactiveFormsModule, List, ListItem, JsonPipe, CustomTrigger],
   template: `
     <div>
-      <div
-        style="width: 200px; border: 1px solid red"
-        [appListCustom]="template"
-      >
-        This is some span trigger
-      </div>
+      <div style="width: 200px; border: 1px solid red" [appListCustom]="template">This is some span trigger</div>
       <ng-template #template>
-        <span style="border: 1px solid green">
-          This template has the same width as the trigger
-        </span>
+        <span style="border: 1px solid green"> This template has the same width as the trigger </span>
       </ng-template>
     </div>
   `,

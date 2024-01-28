@@ -1,17 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  Input,
-} from '@angular/core';
-import {
-  AbstractControl,
-  FormsModule,
-  NG_VALIDATORS,
-  ValidationErrors,
-  Validator,
-  ValidatorFn,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Directive, Input } from '@angular/core';
+import { AbstractControl, FormsModule, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { JsonPipe, NgForOf } from '@angular/common';
 
 function uniqueNamesValidatorFn(): ValidatorFn {
@@ -24,16 +12,12 @@ function uniqueNamesValidatorFn(): ValidatorFn {
     if (type === BoxType.TYPE1) {
       return null;
     }
-    const items = Object.values(control.value.items).filter(
-      (v: unknown): v is string => v !== null,
-    );
+    const items = Object.values(control.value.items).filter((v: unknown): v is string => v !== null);
     if (items.length === 0) {
       return null;
     }
     // Type 2 requires unique items
-    return new Set(items).size !== items.length
-      ? { uniqueNames: { value: 'Type 2 requires unique items' } }
-      : null;
+    return new Set(items).size !== items.length ? { uniqueNames: { value: 'Type 2 requires unique items' } } : null;
   };
 }
 
@@ -85,28 +69,16 @@ export type Box = {
           <option [value]="BoxType.TYPE1">Type 1</option>
           <option [value]="BoxType.TYPE2">Type 2</option>
         </select>
-        <input
-          type="checkbox"
-          id="opened"
-          name="opened"
-          [(ngModel)]="box.opened"
-        />
+        <input type="checkbox" id="opened" name="opened" [(ngModel)]="box.opened" />
         <label for="opened">Opened</label>
         <fieldset>
           <legend>Items</legend>
           <button (click)="addItem()">Add</button>
-          <div
-            style="display: flex; flex-direction: column; gap: 5px"
-            ngModelGroup="items"
-          >
+          <div style="display: flex; flex-direction: column; gap: 5px" ngModelGroup="items">
             @for (item of box.items; track item.id) {
               <div>
                 <span>Id: {{ item.id }} </span>
-                <input
-                  [(ngModel)]="item.name"
-                  [name]="'item' + item.id"
-                  required
-                />
+                <input [(ngModel)]="item.name" [name]="'item' + item.id" required />
                 <button (click)="remove($index)">Remove</button>
               </div>
             }
@@ -153,7 +125,6 @@ function copyAttribute(value: { [key: string]: any }): Record<string, any> {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BoxForm],
-  styles: `:host { view-transition-name: count; }`,
   template: ` <form-box [box]="_box" /> `,
 })
 export default class FormModuleExample {

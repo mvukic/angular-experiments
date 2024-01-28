@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'event-manager-plugins',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: `:host { view-transition-name: count; }`,
   template: `
     <br />
     <button (click)="onClick()">Click with alert</button> <br />

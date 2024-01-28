@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe, JsonPipe],
-  styles: `:host { view-transition-name: count; }`,
   template: `
     <h3>Params and state</h3>
     params: {{ params$ | async | json }} <br />

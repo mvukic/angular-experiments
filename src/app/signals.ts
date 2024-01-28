@@ -1,12 +1,5 @@
-import {
-  booleanAttribute,
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  signal,
-  ɵinput as input,
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, signal, input } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'signal-cmp',
@@ -20,7 +13,7 @@ import {
     Required: {{ inputRequired() }} <br />
   `,
 })
-export class SignalCmp {
+export class SignalCmp implements ControlValueAccessor {
   inputOptional = input<string>();
   inputDefault = input('initialValue');
   inputAlias = input('initialValue', { alias: 'inputAlias' });
@@ -28,12 +21,33 @@ export class SignalCmp {
     transform: booleanAttribute,
   });
   inputRequired = input.required<string>();
+
+  value = input<string>();
+  _value = signal<string | undefined>(undefined);
+
+  constructor() {
+    effect(
+      () => {
+        this._value.set(this.value());
+      },
+      { allowSignalWrites: true },
+    );
+  }
+
+  registerOnChange(fn: any): void {}
+
+  registerOnTouched(fn: any): void {}
+
+  setDisabledState(isDisabled: boolean): void {}
+
+  writeValue(value: string): void {
+    this._value.set(value);
+  }
 }
 
 @Component({
   selector: 'demo-signals',
   standalone: true,
-  styles: `:host { view-transition-name: count; }`,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SignalCmp],
   template: `
@@ -41,21 +55,9 @@ export class SignalCmp {
     <fieldset>
       <legend>First and last name</legend>
       <label for="first">First</label>
-      <input
-        type="text"
-        name="first"
-        id="first"
-        (keyup)="first.set($any($event.target).value)"
-        [value]="first()"
-      />
+      <input type="text" name="first" id="first" (keyup)="first.set($any($event.target).value)" [value]="first()" />
       <label for="last">Last</label>
-      <input
-        type="text"
-        name="last"
-        id="last"
-        (keyup)="last.set($any($event.target).value)"
-        [value]="last()"
-      />
+      <input type="text" name="last" id="last" (keyup)="last.set($any($event.target).value)" [value]="last()" />
     </fieldset>
     <fieldset>
       <legend>Full name</legend>

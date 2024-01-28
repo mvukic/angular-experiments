@@ -1,18 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ContentChildren,
-  inject,
-  Input,
-  QueryList,
-} from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, ContentChildren, inject, Input, QueryList } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
 import { JsonPipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
 
@@ -75,11 +62,7 @@ export class ListItem<T = unknown> {
   hostDirectives: [
     {
       directive: CdkListbox,
-      inputs: [
-        'cdkListboxDisabled: disabled',
-        'cdkListboxMultiple: multiple',
-        'cdkListboxValue: value',
-      ],
+      inputs: ['cdkListboxDisabled: disabled', 'cdkListboxMultiple: multiple', 'cdkListboxValue: value'],
       outputs: ['cdkListboxValueChange: valueChange'],
     },
   ],
@@ -108,69 +91,33 @@ export class List<T = unknown> {
   selector: 'cdk-list-box-demo',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    NgForOf,
-    FormsModule,
-    ReactiveFormsModule,
-    List,
-    ListItem,
-    JsonPipe,
-  ],
-  styles: `:host { view-transition-name: count; }`,
+  imports: [NgForOf, FormsModule, ReactiveFormsModule, List, ListItem, JsonPipe],
   template: `
     <app-list [(ngModel)]="templateFormSingleSelect">
-      <app-list-item
-        *ngFor="let language of languages"
-        [value]="language.id"
-        [label]="language.label"
-        [disabled]="language.disabled"
-      />
+      <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
     </app-list>
     Value: {{ templateFormSingleSelect }}
     <br />
     <app-list [(ngModel)]="templateFormMultipleSelect" multiple required>
-      <app-list-item
-        *ngFor="let language of languages"
-        [value]="language.id"
-        [label]="language.label"
-        [disabled]="language.disabled"
-      />
+      <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
     </app-list>
     Value: {{ templateFormMultipleSelect | json }}
     <form [formGroup]="reactiveFormSingleSelect">
       <app-list formControlName="language">
-        <app-list-item
-          *ngFor="let language of languages"
-          [value]="language.id"
-          [label]="language.label"
-          [disabled]="language.disabled"
-        />
+        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
       </app-list>
       Value: {{ reactiveFormSingleSelect.value | json }}
     </form>
     <form [formGroup]="reactiveFormMultiSelect">
       <app-list formControlName="language" multiple>
-        <app-list-item
-          *ngFor="let language of languages"
-          [value]="language.id"
-          [label]="language.label"
-          [disabled]="language.disabled"
-        />
+        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
       </app-list>
       Value: {{ reactiveFormMultiSelect.value | json }} Valid:
       {{ reactiveFormMultiSelect.valid }}
     </form>
     <div>
-      <app-list
-        [value]="selection"
-        (valueChange)="selection = $any($event.value)"
-      >
-        <app-list-item
-          *ngFor="let language of languages"
-          [value]="language.id"
-          [label]="language.label"
-          [disabled]="language.disabled"
-        />
+      <app-list [value]="selection" (valueChange)="selection = $any($event.value)">
+        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
       </app-list>
       Value: {{ selection | json }}
     </div>

@@ -13,7 +13,6 @@ import {
   selector: 'lazy-load-component',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: `:host { view-transition-name: count; }`,
   template: `
     <button (click)="lazyLoad()">Lazy load</button>
     <div #container></div>
