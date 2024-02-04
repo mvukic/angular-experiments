@@ -4,12 +4,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIcon } from '@angular/material/icon';
+import { MatIconButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MatSidenavModule, RouterOutlet, MatListModule, MatToolbar, MatIcon, RouterLink, RouterLinkActive],
+  imports: [MatSidenavModule, RouterOutlet, MatListModule, MatToolbar, MatIcon, RouterLink, RouterLinkActive, MatIconButton],
   styles: `
     :host {
       display: flex;
@@ -18,11 +19,11 @@ import { MatIcon } from '@angular/material/icon';
   `,
   template: `
     <mat-toolbar color="primary">
-      <mat-icon>menu</mat-icon>
+      <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
       Angular experiments {{ VERSION }}
     </mat-toolbar>
-    <mat-sidenav-container>
-      <mat-sidenav mode="side" opened fixedInViewport fixedTopGap="70">
+    <mat-sidenav-container style="height: 100%">
+      <mat-sidenav #sidenav mode="side" opened fixedInViewport fixedTopGap="70">
         <mat-list>
           <a mat-list-item [routerLink]="['api-calls']" routerLinkActive="active">API calls</a>
           <a mat-list-item [routerLink]="['params-and-state']" [queryParams]="{ debug: 1 }" [state]="{ debug: 1 }" routerLinkActive="active">
