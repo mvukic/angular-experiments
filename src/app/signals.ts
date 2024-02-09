@@ -1,4 +1,15 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, effect, input, Signal, signal } from '@angular/core';
+import {
+  afterNextRender,
+  afterRender,
+  booleanAttribute,
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  input,
+  model,
+  signal,
+} from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
@@ -20,31 +31,21 @@ export class SignalCmp implements ControlValueAccessor {
   inputOptional = input<string>();
   inputDefault = input('initialValue');
   inputAlias = input('initialValue', { alias: 'inputAlias' });
-  inputTransform = input<boolean, unknown>(false, {
-    transform: booleanAttribute,
-  });
+  inputTransform = input(false, { transform: booleanAttribute });
   inputRequired = input.required<string>();
-
-  value = input<string>();
-  _value = signal<string | undefined>(undefined);
-
-  constructor() {
-    effect(
-      () => {
-        this._value.set(this.value());
-      },
-      { allowSignalWrites: true },
-    );
-  }
+  disabled = model(false);
+  value = model<string>();
 
   registerOnChange(fn: any): void {}
 
   registerOnTouched(fn: any): void {}
 
-  setDisabledState(isDisabled: boolean): void {}
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled.set(isDisabled);
+  }
 
   writeValue(value: string): void {
-    this._value.set(value);
+    this.value.set(value);
   }
 }
 
@@ -69,23 +70,40 @@ type FilterOptions = {
   template: `
     <mat-form-field appearance="outline">
       <mat-label>Query</mat-label>
-      <input matInput (change)="onQueryChange($event)" [value]="options()().query" />
+      <input matInput (change)="onQueryChange($event)" [value]="options().query" />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Min</mat-label>
-      <input type="number" matInput [value]="options()().min" />
+      <input type="number" (change)="onMinChange($event)" matInput [value]="options().min" />
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Max</mat-label>
-      <input type="number" matInput [value]="options()().max" />
+      <input type="number" (change)="onMaxChange($event)" matInput [value]="options().max" />
     </mat-form-field>
   `,
 })
 export class FilterCmp {
-  options = input.required<Signal<FilterOptions>>();
+  options = model.required<FilterOptions>();
+
+  constructor() {
+    afterRender(() => {
+      console.log('afterRender');
+    });
+    afterNextRender(() => {
+      console.log('afterNextRender');
+    });
+  }
 
   onQueryChange(event: Event) {
-    console.log(event);
+    this.options.update((opt) => ({ ...opt, query: (event.target as HTMLInputElement).value }));
+  }
+
+  onMinChange(event: Event) {
+    this.options.update((opt) => ({ ...opt, min: (event.target as HTMLInputElement).valueAsNumber }));
+  }
+
+  onMaxChange(event: Event) {
+    this.options.update((opt) => ({ ...opt, max: (event.target as HTMLInputElement).valueAsNumber }));
   }
 }
 
@@ -98,11 +116,10 @@ export class FilterCmp {
   template: `
     <mat-drawer-container style="height: 100%">
       <mat-drawer #drawer position="end" mode="over">
-        <filter-cmp [options]="options" />
+        <filter-cmp [(options)]="options" />
       </mat-drawer>
       <mat-drawer-content>
         <h3>Signals</h3>
-        <button mat-button (click)="drawer.toggle()">Toggle options</button>
         <fieldset>
           <legend>First and last name</legend>
           <label for="first">First</label>
@@ -123,22 +140,23 @@ export class FilterCmp {
           inputRequired="optional value"
         />
         <br />
-        <span>Query: {{ options().query }}</span>
-        <span>Min: {{ options().min }}</span>
+        <button mat-button (click)="drawer.toggle()">Toggle options</button> <br />
+        <span>Query: {{ options().query }}</span> <br />
+        <span>Min: {{ options().min }}</span> <br />
         <span>Max: {{ options().max }}</span>
       </mat-drawer-content>
     </mat-drawer-container>
   `,
 })
 export default class Signals {
-  first = signal(localStorage.getItem('first') ?? '');
-  last = signal(localStorage.getItem('last') ?? '');
-  full = computed(() => `${this.first()} ${this.last()}`);
+  readonly first = signal(localStorage.getItem('first') ?? '');
+  readonly last = signal(localStorage.getItem('last') ?? '');
+  readonly full = computed(() => `${this.first()} ${this.last()}`);
 
-  options = signal<FilterOptions>({
+  readonly options = signal<FilterOptions>({
     min: 0,
     max: 100,
-    query: undefined,
+    query: '',
   });
 
   constructor() {
