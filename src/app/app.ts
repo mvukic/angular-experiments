@@ -47,6 +47,7 @@ import { MatIconButton } from '@angular/material/button';
           <a mat-list-item [routerLink]="auxRoute" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Aux outlet</a>
           <a mat-list-item [routerLink]="['new-str-dirs']" routerLinkActive="active">New structure dirs</a>
           <a mat-list-item [routerLink]="['test-cmp', 'input-value']" routerLinkActive="active">Test cmp</a>
+          <a mat-list-item [routerLink]="['drawer']" routerLinkActive="active">Drawer</a>
         </mat-list>
       </mat-sidenav>
       <mat-sidenav-content>

@@ -1,8 +1,4 @@
-import {
-    provideHttpClient,
-    withFetch,
-    withInterceptors,
-} from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { InjectionToken } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { Routes } from '@angular/router';
@@ -16,14 +12,7 @@ export default <Routes>[
   { path: '', redirectTo: 'api-calls', pathMatch: 'full' },
   {
     path: 'api-calls',
-    outlet: 'outlet-sidenav',
-    component: () => import('../sidenav'),
-  },
-  {
-    path: 'api-calls',
-    providers: [
-      provideHttpClient(withFetch(), withInterceptors([httpInterceptor])),
-    ],
+    providers: [provideHttpClient(withFetch(), withInterceptors([httpInterceptor]))],
     loadComponent: () => import('../api-calls'),
     title: 'API calls',
   },
@@ -126,14 +115,12 @@ export default <Routes>[
       {
         path: 'cmp-1',
         outlet: 'outlet-sidenav-1',
-        loadComponent: () =>
-          import('../aux-outlets').then((m) => m.AuxOutletCmp1),
+        loadComponent: () => import('../aux-outlets').then((m) => m.AuxOutletCmp1),
       },
       {
         path: 'cmp-2',
         outlet: 'outlet-sidenav-2',
-        loadComponent: () =>
-          import('../aux-outlets').then((m) => m.AuxOutletCmp2),
+        loadComponent: () => import('../aux-outlets').then((m) => m.AuxOutletCmp2),
       },
     ],
   },
@@ -145,18 +132,19 @@ export default <Routes>[
   {
     path: 'cmp-aux-footer-1',
     outlet: 'outletFooter',
-    loadComponent: () =>
-      import('./../aux-outlets').then((r) => r.AuxOutletCmp3),
+    loadComponent: () => import('./../aux-outlets').then((r) => r.AuxOutletCmp3),
   },
   {
     path: 'cmp-aux-footer-2',
     outlet: 'outletFooter',
-    loadComponent: () =>
-      import('./../aux-outlets').then((r) => r.AuxOutletCmp4),
+    loadComponent: () => import('./../aux-outlets').then((r) => r.AuxOutletCmp4),
   },
   {
     path: 'test-cmp/:input',
-    loadComponent: () =>
-      import('./../test.cmp').then((r) => r.TestCmp),
+    loadComponent: () => import('./../test.cmp').then((r) => r.TestCmp),
+  },
+  {
+    path: 'drawer',
+    loadComponent: () => import('./../drawer/example').then((r) => r.DrawerExample),
   },
 ];
