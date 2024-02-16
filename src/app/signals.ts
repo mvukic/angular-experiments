@@ -9,6 +9,7 @@ import {
   input,
   model,
   signal,
+  ɵoutput,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
@@ -153,6 +154,8 @@ export default class Signals {
   readonly last = signal(localStorage.getItem('last') ?? '');
   readonly full = computed(() => `${this.first()} ${this.last()}`);
 
+  out = ɵoutput<string>();
+
   readonly options = signal<FilterOptions>({
     min: 0,
     max: 100,
@@ -162,6 +165,7 @@ export default class Signals {
   constructor() {
     effect(() => {
       localStorage.setItem('first', this.first());
+      this.out.emit(this.first());
     });
     effect(() => {
       localStorage.setItem('last', this.last());
