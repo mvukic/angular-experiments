@@ -9,7 +9,7 @@ import {
   input,
   model,
   signal,
-  ɵoutput,
+  output,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
@@ -154,7 +154,7 @@ export default class Signals {
   readonly last = signal(localStorage.getItem('last') ?? '');
   readonly full = computed(() => `${this.first()} ${this.last()}`);
 
-  out = ɵoutput<string>();
+  out = output<string>();
 
   readonly options = signal<FilterOptions>({
     min: 0,

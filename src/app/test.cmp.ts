@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Directive,
-  EventEmitter,
-  Input,
-  Output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, Directive, input, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { onlyInTests } from './testing/utils';
 
@@ -22,9 +15,9 @@ export class TestDirInner {}
   imports: [TestDirInner, FormsModule],
   template: `
     <!-- Label -->
-    <span>{{ input }}</span>
+    <span>{{ input() }}</span>
     <!-- Inner component -->
-    @for (i of indexes; track i) {
+    @for (i of indexes(); track i) {
       <div test-dir-inner>{{ i }}</div>
     }
     <!-- Button -->
@@ -38,21 +31,16 @@ export class TestDirInner {}
   `,
 })
 export class TestCmp {
-  @Input()
-  input = 'input';
+  input = model('input');
+  indexes = computed(() => Array.from({ length: this.input().length }).map((_, i) => i + 1));
 
-  @Input()
-  count = 3;
-
+  count = input(3);
   value = 'v';
 
-  indexes = Array.from({ length: this.input.length });
-
-  @Output()
-  output = new EventEmitter<string>();
+  output = output<string>();
 
   emit() {
-    this.output.emit(this.input);
+    this.output.emit(this.input());
     this.test();
   }
 
