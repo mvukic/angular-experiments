@@ -1,29 +1,27 @@
 import { JsonPipe } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, Input, numberAttribute } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, input, numberAttribute } from '@angular/core';
 
 @Component({
   selector: 'input-mappers-boolean',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `is disabled {{ value }}`,
+  template: `is disabled {{ value() }}`,
 })
 export class InputMapperBoolean {
-  @Input({ transform: booleanAttribute })
-  value: boolean = false;
+  value = input(false, { transform: booleanAttribute });
 }
 
 @Component({
   selector: 'input-mappers-number',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `number is {{ value }}`,
+  template: `number is {{ value() }}`,
 })
 export class InputMapperNumber {
-  @Input({ transform: numberAttribute })
-  value: number = 0;
+  value = input(0, { transform: numberAttribute });
 }
 
-function copy(value: { [key: string]: any }): {
+function copy(value: Record<string, any>): {
   original: Record<string, any>;
   copy: Record<string, any>;
 } {
@@ -36,15 +34,14 @@ function copy(value: { [key: string]: any }): {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [JsonPipe],
   template: `
-    <span>Original is {{ value.original | json }}</span> <br />
-    <span>Copy is {{ value.copy | json }}</span> <br />
-    <span>Equal ==: {{ value.original == value.copy }}</span> <br />
-    <span>Equal ===: {{ value.original === value.copy }}</span>
+    <span>Original is {{ value().original | json }}</span> <br />
+    <span>Copy is {{ value().copy | json }}</span> <br />
+    <span>Equal == {{ value().original == value().copy }}</span> <br />
+    <span>Equal === {{ value().original === value().copy }}</span>
   `,
 })
 export class InputMapperObject {
-  @Input({ required: true, transform: copy })
-  value!: { original: Record<string, any>; copy: Record<string, any> };
+  value = input.required<{ original: Record<string, any>; copy: Record<string, any> }, Record<string, any>>({ transform: copy });
 }
 
 @Component({

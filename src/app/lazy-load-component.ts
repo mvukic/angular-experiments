@@ -6,7 +6,7 @@ import {
   ElementRef,
   EnvironmentInjector,
   inject,
-  ViewChild,
+  viewChild,
 } from '@angular/core';
 
 @Component({
@@ -22,8 +22,7 @@ export default class LazyLoadComponent {
   #appRef = inject(ApplicationRef);
   #injector = inject(EnvironmentInjector);
 
-  @ViewChild('container', { static: true })
-  container!: ElementRef;
+  container = viewChild.required('container', { read: ElementRef });
 
   async lazyLoad() {
     const p = document.createElement('p');
@@ -31,7 +30,7 @@ export default class LazyLoadComponent {
 
     const { LazyComponent } = await import('./utils/lazy-component');
     const ref = createComponent(LazyComponent, {
-      hostElement: this.container.nativeElement,
+      hostElement: this.container().nativeElement,
       environmentInjector: this.#injector,
       projectableNodes: [[p]],
     });
