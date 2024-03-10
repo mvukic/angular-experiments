@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component, contentChildren, inject, input, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
-import { JsonPipe, NgTemplateOutlet } from '@angular/common';
-
-let cmpId = 0;
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'div[app-check-list]',
