@@ -1,64 +1,13 @@
-import { ChangeDetectionStrategy, Component, ContentChildren, inject, Input, QueryList } from '@angular/core';
+import { ChangeDetectionStrategy, Component, contentChildren, inject, input, model } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
-import { JsonPipe, NgForOf, NgIf, NgTemplateOutlet } from '@angular/common';
+import { JsonPipe, NgTemplateOutlet } from '@angular/common';
+
+let cmpId = 0;
 
 @Component({
-  selector: 'app-list-item',
+  selector: 'div[app-check-list]',
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  hostDirectives: [
-    {
-      directive: CdkOption,
-      inputs: ['cdkOption: value', 'cdkOptionDisabled: disabled'],
-    },
-  ],
-  imports: [NgIf],
-  styles: [
-    `
-      :host {
-        position: relative;
-        padding: 5px 5px 5px 25px;
-      }
-
-      i {
-        content: '';
-        display: block;
-        width: 20px;
-        height: 20px;
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="m9.55 18-5.7-5.7 1.425-1.425L9.55 15.15l9.175-9.175L20.15 7.4Z"/></svg>');
-        background-size: cover;
-        position: absolute;
-        left: 2px;
-      }
-
-      :host[aria-disabled='true'] {
-        opacity: 0.5;
-      }
-
-      :host[aria-disabled='false']:focus {
-        background: rgba(0, 0, 0, 0.2);
-      }
-    `,
-  ],
-  template: `
-    <i *ngIf="option.isSelected()"></i>
-    <span> {{ label }}</span>
-  `,
-})
-export class ListItem<T = unknown> {
-  readonly option: CdkOption<T> = inject(CdkOption);
-  readonly list: CdkListbox<T> = inject(CdkListbox);
-
-  @Input({ required: true })
-  label!: string;
-}
-
-@Component({
-  selector: 'app-list',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgTemplateOutlet],
   hostDirectives: [
     {
       directive: CdkListbox,
@@ -66,66 +15,116 @@ export class ListItem<T = unknown> {
       outputs: ['cdkListboxValueChange: valueChange'],
     },
   ],
-  styles: [
-    `
-      :host {
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-        background-color: white;
-        border: 1px solid black;
-        width: 100%;
-      }
-    `,
-  ],
+  styles: `
+    :host {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+  `,
   template: `<ng-content />`,
 })
-export class List<T = unknown> {
-  readonly list: CdkListbox<T> = inject(CdkListbox);
+export class CheckListDirective {}
 
-  @ContentChildren(ListItem<T>)
-  options!: QueryList<ListItem<T>>;
+@Component({
+  selector: 'app-check-list-item',
+  standalone: true,
+  hostDirectives: [
+    {
+      directive: CdkOption,
+      inputs: ['cdkOption: value', 'cdkOptionDisabled: disabled'],
+    },
+  ],
+  styles: `
+    :host {
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+      &[aria-disabled="false"]:hover * {
+        cursor: pointer;
+      }
+    }
+  `,
+  template: `
+    <input
+      type="checkbox"
+      [attr.id]="option.id"
+      [attr.name]="list.id"
+      [value]="option.value"
+      [disabled]="option.disabled"
+      [checked]="option.isSelected()"
+      (change)="option.toggle()"
+    />
+    <label [attr.for]="option.id">{{ label() }}</label>
+  `,
+})
+export class CheckListItemComponent<T = unknown> {
+  readonly option = inject(CdkOption<T>);
+  readonly list = inject(CdkListbox<T>);
+
+  label = input.required<string>();
 }
 
 @Component({
   selector: 'cdk-list-box-demo',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgForOf, FormsModule, ReactiveFormsModule, List, ListItem, JsonPipe],
+  imports: [FormsModule, ReactiveFormsModule, JsonPipe, CheckListDirective, CheckListItemComponent],
   template: `
-    <app-list [(ngModel)]="templateFormSingleSelect">
-      <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
-    </app-list>
-    Value: {{ templateFormSingleSelect }}
+    <div app-check-list [(ngModel)]="templateFormSingleSelect">
+      @for (language of languages; track language) {
+        <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
+          {{ language.label }}
+        </app-check-list-item>
+      }
+    </div>
+    Value: {{ templateFormSingleSelect | json }}
     <br />
-    <app-list [(ngModel)]="templateFormMultipleSelect" multiple required>
-      <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
-    </app-list>
+    <div app-check-list [(ngModel)]="templateFormMultipleSelect" multiple required>
+      @for (language of languages; track language) {
+        <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
+          {{ language.label }}
+        </app-check-list-item>
+      }
+    </div>
     Value: {{ templateFormMultipleSelect | json }}
     <form [formGroup]="reactiveFormSingleSelect">
-      <app-list formControlName="language">
-        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
-      </app-list>
+      <div app-check-list formControlName="language">
+        @for (language of languages; track language) {
+          <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
+            {{ language.label }}
+          </app-check-list-item>
+        }
+      </div>
       Value: {{ reactiveFormSingleSelect.value | json }}
     </form>
     <form [formGroup]="reactiveFormMultiSelect">
-      <app-list formControlName="language" multiple>
-        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
-      </app-list>
+      <div app-check-list formControlName="language" multiple>
+        @for (language of languages; track language) {
+          <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
+            {{ language.label }}
+          </app-check-list-item>
+        }
+      </div>
       Value: {{ reactiveFormMultiSelect.value | json }} Valid:
       {{ reactiveFormMultiSelect.valid }}
     </form>
     <div>
-      <app-list [value]="selection" (valueChange)="selection = $any($event.value)">
-        <app-list-item *ngFor="let language of languages" [value]="language.id" [label]="language.label" [disabled]="language.disabled" />
-      </app-list>
+      <div app-check-list [value]="selection" (valueChange)="selection = $any($event.value)">
+        @for (language of languages; track language) {
+          <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
+            {{ language.label }}
+          </app-check-list-item>
+        }
+      </div>
       Value: {{ selection | json }}
     </div>
   `,
 })
 export default class CdkListBoxDemo {
-  selection = ['chinese'];
   templateFormSingleSelect = 'chinese';
+
+  selection = ['chinese'];
   reactiveFormSingleSelect = new FormGroup({
     language: new FormControl('chinese'),
   });
