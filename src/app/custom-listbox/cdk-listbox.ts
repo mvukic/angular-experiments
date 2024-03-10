@@ -4,7 +4,7 @@ import { CdkListbox, CdkOption } from '@angular/cdk/listbox';
 import { JsonPipe } from '@angular/common';
 
 @Component({
-  selector: 'div[app-check-list]',
+  selector: 'app-check-list',
   standalone: true,
   hostDirectives: [
     {
@@ -69,52 +69,52 @@ export class CheckListItemComponent<T = unknown> {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, ReactiveFormsModule, JsonPipe, CheckListDirective, CheckListItemComponent],
   template: `
-    <div app-check-list [(ngModel)]="templateFormSingleSelect">
+    <app-check-list [(ngModel)]="templateFormSingleSelect">
       @for (language of languages; track language) {
         <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
           {{ language.label }}
         </app-check-list-item>
       }
-    </div>
+    </app-check-list>
     Value: {{ templateFormSingleSelect | json }}
     <br />
-    <div app-check-list [(ngModel)]="templateFormMultipleSelect" multiple required>
+    <app-check-list [(ngModel)]="templateFormMultipleSelect" multiple required>
       @for (language of languages; track language) {
         <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
           {{ language.label }}
         </app-check-list-item>
       }
-    </div>
+    </app-check-list>
     Value: {{ templateFormMultipleSelect | json }}
     <form [formGroup]="reactiveFormSingleSelect">
-      <div app-check-list formControlName="language">
+      <app-check-list formControlName="language">
         @for (language of languages; track language) {
           <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
             {{ language.label }}
           </app-check-list-item>
         }
-      </div>
+      </app-check-list>
       Value: {{ reactiveFormSingleSelect.value | json }}
     </form>
     <form [formGroup]="reactiveFormMultiSelect">
-      <div app-check-list formControlName="language" multiple>
+      <app-check-list formControlName="language" multiple>
         @for (language of languages; track language) {
           <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
             {{ language.label }}
           </app-check-list-item>
         }
-      </div>
+      </app-check-list>
       Value: {{ reactiveFormMultiSelect.value | json }} Valid:
       {{ reactiveFormMultiSelect.valid }}
     </form>
     <div>
-      <div app-check-list [value]="selection" (valueChange)="selection = $any($event.value)">
+      <app-check-list [value]="selection" (valueChange)="selection = $any($event.value)">
         @for (language of languages; track language) {
           <app-check-list-item [label]="language.label" [value]="language.id" [disabled]="language.disabled">
             {{ language.label }}
           </app-check-list-item>
         }
-      </div>
+      </app-check-list>
       Value: {{ selection | json }}
     </div>
   `,
