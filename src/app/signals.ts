@@ -86,6 +86,8 @@ type FilterOptions = {
 export class FilterCmp {
   options = model.required<FilterOptions>();
 
+  out = output<string>();
+
   constructor() {
     afterRender(() => {
       console.log('afterRender');
@@ -117,7 +119,7 @@ export class FilterCmp {
   template: `
     <mat-drawer-container style="height: 100%">
       <mat-drawer #drawer position="end" mode="over">
-        <filter-cmp [(options)]="options" />
+        <filter-cmp [(options)]="options" (out)="onOut($event)" />
       </mat-drawer>
       <mat-drawer-content>
         <h3>Signals</h3>
@@ -161,6 +163,10 @@ export default class Signals {
     max: 100,
     query: '',
   });
+
+  onOut(v: string) {
+    console.log(v);
+  }
 
   constructor() {
     effect(() => {
