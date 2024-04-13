@@ -13,7 +13,6 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        view-transition-name: count;
 
         .header {
           display: flex;
@@ -51,9 +50,7 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
   `,
 })
 export class NavCmp {
-  items = signal<string[]>(
-    Array.from({ length: 25 }).map((_, i) => `Item ${i + 1}`),
-  );
+  items = signal<string[]>(Array.from({ length: 25 }).map((_, i) => `Item ${i + 1}`));
 }
 
 @Component({
