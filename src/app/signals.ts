@@ -15,6 +15,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
 import { MatButton } from '@angular/material/button';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
+import { RoleAccessDir } from './auth/auth.service';
 
 @Component({
   selector: 'signal-cmp',
@@ -114,7 +115,7 @@ export class FilterCmp {
   selector: 'demo-signals',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [SignalCmp, MatDrawerContainer, MatDrawerContent, MatDrawer, MatButton, FilterCmp],
+  imports: [SignalCmp, MatDrawerContainer, MatDrawerContent, MatDrawer, MatButton, FilterCmp, RoleAccessDir],
   styles: `:host { height: 100%; display: block; }`,
   template: `
     <mat-drawer-container style="height: 100%">
@@ -147,6 +148,11 @@ export class FilterCmp {
         <span>Query: {{ options().query }}</span> <br />
         <span>Min: {{ options().min }}</span> <br />
         <span>Max: {{ options().max }}</span>
+        <br />
+
+        <div style="border: 1px solid red" [requiresRole]="'role_1'">Some feature: role_1</div>
+        <div style="border: 1px solid red" [requiresRole]="'role_2'">Some feature: role_2</div>
+        <div style="border: 1px solid red" [requiresRole]="'role_3'">Some feature: role_3</div>
       </mat-drawer-content>
     </mat-drawer-container>
   `,
