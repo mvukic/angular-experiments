@@ -3,7 +3,7 @@ import { AbstractControl, FormsModule, NG_VALIDATORS, ValidationErrors, Validato
 import { JsonPipe, NgForOf } from '@angular/common';
 
 function uniqueNamesValidatorFn(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
+  return (control: AbstractControl<Box>): ValidationErrors | null => {
     if (control.value.type == null || control.value.items == null) {
       return null;
     }
@@ -58,7 +58,7 @@ export type Box = {
   selector: 'form-box',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, NgForOf, JsonPipe, UniqueNamesValidator],
+  imports: [FormsModule, JsonPipe, UniqueNamesValidator],
   template: `
     <form #f="ngForm" uniqueNames>
       <fieldset>
