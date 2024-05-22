@@ -1,6 +1,24 @@
 import { ChangeDetectionStrategy, Component, Directive, Input } from '@angular/core';
 import { AbstractControl, FormsModule, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
-import { JsonPipe, NgForOf } from '@angular/common';
+import { JsonPipe } from '@angular/common';
+
+@Directive({
+  selector: '[customValidator]',
+  standalone: true,
+  providers: [
+    {
+      provide: NG_VALIDATORS,
+      useExisting: CustomValidator,
+      multi: true,
+    },
+  ],
+})
+export class CustomValidator implements Validator {
+  validate(control: AbstractControl): ValidationErrors | null {
+    console.log(control.value);
+    return { customValidator: 'Some error' };
+  }
+}
 
 function uniqueNamesValidatorFn(): ValidatorFn {
   return (control: AbstractControl<Box>): ValidationErrors | null => {
@@ -58,7 +76,7 @@ export type Box = {
   selector: 'form-box',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, JsonPipe, UniqueNamesValidator],
+  imports: [FormsModule, JsonPipe, UniqueNamesValidator, CustomValidator],
   template: `
     <form #f="ngForm" uniqueNames>
       <fieldset>
@@ -78,8 +96,9 @@ export type Box = {
             @for (item of box.items; track item.id) {
               <div>
                 <span>Id: {{ item.id }} </span>
-                <input [(ngModel)]="item.name" [name]="'item' + item.id" required />
+                <input [(ngModel)]="item.name" [name]="'item' + item.id" required customValidator #f="ngModel" />
                 <button (click)="remove($index)">Remove</button>
+                <span>{{ f.errors | json }}</span>
               </div>
             }
           </div>

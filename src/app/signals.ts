@@ -153,6 +153,9 @@ export class FilterCmp {
         <div style="border: 1px solid red" [requiresRole]="'role_1'">Some feature: role_1</div>
         <div style="border: 1px solid red" [requiresRole]="'role_2'">Some feature: role_2</div>
         <div style="border: 1px solid red" [requiresRole]="'role_3'">Some feature: role_3</div>
+
+        <button popovertarget="mypopover" popovertargetaction="toggle">Toggle the popover</button>
+        <div id="mypopover" popover>Popover content</div>
       </mat-drawer-content>
     </mat-drawer-container>
   `,
