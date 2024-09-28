@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { AppExpandable } from './app-expandable.component';
-import { AppExpandableTrigger } from './expandable-trigger.cmp';
 
 @Component({
   selector: 'nav-cmp',
@@ -88,7 +87,7 @@ export class SectionCmp {}
   selector: 'expandable-example',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NavCmp, SectionCmp, AppExpandable, AppExpandableTrigger],
+  imports: [NavCmp, SectionCmp, AppExpandable],
   styles: [
     `
       :host {

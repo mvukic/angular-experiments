@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Directive, ElementRef, inject, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { JsonPipe, NgForOf } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConnectedPosition, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -65,7 +64,7 @@ export class CustomTrigger {
   selector: 'custom-overlay-demo',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgForOf, FormsModule, ReactiveFormsModule, JsonPipe, CustomTrigger],
+  imports: [FormsModule, ReactiveFormsModule, CustomTrigger],
   template: `
     <div>
       <div style="width: 200px; border: 1px solid red" [appListCustom]="template">This is some span trigger</div>
