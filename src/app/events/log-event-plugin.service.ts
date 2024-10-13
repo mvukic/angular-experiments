@@ -14,11 +14,7 @@ export class LogEventPlugin extends EventManagerPlugin {
     return event.endsWith(this.#modifier);
   }
 
-  override addEventListener(
-    element: HTMLElement,
-    event: string,
-    handler: Function,
-  ): Function {
+  override addEventListener(element: HTMLElement, event: string, handler: Function): Function {
     const originalEvent = event
       .split('.')
       .filter((v) => v !== this.#modifier)

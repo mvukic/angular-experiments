@@ -8,8 +8,8 @@ import {
   effect,
   input,
   model,
-  signal,
   output,
+  signal,
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
@@ -63,11 +63,11 @@ type FilterOptions = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatInput, MatFormField, MatLabel],
   styles: `
-  :host {
-    display: flex;
-    flex-direction: column;
-    padding: 3px
-  }
+    :host {
+      display: flex;
+      flex-direction: column;
+      padding: 3px;
+    }
   `,
   template: `
     <mat-form-field appearance="outline">
@@ -116,7 +116,12 @@ export class FilterCmp {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SignalCmp, MatDrawerContainer, MatDrawerContent, MatDrawer, MatButton, FilterCmp, RoleAccessDir],
-  styles: `:host { height: 100%; display: block; }`,
+  styles: `
+    :host {
+      height: 100%;
+      display: block;
+    }
+  `,
   template: `
     <mat-drawer-container style="height: 100%">
       <mat-drawer #drawer position="end" mode="over">

@@ -36,21 +36,9 @@ import { NgForOf } from '@angular/common';
 
       <div subHeader>
         Sub header
-        <input
-          type="radio"
-          [checked]="position() === 'start'"
-          name="sidenavPosition"
-          id="start"
-          (click)="position.set('start')"
-        />
+        <input type="radio" [checked]="position() === 'start'" name="sidenavPosition" id="start" (click)="position.set('start')" />
         <label for="start">Start</label>
-        <input
-          type="radio"
-          [checked]="position() === 'end'"
-          name="sidenavPosition"
-          id="end"
-          (click)="position.set('end')"
-        />
+        <input type="radio" [checked]="position() === 'end'" name="sidenavPosition" id="end" (click)="position.set('end')" />
         <label for="end">End</label>
       </div>
 

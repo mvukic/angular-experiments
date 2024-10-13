@@ -38,7 +38,7 @@ export class CheckListDirective {}
       display: flex;
       flex-direction: row;
       gap: 5px;
-      &[aria-disabled="false"]:hover * {
+      &[aria-disabled='false']:hover * {
         cursor: pointer;
       }
     }

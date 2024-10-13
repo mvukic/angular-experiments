@@ -1,13 +1,4 @@
-import {
-  booleanAttribute,
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  EventEmitter,
-  Input,
-  Output,
-  signal,
-} from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, EventEmitter, Input, Output, signal } from '@angular/core';
 import { AppExpandableTrigger } from './expandable-trigger.cmp';
 
 @Component({
@@ -58,10 +49,7 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
     }
     @if (!_withoutTrigger()) {
       <div class="footer">
-        <app-expandable-trigger
-          [value]="_expanded()"
-          (valueChange)="_expanded.set($event)"
-        />
+        <app-expandable-trigger [value]="_expanded()" (valueChange)="_expanded.set($event)" />
       </div>
     }
   `,

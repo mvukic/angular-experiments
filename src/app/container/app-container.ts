@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  Input,
-  signal,
-} from '@angular/core';
-import { NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, Input, signal } from '@angular/core';
 
 export type AppContainerSidenavPosition = 'start' | 'end';
 
