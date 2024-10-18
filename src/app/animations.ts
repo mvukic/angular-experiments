@@ -9,7 +9,6 @@ const showHide = trigger('fadeIn', [
 
 @Component({
   selector: 'animation-comp',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [showHide],
   template: `
@@ -51,7 +50,6 @@ const html1 = `
 const ts1 = `
 @Component({
   selector: '...',
-  standalone: true,
   templateUrl: 'template.html',
 })
 export default class AnimationComponent implements OnInit {

@@ -3,7 +3,6 @@ import { AppExpandable } from './app-expandable.component';
 
 @Component({
   selector: 'nav-cmp',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
@@ -54,7 +53,6 @@ export class NavCmp {
 
 @Component({
   selector: 'section-cmp',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
@@ -85,7 +83,6 @@ export class SectionCmp {}
 
 @Component({
   selector: 'expandable-example',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NavCmp, SectionCmp, AppExpandable],
   styles: [

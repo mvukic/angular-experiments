@@ -5,7 +5,6 @@ import { TemplatePortal } from '@angular/cdk/portal';
 
 @Directive({
   selector: '[appListCustom]',
-  standalone: true,
   host: {
     '(click)': 'open()',
   },
@@ -62,7 +61,6 @@ export class CustomTrigger {
 
 @Component({
   selector: 'custom-overlay-demo',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, ReactiveFormsModule, CustomTrigger],
   template: `

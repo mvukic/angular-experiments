@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'event-manager-plugins',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <br />

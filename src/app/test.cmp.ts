@@ -4,13 +4,11 @@ import { onlyInTests } from './testing/utils';
 
 @Directive({
   selector: 'div[test-dir-inner]',
-  standalone: true,
 })
 export class TestDirInner {}
 
 @Component({
   selector: 'test-cmp',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TestDirInner, FormsModule],
   template: `

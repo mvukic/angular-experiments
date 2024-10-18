@@ -6,7 +6,6 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'api-calls',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [JsonPipe],
   template: `

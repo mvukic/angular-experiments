@@ -16,7 +16,6 @@ export interface PeriodicElement {
 
 @Component({
   selector: 'table-example',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CdkTableModule, AppSortIcon],
   styles: [

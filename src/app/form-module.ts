@@ -4,7 +4,6 @@ import { JsonPipe } from '@angular/common';
 
 @Directive({
   selector: '[customValidator]',
-  standalone: true,
   providers: [
     {
       provide: NG_VALIDATORS,
@@ -41,7 +40,6 @@ function uniqueNamesValidatorFn(): ValidatorFn {
 
 @Directive({
   selector: '[uniqueNames]',
-  standalone: true,
   providers: [
     {
       provide: NG_VALIDATORS,
@@ -74,7 +72,6 @@ export type Box = {
 
 @Component({
   selector: 'form-box',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, JsonPipe, UniqueNamesValidator, CustomValidator],
   template: `
@@ -141,7 +138,6 @@ function copyAttribute(value: { [key: string]: any }): Record<string, any> {
 
 @Component({
   selector: 'form-module-example',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [BoxForm],
   template: ` <form-box [box]="_box" /> `,

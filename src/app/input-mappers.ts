@@ -3,7 +3,6 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, input, numberAttr
 
 @Component({
   selector: 'input-mappers-boolean',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `is disabled {{ value() }}`,
 })
@@ -13,7 +12,6 @@ export class InputMapperBoolean {
 
 @Component({
   selector: 'input-mappers-number',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `number is {{ value() }}`,
 })
@@ -30,7 +28,6 @@ function copy(value: Record<string, any>): {
 
 @Component({
   selector: 'input-mappers-object',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [JsonPipe],
   template: `
@@ -46,7 +43,6 @@ export class InputMapperObject {
 
 @Component({
   selector: 'input-mappers',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InputMapperBoolean, InputMapperNumber, InputMapperObject],
   template: `

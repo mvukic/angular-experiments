@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 @Component({
   selector: 'lazy-cmp',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <fieldset>

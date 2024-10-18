@@ -8,7 +8,6 @@ import { MatIconButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatSidenavModule, RouterOutlet, MatListModule, MatToolbar, MatIcon, RouterLink, RouterLinkActive, MatIconButton],
   styles: `

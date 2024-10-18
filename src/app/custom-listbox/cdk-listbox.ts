@@ -5,7 +5,6 @@ import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-check-list',
-  standalone: true,
   hostDirectives: [
     {
       directive: CdkListbox,
@@ -26,7 +25,6 @@ export class CheckListDirective {}
 
 @Component({
   selector: 'app-check-list-item',
-  standalone: true,
   hostDirectives: [
     {
       directive: CdkOption,
@@ -65,7 +63,6 @@ export class CheckListItemComponent<T = unknown> {
 
 @Component({
   selector: 'cdk-list-box-demo',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, ReactiveFormsModule, JsonPipe, CheckListDirective, CheckListItemComponent],
   template: `

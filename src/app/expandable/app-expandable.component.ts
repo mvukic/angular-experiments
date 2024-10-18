@@ -3,7 +3,6 @@ import { AppExpandableTrigger } from './expandable-trigger.cmp';
 
 @Component({
   selector: 'app-expandable',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AppExpandableTrigger],
   styles: [

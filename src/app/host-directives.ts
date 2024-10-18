@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Directive, Input } from '@angular/c
 
 @Directive({
   selector: 'span[size]',
-  standalone: true,
   host: { '[style.font-size]': 'sizeValue' },
 })
 export class FontSize {
@@ -12,7 +11,6 @@ export class FontSize {
 
 @Directive({
   selector: 'span[color]',
-  standalone: true,
   host: { '[style.color]': 'colorValue' },
 })
 export class FontColor {
@@ -22,7 +20,6 @@ export class FontColor {
 
 @Directive({
   selector: 'span[size-color]',
-  standalone: true,
   hostDirectives: [
     { directive: FontSize, inputs: ['sizeValue'] },
     { directive: FontColor, inputs: ['colorValue'] },
@@ -32,7 +29,6 @@ export class FontSizeAndColor {}
 
 @Directive({
   selector: 'span[decorated-text]',
-  standalone: true,
   hostDirectives: [{ directive: FontSizeAndColor }],
   host: {
     '[style.text-decoration]': 'decoration',
@@ -45,7 +41,6 @@ export class FontDecorateAndSizeAndColor {
 
 @Component({
   selector: 'host-components',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FontSize, FontColor, FontSizeAndColor, FontDecorateAndSizeAndColor],
   template: `

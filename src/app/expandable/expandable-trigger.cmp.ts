@@ -2,7 +2,6 @@ import { booleanAttribute, ChangeDetectionStrategy, Component, computed, EventEm
 
 @Component({
   selector: 'app-expandable-trigger',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="material-icons" (click)="toggle()">

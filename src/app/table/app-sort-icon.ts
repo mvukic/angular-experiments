@@ -3,7 +3,6 @@ import { SortDirection } from './table';
 
 @Component({
   selector: 'app-sort-icon',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { '(click)': 'toggle()' },
   styles: [

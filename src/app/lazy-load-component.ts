@@ -11,7 +11,6 @@ import {
 
 @Component({
   selector: 'lazy-load-component',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button (click)="lazyLoad()">Lazy load</button>

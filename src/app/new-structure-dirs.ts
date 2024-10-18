@@ -28,7 +28,6 @@ export interface Horse {
 
 @Component({
   selector: 'new-str-dirs',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <fieldset>

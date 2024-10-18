@@ -4,7 +4,6 @@ import { NgForOf } from '@angular/common';
 
 @Component({
   selector: 'container-example',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AppContainer, NgForOf],
   styles: [

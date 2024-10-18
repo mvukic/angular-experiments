@@ -8,7 +8,6 @@ export class AuthService {
 
 @Directive({
   selector: '[requiresRole]',
-  standalone: true,
   hostDirectives: [MatTooltip],
   host: {
     class: 'requires-role',

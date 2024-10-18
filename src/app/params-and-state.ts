@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'params-and-state',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe, JsonPipe],
   template: `

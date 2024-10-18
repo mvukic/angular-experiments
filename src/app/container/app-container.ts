@@ -4,7 +4,6 @@ export type AppContainerSidenavPosition = 'start' | 'end';
 
 @Component({
   selector: 'app-container',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `

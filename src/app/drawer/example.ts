@@ -3,7 +3,6 @@ import { AppDrawer, AppDrawerContainer, AppDrawerContent } from './app-drawer-co
 
 @Component({
   selector: 'drawer-example',
-  standalone: true,
   imports: [AppDrawerContainer, AppDrawerContent, AppDrawer],
   template: `
     <app-drawer-container>

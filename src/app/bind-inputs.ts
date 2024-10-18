@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'bind-inputs',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p>From data: {{ a() }}</p>

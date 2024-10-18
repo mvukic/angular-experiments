@@ -19,7 +19,6 @@ import { RoleAccessDir } from './auth/auth.service';
 
 @Component({
   selector: 'signal-cmp',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     Optional: {{ inputOptional() }} <br />
@@ -59,7 +58,6 @@ type FilterOptions = {
 
 @Component({
   selector: 'filter-cmp',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MatInput, MatFormField, MatLabel],
   styles: `
@@ -113,7 +111,6 @@ export class FilterCmp {
 
 @Component({
   selector: 'demo-signals',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [SignalCmp, MatDrawerContainer, MatDrawerContent, MatDrawer, MatButton, FilterCmp, RoleAccessDir],
   styles: `

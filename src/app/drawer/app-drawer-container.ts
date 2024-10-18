@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, inject, model, signal, ViewEncapsul
 
 @Component({
   selector: 'app-drawer-container',
-  standalone: true,
   styles: [
     `
       :host {
@@ -23,7 +22,6 @@ export class AppDrawerContainer {
 
 @Component({
   selector: 'app-drawer-content',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   host: {
@@ -49,7 +47,6 @@ export class AppDrawerContent {
 
 @Component({
   selector: 'app-drawer',
-  standalone: true,
   host: {
     class: 'app-drawer',
     '[class.app-drawer-opened]': 'opened()',
