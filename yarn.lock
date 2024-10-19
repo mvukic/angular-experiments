@@ -421,20 +421,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/material@npm:19.0.0-next.8":
-  version: 19.0.0-next.8
-  resolution: "@angular/material@npm:19.0.0-next.8"
+"@angular/material@npm:19.0.0-next.9":
+  version: 19.0.0-next.9
+  resolution: "@angular/material@npm:19.0.0-next.9"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
     "@angular/animations": ^19.0.0-0 || ^19.1.0-0 || ^19.2.0-0 || ^19.3.0-0 || ^20.0.0-0
-    "@angular/cdk": 19.0.0-next.8
+    "@angular/cdk": 19.0.0-next.9
     "@angular/common": ^19.0.0-0 || ^19.1.0-0 || ^19.2.0-0 || ^19.3.0-0 || ^20.0.0-0
     "@angular/core": ^19.0.0-0 || ^19.1.0-0 || ^19.2.0-0 || ^19.3.0-0 || ^20.0.0-0
     "@angular/forms": ^19.0.0-0 || ^19.1.0-0 || ^19.2.0-0 || ^19.3.0-0 || ^20.0.0-0
     "@angular/platform-browser": ^19.0.0-0 || ^19.1.0-0 || ^19.2.0-0 || ^19.3.0-0 || ^20.0.0-0
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 10/5b1eac4738be4cd2b2302e4f31102ac2fd23bd201befa27bb269e498b7b5d8e45e52c0470b9141a5a4917424d0ab1a614761f81b7b07be413259cf87e4af1550
+  checksum: 10/56fe91252f2facbbff3937de9e7cbb55f07139d9f790e0f196cd5e198ee461cfbdd698026167dbb6f43d6be6d3285a45cb923f1a87109f96cb096e32ae1cada3
   languageName: node
   linkType: hard
 
@@ -10179,7 +10179,7 @@ __metadata:
     "@angular/compiler-cli": "npm:19.0.0-next.10"
     "@angular/core": "npm:19.0.0-next.10"
     "@angular/forms": "npm:19.0.0-next.10"
-    "@angular/material": "npm:19.0.0-next.8"
+    "@angular/material": "npm:19.0.0-next.9"
     "@angular/platform-browser": "npm:19.0.0-next.10"
     "@angular/platform-browser-dynamic": "npm:19.0.0-next.10"
     "@angular/platform-server": "npm:19.0.0-next.10"
